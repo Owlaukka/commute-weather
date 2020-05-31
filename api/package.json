@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "fastify": "^2.14.1"
+  },
+  "name": "commute-weather-api",
+  "version": "0.0.1",
+  "description": "Backend API for the Commute Weather web app",
+  "main": "server.js",
+  "author": "Olli Laukkanen",
+  "license": "MIT"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "commute-weather-frontend",
+  "version": "0.0.1",
+  "description": "Frontend for the Commute Weather web app.",
+  "main": "index.js",
+  "author": "Olli Laukkanen",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.13.1"
+  }
+}

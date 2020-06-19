@@ -12,6 +12,10 @@ module.exports = {
         include: [path.resolve(__dirname, 'src')],
         loader: 'babel-loader',
       },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+      },
     ],
   },
   plugins: [
@@ -21,7 +25,23 @@ module.exports = {
     }),
   ],
   output: {
-    filename: '[fullhash].bundle.js',
+    filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+  },
+  optimization: {
+    runtimeChunk: 'single',
+    moduleIds: 'deterministic',
+    chunkIds: 'named',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          name: 'vendor',
+          priority: 10,
+          enforce: true,
+        },
+      },
+    },
   },
 };

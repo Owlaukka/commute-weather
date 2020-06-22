@@ -1,27 +1,22 @@
 import React from 'react';
+import styled from '@emotion/styled';
 
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
-
-const wrapperStyles = css({
-  height: '60rem',
-  boxShadow: '0 0 5px 0 rgba(255, 255, 255, 0.5)',
-  borderRadius: '5px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  maxWidth: '40rem',
-});
+const Wrapper = styled.div(
+  {
+    height: '60rem',
+    boxShadow: '0 0 5px 0 rgba(100, 100, 100, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ({ theme }) => ({ backgroundColor: theme.colors.black })
+);
 
 const MainInfo = () => {
-  const theme = useTheme();
-
   return (
-    <div
-      css={css([wrapperStyles, css({ backgroundColor: theme.colors.black })])}
-    >
+    <Wrapper>
       <h1>Primary Content</h1>
-    </div>
+    </Wrapper>
   );
 };
 

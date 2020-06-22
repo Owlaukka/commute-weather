@@ -22,6 +22,9 @@ const theme = {
     darkVioletBG: '#463548',
     violetBG: '#523857',
   },
+  sizes: {
+    mobileNavbar: '3rem',
+  },
 };
 
 ReactDom.render(

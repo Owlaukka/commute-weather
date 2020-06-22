@@ -1,9 +1,12 @@
 dependencies:
   '@emotion/babel-preset-css-prop': 10.0.27_@babel+core@7.10.2
   '@emotion/core': 10.0.28_react@16.13.1
+  '@emotion/styled': 10.0.27_c989b1aa057905c7a8b69bf973f55a19
+  '@emotion/styled-base': 10.0.31_c989b1aa057905c7a8b69bf973f55a19
   css-in-js-media: 1.0.14
   emotion-theming: 10.0.27_c989b1aa057905c7a8b69bf973f55a19
-  normalize.css: 8.0.1
+  polished: 3.6.5
+  prop-types: 15.7.2
   react: 16.13.1
   react-dom: 16.13.1_react@16.13.1
   react-router-dom: 5.2.0_react@16.13.1
@@ -971,6 +974,12 @@ packages:
       regenerator-runtime: 0.13.5
     resolution:
       integrity: sha512-6sF3uQw2ivImfVIl62RZ7MXhO2tap69WeWK57vAaimT6AZbE4FbqjdEJIN1UqoD6wI6B+1n9UiagafH1sxjOtg==
+  /@babel/runtime/7.10.3:
+    dependencies:
+      regenerator-runtime: 0.13.5
+    dev: false
+    resolution:
+      integrity: sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw==
   /@babel/template/7.10.1:
     dependencies:
       '@babel/code-frame': 7.10.1
@@ -1063,6 +1072,12 @@ packages:
   /@emotion/hash/0.8.0:
     resolution:
       integrity: sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
+  /@emotion/is-prop-valid/0.8.8:
+    dependencies:
+      '@emotion/memoize': 0.7.4
+    dev: false
+    resolution:
+      integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==
   /@emotion/memoize/0.7.4:
     resolution:
       integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==
@@ -1079,6 +1094,32 @@ packages:
     dev: false
     resolution:
       integrity: sha512-zM9PFmgVSqBw4zL101Q0HrBVTGmpAxFZH/pYx/cjJT5advXguvcgjHFTCaIO3enL/xr89vK2bh0Mfyj9aa0ANA==
+  /@emotion/styled-base/10.0.31_c989b1aa057905c7a8b69bf973f55a19:
+    dependencies:
+      '@babel/runtime': 7.10.3
+      '@emotion/core': 10.0.28_react@16.13.1
+      '@emotion/is-prop-valid': 0.8.8
+      '@emotion/serialize': 0.11.16
+      '@emotion/utils': 0.11.3
+      react: 16.13.1
+    dev: false
+    peerDependencies:
+      '@emotion/core': ^10.0.28
+      react: '>=16.3.0'
+    resolution:
+      integrity: sha512-wTOE1NcXmqMWlyrtwdkqg87Mu6Rj1MaukEoEmEkHirO5IoHDJ8LgCQL4MjJODgxWxXibGR3opGp1p7YvkNEdXQ==
+  /@emotion/styled/10.0.27_c989b1aa057905c7a8b69bf973f55a19:
+    dependencies:
+      '@emotion/core': 10.0.28_react@16.13.1
+      '@emotion/styled-base': 10.0.31_c989b1aa057905c7a8b69bf973f55a19
+      babel-plugin-emotion: 10.0.33
+      react: 16.13.1
+    dev: false
+    peerDependencies:
+      '@emotion/core': ^10.0.27
+      react: '>=16.3.0'
+    resolution:
+      integrity: sha512-iK/8Sh7+NLJzyp9a5+vIQIXTYxfT4yB/OJbjzQanB2RZpvmzBQOHZWhpAMZWYEKRNNbsD6WfBw5sVWkb6WzS/Q==
   /@emotion/stylis/0.8.5:
     dev: false
     resolution:
@@ -5030,10 +5071,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-0LFF62kRicY6eNIB3E/bEpPvDAM=
-  /normalize.css/8.0.1:
-    dev: false
-    resolution:
-      integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
   /npm-run-path/2.0.2:
     dependencies:
       path-key: 2.0.1
@@ -5517,6 +5554,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-yBmscoBZpGHKscOImivjxJoATX8=
+  /polished/3.6.5:
+    dependencies:
+      '@babel/runtime': 7.10.3
+    dev: false
+    resolution:
+      integrity: sha512-VwhC9MlhW7O5dg/z7k32dabcAFW1VI2+7fSe8cE/kXcfL7mVdoa5UxciYGW2sJU78ldDLT6+ROEKIZKFNTnUXQ==
   /portfinder/1.0.26:
     dependencies:
       async: 2.6.3
@@ -7659,6 +7702,8 @@ specifiers:
   '@babel/preset-react': ^7.10.1
   '@emotion/babel-preset-css-prop': ^10.0.27
   '@emotion/core': ^10.0.28
+  '@emotion/styled': ^10.0.27
+  '@emotion/styled-base': ^10.0.31
   babel-loader: ^8.1.0
   babel-plugin-emotion: ^10.0.33
   babel-plugin-syntax-dynamic-import: ^6.18.0
@@ -7676,8 +7721,9 @@ specifiers:
   eslint-plugin-react: ^7.20.0
   eslint-plugin-react-hooks: ^4.0.4
   html-webpack-plugin: ^4.3.0
-  normalize.css: ^8.0.1
+  polished: ^3.6.5
   prettier: ^2.0.5
+  prop-types: ^15.7.2
   react: ^16.13.1
   react-dom: ^16.13.1
   react-router-dom: ^5.2.0

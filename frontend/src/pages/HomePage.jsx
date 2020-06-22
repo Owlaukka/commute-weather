@@ -11,8 +11,7 @@ const HomePage = () => {
     <>
       <main
         css={css`
-          margin-top: 2rem;
-          padding: 1rem;
+          padding: 0rem 1rem 1rem 1rem;
         `}
       >
         <MainInfo />

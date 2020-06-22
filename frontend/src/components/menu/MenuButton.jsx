@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import Hamburger from './HamburgerStyled';
@@ -12,20 +13,31 @@ const Button = styled.button(
     height: '3rem',
     padding: 0,
     border: 'none',
-    background: 'transparent',
-    borderRadius: '50%',
-    transition: 'top 500ms',
+    transition: 'top 500ms, background-color 600ms',
     cursor: 'pointer',
   },
-  ({ open }) => ({ top: open ? '3rem' : 0 })
+  ({ open, theme }) => ({
+    top: open ? '3rem' : 0,
+    transitionDelay: open ? 0 : '100ms',
+    backgroundColor: open ? theme.colors.gray3 : 'transparent',
+  })
 );
 
 const MenuButton = () => {
   const [open, setOpen] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    const unlistenToHistory = history.listen(() => {
+      setOpen(false);
+    });
+
+    return unlistenToHistory;
+  }, []);
 
   return (
     <>
-      {open && <MenuList />}
+      <MenuList open={open} setOpen={setOpen} />
       <Button
         aria-label="hamburger-menu"
         type="button"

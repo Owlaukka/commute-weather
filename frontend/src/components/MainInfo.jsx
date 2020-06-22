@@ -4,12 +4,14 @@ import styled from '@emotion/styled';
 const Wrapper = styled.div(
   {
     height: '60rem',
-    boxShadow: '0 0 5px 0 rgba(100, 100, 100, 0.5)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  ({ theme }) => ({ backgroundColor: theme.colors.black })
+  ({ theme }) => ({
+    backgroundColor: theme.colors.black,
+    boxShadow: `0 0 15px 0px ${theme.colors.white}`,
+  })
 );
 
 const MainInfo = () => {

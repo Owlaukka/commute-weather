@@ -1,27 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { lighten } from 'polished';
 
 const List = styled.ul(
   {
     listStyle: 'none',
     padding: 0,
     margin: 0,
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     right: 0,
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr',
     width: '100%',
+    transition: 'left 500ms',
   },
-  ({ theme }) => ({
-    backgroundColor: theme.colors.darkVioletBG,
+  ({ theme, open }) => ({
+    backgroundColor: theme.colors.white,
+    backgroundImage: theme.colors.navBackgroundImage,
+    boxShadow: `0 0 7px 0 ${theme.colors.gray2}`,
+    color: theme.colors.black,
     height: theme.sizes.mobileNavbar,
+    left: open ? 0 : '100%',
+    transitionDelay: open ? '200ms' : 0,
   })
 );
 
-const ListLink = styled.a(
+const ListLink = styled(NavLink)(
   {
     display: 'flex',
     alignItems: 'center',
@@ -32,30 +38,34 @@ const ListLink = styled.a(
   },
   ({ theme }) => ({
     '&.active': {
-      backgroundColor: lighten(0.2, theme.colors.darkVioletBG),
+      backgroundColor: theme.colors.gray2,
+      color: theme.colors.white,
     },
   })
 );
 
-const MenuButton = () => (
-  <List>
+const MenuList = ({ open }) => (
+  <List open={open}>
     <li>
-      {/* active matches everything here... */}
-      <NavLink to="/" activeClassName="active" component={ListLink}>
+      <ListLink to="/" exact>
         Home
-      </NavLink>
+      </ListLink>
     </li>
     <li>
-      <NavLink to="/register" component={ListLink}>
-        Register
-      </NavLink>
+      <ListLink to="/register">Register</ListLink>
     </li>
     <li>
-      <NavLink to="/login" component={ListLink}>
-        Login
-      </NavLink>
+      <ListLink to="/login">Login</ListLink>
     </li>
   </List>
 );
 
-export default MenuButton;
+MenuList.propTypes = {
+  open: PropTypes.bool,
+};
+
+MenuList.defaultProps = {
+  open: false,
+};
+
+export default MenuList;

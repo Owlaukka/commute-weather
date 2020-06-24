@@ -1,33 +1,25 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import styled from '@emotion/styled';
 
 import MainInfo from '../components/MainInfo';
 
-const HomePage = () => {
-  const theme = useTheme();
+const Main = styled.main(
+  {
+    overflow: 'auto',
+    paddingTop: '1rem',
+  },
+  ({ theme }) => ({
+    marginTop: theme.sizes.mobileNavbar,
+    height: `calc(100vh - ${theme.sizes.mobileNavbar})`,
+  })
+);
 
-  return (
-    <>
-      <main
-        css={css`
-          padding: 0rem 1rem 1rem 1rem;
-        `}
-      >
-        <MainInfo />
-      </main>
-      <footer>
-        <div
-          css={css`
-            background-color: ${theme.colors.darkBackground};
-            padding: 2rem;
-          `}
-        >
-          Footer i guess
-        </div>
-      </footer>
-    </>
-  );
-};
+const HomePage = () => (
+  <>
+    <Main>
+      <MainInfo />
+    </Main>
+  </>
+);
 
 export default HomePage;

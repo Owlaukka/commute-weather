@@ -11,10 +11,12 @@ const List = styled.ul(
     position: 'fixed',
     top: 0,
     right: 0,
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr',
+    display: 'flex',
     width: '100%',
     transition: 'left 500ms',
+    '> *': {
+      flex: 1,
+    },
   },
   ({ theme, open }) => ({
     backgroundColor: theme.colors.white,

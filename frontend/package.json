@@ -6,8 +6,8 @@
   "author": "Olli Laukkanen",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "start": "webpack-dev-server --open --config webpack/webpack.dev.js",
+    "build": "webpack --config webpack/webpack.prod.js"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.27",

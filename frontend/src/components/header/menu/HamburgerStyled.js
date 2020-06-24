@@ -25,9 +25,7 @@ const Hamburger = styled.div(
     },
   },
   ({ open, theme }) => ({
-    '&': {
-      backgroundColor: open ? 'transparent' : theme.colors.white,
-    },
+    backgroundColor: open ? 'transparent' : theme.colors.white,
     '::before, ::after': {
       backgroundColor: theme.colors.white,
     },

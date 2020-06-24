@@ -15,11 +15,11 @@ const Button = styled.button(
     border: 'none',
     transition: 'top 500ms, background-color 600ms',
     cursor: 'pointer',
+    backgroundColor: 'transparent',
   },
-  ({ open, theme }) => ({
+  ({ open }) => ({
     top: open ? '3rem' : 0,
     transitionDelay: open ? 0 : '100ms',
-    backgroundColor: open ? theme.colors.gray3 : 'transparent',
   })
 );
 
@@ -39,7 +39,7 @@ const MenuButton = () => {
     <>
       <MenuList open={open} setOpen={setOpen} />
       <Button
-        aria-label="hamburger-menu"
+        aria-label="Open navigation"
         type="button"
         onClick={() => setOpen(!open)}
         open={open}

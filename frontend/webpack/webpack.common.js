@@ -9,7 +9,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         resolve: { extensions: ['.js', '.jsx'] },
-        include: [path.resolve(__dirname, 'src')],
+        include: [path.resolve(__dirname, '../src')],
         loader: 'babel-loader',
       },
       {

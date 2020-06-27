@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import MainInfo from '../components/MainInfo';
+import WeatherInfoCardList from '../components/weatherInfo/WeatherInfoCardList';
 
 const Main = styled.main(
   {
@@ -17,7 +17,7 @@ const Main = styled.main(
 const HomePage = () => (
   <>
     <Main>
-      <MainInfo />
+      <WeatherInfoCardList />
     </Main>
   </>
 );

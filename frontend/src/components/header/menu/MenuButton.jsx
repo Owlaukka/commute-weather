@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import styled from '@emotion/styled';
 
-import Hamburger from './HamburgerStyled';
+import Hamburger from './Hamburger.sc';
 import MenuList from './MenuList';
 
 const Button = styled.button(
@@ -23,31 +22,18 @@ const Button = styled.button(
   })
 );
 
-const MenuButton = () => {
-  const [open, setOpen] = useState(false);
-  const history = useHistory();
-
-  useEffect(() => {
-    const unlistenToHistory = history.listen(() => {
-      setOpen(false);
-    });
-
-    return unlistenToHistory;
-  }, []);
-
-  return (
-    <>
-      <MenuList open={open} setOpen={setOpen} />
-      <Button
-        aria-label="Open navigation"
-        type="button"
-        onClick={() => setOpen(!open)}
-        open={open}
-      >
-        <Hamburger open={open} />
-      </Button>
-    </>
-  );
-};
+const MenuButton = ({ open, setOpen }) => (
+  <>
+    <MenuList open={open} setOpen={setOpen} />
+    <Button
+      aria-label="Open navigation"
+      type="button"
+      onClick={() => setOpen(!open)}
+      open={open}
+    >
+      <Hamburger open={open} />
+    </Button>
+  </>
+);
 
 export default MenuButton;

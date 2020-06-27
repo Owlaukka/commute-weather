@@ -7,12 +7,12 @@ const List = styled.ul(
   {
     listStyle: 'none',
     padding: 0,
-    margin: 0,
     position: 'fixed',
     top: 0,
     right: 0,
     display: 'flex',
-    width: '100%',
+    width: 'min(100vw, 45rem)',
+    margin: '0 auto',
     transition: 'left 500ms',
     '> *': {
       flex: 1,
@@ -21,7 +21,7 @@ const List = styled.ul(
   ({ theme, open }) => ({
     backgroundColor: theme.colors.white,
     backgroundImage: theme.colors.navBackgroundImage,
-    boxShadow: `0 0 7px 0 ${theme.colors.gray2}`,
+    boxShadow: `0 0 7px 5px ${theme.colors.gray2}`,
     color: theme.colors.black,
     height: theme.sizes.mobileNavbar,
     left: open ? 0 : '100%',
@@ -49,15 +49,19 @@ const ListLink = styled(NavLink)(
 const MenuList = ({ open }) => (
   <List open={open}>
     <li>
-      <ListLink to="/" exact>
+      <ListLink tabIndex={!open ? -1 : null} to="/" exact>
         Home
       </ListLink>
     </li>
     <li>
-      <ListLink to="/register">Register</ListLink>
+      <ListLink tabIndex={!open ? -1 : null} to="/register">
+        Register
+      </ListLink>
     </li>
     <li>
-      <ListLink to="/login">Login</ListLink>
+      <ListLink tabIndex={!open ? -1 : null} to="/login">
+        Login
+      </ListLink>
     </li>
   </List>
 );

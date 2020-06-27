@@ -30,7 +30,8 @@ const App = () => {
             background-color: ${theme.colors.background};
             background-image: ${theme.colors.backgroundImage};
           }
-          h1 {
+          h1,
+          h2 {
             font-family: 'Lemonada', cursive;
           }
         `}

@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const path = require('path');
 const AutoLoad = require('fastify-autoload');
 const fastifyStatic = require('fastify-static');
@@ -25,12 +26,6 @@ module.exports = function (fastify, opts, next) {
     dir: path.join(__dirname, 'plugins'),
     options: { ...opts },
   });
-
-  // // Autoload routes (obsolete if above graphql is used instead)
-  // fastify.register(AutoLoad, {
-  //   dir: path.join(__dirname, 'services'),
-  //   options: { ...opts, prefix: '/api' },
-  // });
 
   next();
 };

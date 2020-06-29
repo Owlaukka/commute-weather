@@ -1,21 +1,32 @@
 {
-  "name": "commute-weather-api",
-  "version": "0.0.1",
-  "description": "Backend API for the Commute Weather web app",
-  "main": "server.js",
-  "type": "module",
-  "author": "Olli Laukkanen",
-  "license": "MIT",
-  "scripts": {
-    "start": "node server.js"
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
   },
+  "scripts": {
+    "test": "tap test/**/*.test.js",
+    "start": "fastify start -l info app.js",
+    "dev": "fastify start -w -l info -P app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "fastify": "^2.14.1",
-    "fastify-static": "^2.7.0"
+    "fastify": "^2.15.0",
+    "fastify-autoload": "^1.2.2",
+    "fastify-cli": "^1.5.0",
+    "fastify-gql": "^4.1.0",
+    "fastify-plugin": "^1.6.1",
+    "fastify-static": "^2.7.0",
+    "got": "^11.3.0",
+    "graphql": "^15.2.0"
   },
   "devDependencies": {
-    "eslint": "^7.2.0",
+    "eslint": "^7.3.1",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.21.2"
+    "tap": "^12.7.0"
   }
 }

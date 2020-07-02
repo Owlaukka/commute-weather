@@ -18,7 +18,7 @@ module.exports = function (fastify, opts, next) {
   fastify.register(GQL, {
     schema,
     resolvers,
-    graphiql: true,
+    graphiql: process.env.NODE_ENV !== 'production',
   });
 
   // Autoload various cross-cutting plugins like auth etc.

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Global, css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
 import Header from './components/header';
+import WeatherInfoContext from './components/weatherInfo/WeatherInfoContext';
 
 const App = () => {
   const theme = useTheme();
@@ -36,19 +37,21 @@ const App = () => {
           }
         `}
       />
-      <Header />
-      <Switch>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
-        {/* Default route if nothing else matches */}
-        <Route path="/">
-          <HomePage />
-        </Route>
-      </Switch>
+      <WeatherInfoContext.Provider>
+        <Header />
+        <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route path="/register">
+            <RegisterPage />
+          </Route>
+          {/* Default route if nothing else matches */}
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </WeatherInfoContext.Provider>
     </>
   );
 };

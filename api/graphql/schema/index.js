@@ -6,14 +6,12 @@ const schema = buildSchema(`
     lon: Float!
     time: String!
     temperature: Float!
-    weather: String!
+    weather: [String!]!
     humidity: Float!
   }
 
   type RootQuery {
-    add(x: Int!, y: Int!): Int
-    oneLocation(lat: Int!, lon: Int!): Int
-    weather(lat: Float!, lon: Float!, time: String): WeatherData!
+    weather(lat: Float!, lon: Float!, times: [String]): [WeatherData!]
   }
 
   schema {

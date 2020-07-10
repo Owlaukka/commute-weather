@@ -1,4 +1,5 @@
 dependencies:
+  dayjs: 1.8.29
   dotenv: 8.2.0
   fastify: 2.15.0
   fastify-autoload: 1.2.2
@@ -734,6 +735,10 @@ packages:
       node: '>=0.10'
     resolution:
       integrity: sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
+  /dayjs/1.8.29:
+    dev: false
+    resolution:
+      integrity: sha512-Vm6teig8ZWK7rH/lxzVGxZJCljPdmUr6q/3f4fr5F0VWNGVkZEjZOQJsAN8hUHUqn+NK4XHNEpJZS1MwLyDcLw==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -4196,6 +4201,7 @@ packages:
     resolution:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 specifiers:
+  dayjs: ^1.8.29
   dotenv: ^8.2.0
   eslint: ^7.3.1
   eslint-config-airbnb-base: ^14.2.0

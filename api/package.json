@@ -24,7 +24,8 @@
     "fastify-plugin": "^1.6.1",
     "fastify-static": "^2.7.0",
     "got": "^11.3.0",
-    "graphql": "^15.2.0"
+    "graphql": "^15.2.0",
+    "graphql-tools": "^6.0.12"
   },
   "devDependencies": {
     "eslint": "^7.3.1",

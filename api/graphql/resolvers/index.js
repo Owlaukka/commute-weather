@@ -1,7 +1,6 @@
 const weatherResolver = require('./weather');
 
-const rootResolver = {
-  ...weatherResolver,
-};
+// Add other resolvers into this array
+const resolvers = [weatherResolver];
 
-module.exports = rootResolver;
+module.exports = resolvers;

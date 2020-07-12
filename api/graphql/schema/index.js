@@ -1,22 +1,8 @@
-const { buildSchema } = require('graphql');
+const { mergeTypeDefs } = require('@graphql-tools/merge');
 
-const schema = buildSchema(`
-  type WeatherData {
-    lat: Float!
-    lon: Float!
-    time: String!
-    temperature: Float!
-    weather: [String!]!
-    humidity: Float!
-  }
+const weatherType = require('./weatherType');
 
-  type RootQuery {
-    weather(lat: Float!, lon: Float!, times: [String]): [WeatherData!]
-  }
+// Add additional types and mutations here
+const types = [weatherType];
 
-  schema {
-    query: RootQuery
-  }
-`);
-
-module.exports = schema;
+module.exports = mergeTypeDefs(types);

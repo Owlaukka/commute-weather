@@ -5,6 +5,7 @@ const weatherResolver = {
   Query: {
     weather: async (_, { lat, lon, times }) => {
       const apiKey = process.env.WEATHER_API_KEY;
+      // TODO: add error-handling
       const response = await got(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}&units=metric`
       );
@@ -13,7 +14,7 @@ const weatherResolver = {
         (weatherPoint) =>
           times.some(
             (time) =>
-              Math.abs(dayjs.unix(weatherPoint.dt).diff(time, 'minute')) < 30
+              Math.abs(dayjs.unix(weatherPoint.dt).diff(time, 'minute')) <= 30
           )
       );
 

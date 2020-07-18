@@ -17,18 +17,19 @@
   "dependencies": {
     "dayjs": "^1.8.29",
     "dotenv": "^8.2.0",
-    "fastify": "^2.15.0",
+    "fastify": "^3.0.3",
     "fastify-autoload": "^1.2.2",
     "fastify-cli": "^1.5.0",
-    "fastify-gql": "^4.1.0",
+    "fastify-cors": "^4.0.0",
+    "fastify-gql": "^5.0.0",
     "fastify-plugin": "^1.6.1",
     "fastify-static": "^2.7.0",
-    "got": "^11.3.0",
-    "graphql": "^15.2.0",
-    "graphql-tools": "^6.0.12"
+    "got": "^11.5.0",
+    "graphql": "^15.3.0",
+    "graphql-tools": "^6.0.13"
   },
   "devDependencies": {
-    "eslint": "^7.3.1",
+    "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "tap": "^12.7.0"

@@ -2,40 +2,26 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+// TODO: specifying the whole address isn't necessary in production because backend serves these files
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache(),
+});
 
 import App from './App';
+import theme from './theme';
 
 const node = document.createElement('div');
 document.body.prepend(node);
 
-// Global theme
-// TODO: put in it's own file
-const theme = {
-  colors: {
-    gray: '#3D3D3D',
-    gray2: '#292929',
-    gray3: '#141414',
-    black: '#0A0A0A',
-    white: '#F4F0FA',
-    darkViolet: '#6b00b8',
-
-    darkBackground: '#151514',
-    backgroundImage: 'linear-gradient(to top left, #292929 50%, #999 120%)',
-    navBackgroundImage:
-      'linear-gradient(to bottom right, #F4F0FA, #0A0A0A 250%)',
-    background: '#292929',
-    darkVioletBG: '#463548',
-    violetBG: '#523857',
-  },
-  sizes: {
-    mobileNavbar: '3rem',
-  },
-};
-
 ReactDom.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </ThemeProvider>
   </BrowserRouter>,
   node

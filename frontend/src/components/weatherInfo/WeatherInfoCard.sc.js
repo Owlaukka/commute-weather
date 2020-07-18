@@ -47,11 +47,16 @@ export const Wrapper = styled.li(
   })
 );
 
-export const WeatherIcon = styled(WiDaySunny)({
-  gridArea: 'weatherIcon',
-  width: 'min(18rem,100%)',
-  height: 'min(18rem,100%)',
-});
+export const WeatherIcon = styled(WiDaySunny)(
+  {
+    gridArea: 'weatherIcon',
+    width: 'min(18rem,100%)',
+    height: 'min(18rem,100%)',
+  },
+  ({ temperature }) => ({
+    color: findTemperatureColor(temperature),
+  })
+);
 
 export const Day = styled.h2({
   gridArea: 'day',

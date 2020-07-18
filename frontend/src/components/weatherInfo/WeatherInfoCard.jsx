@@ -1,5 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 import { WiHumidity } from 'react-icons/wi';
 
 import {
@@ -13,46 +14,30 @@ import {
   HumidityText,
 } from './WeatherInfoCard.sc';
 import { resolveDayText } from './weatherInfoHelpers';
-import { WeatherInfoContext } from './WeatherInfoContext';
 
-const WeatherInfoCard = ({ daysIntoFuture, coords, temperature }) => {
-  const weatherInfo = useContext(WeatherInfoContext);
-
-  useEffect(() => {
-    console.log(
-      'make an api request here to backend with coords',
-      coords?.latitude,
-      coords?.longitude
-    );
-  }, [coords?.latitude, coords?.longitude]);
-
-  return (
-    <Wrapper>
-      <Day>{resolveDayText(daysIntoFuture)}</Day>
-      <WeatherIcon temperature={temperature} />
-      <Temp temperature={temperature}>{temperature}°C</Temp>
-      <Weather>Sunny</Weather>
-      <TimeOfCommute>15:37</TimeOfCommute>
-      <Humidity>
-        <WiHumidity />
-        <HumidityText>65%</HumidityText>
-      </Humidity>
-    </Wrapper>
-  );
-};
+const WeatherInfoCard = ({ weather, requestedTime }) => (
+  <Wrapper>
+    {/* TODO: change resolve to resolve given datetime */}
+    <Day>{resolveDayText(requestedTime)}</Day>
+    <WeatherIcon temperature={weather.temperature} />
+    <Temp temperature={weather.temperature}>{weather.temperature}°C</Temp>
+    <Weather>{weather.weather.join(', ')}</Weather>
+    <TimeOfCommute>{dayjs(requestedTime).format('H:mm')}</TimeOfCommute>
+    <Humidity>
+      <WiHumidity />
+      <HumidityText>{weather.humidity}%</HumidityText>
+    </Humidity>
+  </Wrapper>
+);
 
 WeatherInfoCard.propTypes = {
-  daysIntoFuture: PropTypes.number.isRequired,
-  coords: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-  }),
-  temperature: PropTypes.number,
-};
-
-WeatherInfoCard.defaultProps = {
-  temperature: 15,
-  coords: null,
+  weather: PropTypes.shape({
+    temperature: PropTypes.number.isRequired,
+    weather: PropTypes.arrayOf(PropTypes.string),
+    time: PropTypes.string.isRequired,
+    humidity: PropTypes.number.isRequired,
+  }).isRequired,
+  requestedTime: PropTypes.string.isRequired,
 };
 
 export default WeatherInfoCard;

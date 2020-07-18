@@ -12,16 +12,12 @@ module.exports = {
         include: [path.resolve(__dirname, '../src')],
         loader: 'babel-loader',
       },
-      {
-        test: /\.css$/,
-        loader: 'css-loader',
-      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Production',
+      title: 'Should I Walk?',
     }),
   ],
   output: {

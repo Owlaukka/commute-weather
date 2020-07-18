@@ -1,6 +1,7 @@
 'use strict';
 require('dotenv').config();
 const path = require('path');
+const cors = require('fastify-cors');
 const AutoLoad = require('fastify-autoload');
 const fastifyStatic = require('fastify-static');
 const GQL = require('fastify-gql');
@@ -8,6 +9,8 @@ const GQL = require('fastify-gql');
 const schema = require('./graphql');
 
 module.exports = (fastify, opts, next) => {
+  fastify.register(cors, { origin: true });
+
   // Serve Frontend files
   fastify.register(fastifyStatic, {
     root: path.resolve(__dirname, '../frontend/dist'),

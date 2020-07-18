@@ -1,3 +1,8 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
+
 const highTempLimit = 36;
 const lowTempLimit = -18;
 
@@ -9,15 +14,4 @@ export const findTemperatureColor = (temperature) => {
   return `hsl(${260 * tempPerc}, 100%, 50%)`;
 };
 
-export const resolveDayText = (daysIntoFuture) => {
-  if (daysIntoFuture === 0) {
-    return 'Today';
-  }
-  if (daysIntoFuture === 1) {
-    return 'Tomorrow';
-  }
-  const today = new Date();
-  return new Date(
-    today.setDate(today.getDate() + daysIntoFuture)
-  ).toLocaleDateString();
-};
+export const resolveDayText = (datetime) => dayjs().to(datetime);

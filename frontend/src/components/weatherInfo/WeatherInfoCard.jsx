@@ -15,14 +15,14 @@ import {
 } from './WeatherInfoCard.sc';
 import { resolveDayText } from './weatherInfoHelpers';
 
-const WeatherInfoCard = ({ weather, requestedTime }) => (
+const WeatherInfoCard = ({ weather }) => (
   <Wrapper>
     {/* TODO: change resolve to resolve given datetime */}
-    <Day>{resolveDayText(requestedTime)}</Day>
+    <Day>{resolveDayText(weather.time)}</Day>
     <WeatherIcon temperature={weather.temperature} />
     <Temp temperature={weather.temperature}>{weather.temperature}°C</Temp>
     <Weather>{weather.weather.join(', ')}</Weather>
-    <TimeOfCommute>{dayjs(requestedTime).format('H:mm')}</TimeOfCommute>
+    <TimeOfCommute>{dayjs(weather.time).format('HH:mm')}</TimeOfCommute>
     <Humidity>
       <WiHumidity />
       <HumidityText>{weather.humidity}%</HumidityText>

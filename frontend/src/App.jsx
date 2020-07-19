@@ -1,6 +1,7 @@
 import React, { createContext } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Global, css } from '@emotion/core';
+import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
 import { normalize } from 'polished';
 
@@ -9,7 +10,16 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
 import Header from './components/header';
-import WeatherInfoContext from './components/weatherInfo/WeatherInfoContext';
+
+const Main = styled.main(
+  {
+    overflow: 'auto',
+  },
+  ({ theme }) => ({
+    marginTop: theme.sizes.mobileNavbar,
+    height: `calc(100vh - ${theme.sizes.mobileNavbar})`,
+  })
+);
 
 const App = () => {
   const theme = useTheme();
@@ -37,8 +47,8 @@ const App = () => {
           }
         `}
       />
-      <WeatherInfoContext.Provider>
-        <Header />
+      <Header />
+      <Main>
         <Switch>
           <Route path="/login">
             <LoginPage />
@@ -51,7 +61,7 @@ const App = () => {
             <HomePage />
           </Route>
         </Switch>
-      </WeatherInfoContext.Provider>
+      </Main>
     </>
   );
 };

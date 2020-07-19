@@ -3,26 +3,43 @@ const dayjs = require('dayjs');
 
 const weatherResolver = {
   Query: {
-    weather: async (_, { lat, lon, times }) => {
+    weather: async (_, { lat, lon, time }) => {
+      console.log('in weather resolvers');
       const apiKey = process.env.WEATHER_API_KEY;
       // TODO: add error-handling
       const response = await got(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}&units=metric`
       );
       const parsedResponse = JSON.parse(response.body);
-      const requestedWeatherData = parsedResponse.hourly.filter(
-        (weatherPoint) =>
-          times.some(
-            (time) =>
-              Math.abs(dayjs.unix(weatherPoint.dt).diff(time, 'minute')) <= 30
-          )
-      );
+
+      const requestedTimeSplit = time.split(':');
+      const requestedWeatherData = parsedResponse.hourly.filter((weather) => {
+        const requestedTimeOnInspectedDay = dayjs
+          .unix(weather.dt)
+          .startOf('day')
+          .hour(requestedTimeSplit[0])
+          .minute(requestedTimeSplit[1]);
+        const inspectedTime = dayjs.unix(weather.dt);
+        const difference = requestedTimeOnInspectedDay.diff(
+          inspectedTime,
+          'minutes'
+        );
+        return (
+          (difference > 0 && difference < 30) ||
+          (difference <= 0 && difference > -31)
+        );
+      });
 
       return requestedWeatherData.map((weather) => ({
         lat: lat,
         lon: lon,
-        time: dayjs.unix(weather.dt).format(),
-        temperature: weather.temp,
+        time: dayjs
+          .unix(weather.dt)
+          .startOf('day')
+          .hour(requestedTimeSplit[0])
+          .minute(requestedTimeSplit[1])
+          .format(),
+        temperature: Math.round(weather.temp * 10) / 10,
         weather: weather.weather.map((weat) => weat.main),
         humidity: weather.humidity,
       }));

@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from '@emotion/styled';
 import { useLazyQuery, gql } from '@apollo/client';
+import WeatherInfoContext from './WeatherInfoContext';
 
 import WeatherInfoCard from './WeatherInfoCard';
 
 const List = styled.ul({
-  width: 'min(100vw, 45rem)',
-  margin: '0 auto',
-  padding: '1rem',
+  margin: 0,
+  padding: 0,
   '& > li:not(:last-child)': {
-    marginBottom: '3rem',
+    marginBottom: '2rem',
   },
 });
 
 // TODO: 17:30 didn't work. probably have to change one side of the comparison to inclusive
 const WEATHER_EXAMPLE = gql`
-  query Weather($lat: Float!, $lon: Float!, $times: [Datetime!]!) {
-    weather(lat: $lat, lon: $lon, times: $times) {
+  query Weather($lat: Float!, $lon: Float!, $time: Time!) {
+    weather(lat: $lat, lon: $lon, time: $time) {
       time
       temperature
       weather
@@ -25,15 +25,11 @@ const WEATHER_EXAMPLE = gql`
   }
 `;
 
-const TIME_EXAMPLES = ['2020-07-18T17:30:00'];
-
-const WeatherInfoCardList = () => {
+const WeatherInfoCardList = ({ className }) => {
   const [coords, setCoords] = useState(null);
+  const { commuteTime } = useContext(WeatherInfoContext);
 
   const [getWeather, { loading, data }] = useLazyQuery(WEATHER_EXAMPLE);
-
-  console.log('loading', loading);
-  console.log('data', data);
 
   useEffect(() => {
     navigator?.geolocation.getCurrentPosition(
@@ -49,22 +45,19 @@ const WeatherInfoCardList = () => {
         variables: {
           lat: coords.latitude,
           lon: coords.longitude,
-          times: TIME_EXAMPLES,
+          time: commuteTime,
         },
       });
     }
-  }, [coords?.latitude, coords?.longitude]);
+  }, [coords?.latitude, coords?.longitude, commuteTime]);
 
   return (
-    <List>
+    <List className={className}>
+      {loading && <h1>Loading....</h1>}
       {!loading &&
         data?.weather &&
-        data.weather.map((weather, i) => (
-          <WeatherInfoCard
-            key={weather.time}
-            weather={weather}
-            requestedTime={TIME_EXAMPLES[i]}
-          />
+        data.weather.map((weather) => (
+          <WeatherInfoCard key={weather.time} weather={weather} />
         ))}
     </List>
   );

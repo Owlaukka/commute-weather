@@ -7,10 +7,18 @@ import { findTemperatureColor } from './weatherInfoHelpers';
 export const Wrapper = styled.li(
   {
     display: 'grid',
+    justifyItems: 'center',
     alignItems: 'center',
+    gap: '0.5rem',
     gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    gridTemplateAreas: `"day day day day"
+                        "weatherIcon weatherIcon weatherIcon weatherIcon"
+                        "temp temp temp temp"
+                        "weather weather weather weather"
+                        "timeOfCommute timeOfCommute timeOfCommute timeOfCommute"
+                        "humidity humidity humidity humidity"
+                        `,
     [media('>=desktop')]: {
-      gridTemplateRows: 'auto repeat(3, 1fr)',
       gridTemplateAreas: `"day day day day"
                           "weatherIcon weatherIcon temp weather"
                           "weatherIcon weatherIcon timeOfCommute timeOfCommute"
@@ -22,23 +30,8 @@ export const Wrapper = styled.li(
                           "weatherIcon weatherIcon temp temp"
                           "weatherIcon weatherIcon weather weather"
                           "weatherIcon weatherIcon timeOfCommute timeOfCommute"
-                          "humidity humidity humidity humidity "
+                          "humidity humidity humidity humidity"
                           `,
-      justifyItems: 'center',
-      gap: '1rem',
-      paddingBottom: '1rem',
-    },
-    [media('<tablet')]: {
-      gridTemplateAreas: `"day day day day"
-                          "weatherIcon weatherIcon weatherIcon weatherIcon"
-                          "temp temp temp temp"
-                          "weather weather weather weather "
-                          "timeOfCommute timeOfCommute timeOfCommute timeOfCommute "
-                          "humidity humidity humidity humidity "
-                          `,
-      justifyItems: 'center',
-      gap: '1rem',
-      paddingBottom: '1rem',
     },
   },
   ({ theme }) => ({
@@ -50,8 +43,8 @@ export const Wrapper = styled.li(
 export const WeatherIcon = styled(WiDaySunny)(
   {
     gridArea: 'weatherIcon',
-    width: 'min(18rem,100%)',
-    height: 'min(18rem,100%)',
+    width: '15rem',
+    height: '15rem',
   },
   ({ temperature }) => ({
     color: findTemperatureColor(temperature),
@@ -60,8 +53,7 @@ export const WeatherIcon = styled(WiDaySunny)(
 
 export const Day = styled.h2({
   gridArea: 'day',
-  justifySelf: 'center',
-  margin: '1rem 0 0 0 ',
+  margin: 0,
 });
 
 export const Temp = styled.div(

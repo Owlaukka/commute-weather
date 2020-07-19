@@ -14,4 +14,5 @@ export const findTemperatureColor = (temperature) => {
   return `hsl(${260 * tempPerc}, 100%, 50%)`;
 };
 
-export const resolveDayText = (datetime) => dayjs().to(datetime);
+export const resolveDayText = (datetime) =>
+  `${dayjs().to(datetime)} (${dayjs(datetime).format('D.M.')})`;

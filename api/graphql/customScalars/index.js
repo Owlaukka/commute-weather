@@ -1,8 +1,8 @@
-const time = require('../customScalars/Time');
-const datetime = require('../customScalars/Datetime');
+const Datetime = require('./Datetime');
+const Time = require('./Time');
 
 // Add other scalar resolvers into this object
-const customScalars = [{ time, datetime }];
+const customScalars = { Time, Datetime };
 
 // Add additional scalar type declarations here
 const scalarTypeDeclarations = `

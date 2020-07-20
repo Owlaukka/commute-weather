@@ -13,7 +13,6 @@ const List = styled.ul({
   },
 });
 
-// TODO: 17:30 didn't work. probably have to change one side of the comparison to inclusive
 const WEATHER_EXAMPLE = gql`
   query Weather($lat: Float!, $lon: Float!, $time: Time!) {
     weather(lat: $lat, lon: $lon, time: $time) {

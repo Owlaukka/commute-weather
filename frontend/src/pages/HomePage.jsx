@@ -18,7 +18,7 @@ const Grid = styled.section({
   [media('>=desktop')]: {
     margin: '1rem',
     gridTemplateAreas: `". weatherList settingsForm"
-                        ". weatherList settingsForm"
+                        ". weatherList ."
                         `,
   },
 });
@@ -30,19 +30,6 @@ const SettingsForm = styled.aside({
 const WeatherList = styled(WeatherInfoCardList)({
   gridArea: 'weatherList',
 });
-
-const Form = styled.form(
-  {
-    padding: '1rem',
-    [media('>=desktop')]: {
-      width: 'min-content',
-    },
-  },
-  ({ theme }) => ({
-    backgroundColor: theme.colors.black,
-    boxShadow: `0 0 15px 0px ${theme.colors.black}`,
-  })
-);
 
 const HomePage = () => (
   <Grid>

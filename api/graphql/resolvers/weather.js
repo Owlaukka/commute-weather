@@ -4,7 +4,6 @@ const dayjs = require('dayjs');
 const weatherResolver = {
   Query: {
     weather: async (_, { lat, lon, time }) => {
-      console.log('in weather resolvers');
       const apiKey = process.env.WEATHER_API_KEY;
       // TODO: add error-handling
       const response = await got(
@@ -12,16 +11,16 @@ const weatherResolver = {
       );
       const parsedResponse = JSON.parse(response.body);
 
-      const requestedTimeSplit = time.split(':');
+      // TODO: optimize this and maybe Time and Datetime custom  scalars
+      const [hours, minutes] = time;
       const requestedWeatherData = parsedResponse.hourly.filter((weather) => {
         const requestedTimeOnInspectedDay = dayjs
           .unix(weather.dt)
           .startOf('day')
-          .hour(requestedTimeSplit[0])
-          .minute(requestedTimeSplit[1]);
-        const inspectedTime = dayjs.unix(weather.dt);
+          .hour(hours)
+          .minute(minutes);
         const difference = requestedTimeOnInspectedDay.diff(
-          inspectedTime,
+          dayjs.unix(weather.dt),
           'minutes'
         );
         return (
@@ -36,8 +35,8 @@ const weatherResolver = {
         time: dayjs
           .unix(weather.dt)
           .startOf('day')
-          .hour(requestedTimeSplit[0])
-          .minute(requestedTimeSplit[1])
+          .hour(hours)
+          .minute(minutes)
           .format(),
         temperature: Math.round(weather.temp * 10) / 10,
         weather: weather.weather.map((weat) => weat.main),

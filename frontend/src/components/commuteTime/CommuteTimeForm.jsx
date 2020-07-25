@@ -20,6 +20,14 @@ const Form = styled.form(
 const CommuteTimeForm = () => {
   const { commuteTime, saveCommuteTime } = useContext(WeatherInfoContext);
   const [newCommuteTime, setNewCommuteTime] = useState(commuteTime);
+
+  const updateCommuteTimeInput = (e) => setNewCommuteTime(e.target.value);
+
+  const saveNewCommuteTime = (e) => {
+    e.preventDefault();
+    saveCommuteTime(newCommuteTime);
+  };
+
   return (
     <Form>
       <label htmlFor="planned-commute-input">
@@ -28,18 +36,13 @@ const CommuteTimeForm = () => {
         <input
           id="planned-commute-input"
           required
+          pattern="[0-9]{2}:[0-9]{2}"
           type="time"
           value={newCommuteTime}
-          onChange={(e) => setNewCommuteTime(e.target.value)}
+          onChange={updateCommuteTimeInput}
         />
       </label>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          saveCommuteTime(newCommuteTime);
-        }}
-        role="submit"
-      >
+      <button onClick={saveNewCommuteTime} role="submit">
         Confirm
       </button>
     </Form>

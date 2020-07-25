@@ -11,10 +11,14 @@ dependencies:
   got: 11.5.0
   graphql: 15.3.0
   graphql-tools: 6.0.13_graphql@15.3.0
+  middie: 5.1.0
 devDependencies:
   eslint: 7.4.0
   eslint-config-airbnb-base: 14.2.0_c68bb5016e109f58285db45d8cc55073
+  eslint-config-prettier: 6.11.0_eslint@7.4.0
   eslint-plugin-import: 2.22.0_eslint@7.4.0
+  eslint-plugin-prettier: 3.1.4_eslint@7.4.0+prettier@2.0.5
+  prettier: 2.0.5
   tap: 12.7.0
 lockfileVersion: 5.1
 packages:
@@ -1926,6 +1930,16 @@ packages:
       eslint-plugin-import: ^2.21.2
     resolution:
       integrity: sha512-Snswd5oC6nJaevs3nZoLSTvGJBvzTfnBqOIArkf3cbyTyq9UD79wOk8s+RiL6bhca0p/eRO6veczhf6A/7Jy8Q==
+  /eslint-config-prettier/6.11.0_eslint@7.4.0:
+    dependencies:
+      eslint: 7.4.0
+      get-stdin: 6.0.0
+    dev: true
+    hasBin: true
+    peerDependencies:
+      eslint: '>=3.14.1'
+    resolution:
+      integrity: sha512-oB8cpLWSAjOVFEJhhyMZh6NOEOtBVziaqdDQ86+qhDHFbZXoRTM7pNSvFRfW/W/L/LrQ38C99J5CGuRBBzBsdA==
   /eslint-import-resolver-node/0.3.4:
     dependencies:
       debug: 2.6.9
@@ -1965,6 +1979,19 @@ packages:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0
     resolution:
       integrity: sha512-66Fpf1Ln6aIS5Gr/55ts19eUuoDhAbZgnr6UxK5hbDx6l/QgQgx61AePq+BV4PP2uXQFClgMVzep5zZ94qqsxg==
+  /eslint-plugin-prettier/3.1.4_eslint@7.4.0+prettier@2.0.5:
+    dependencies:
+      eslint: 7.4.0
+      prettier: 2.0.5
+      prettier-linter-helpers: 1.0.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+    peerDependencies:
+      eslint: '>=5.0.0'
+      prettier: '>=1.13.0'
+    resolution:
+      integrity: sha512-jZDa8z76klRqo+TdGDTFJSavwbnWK2ZpqGKNZ+VvweMW516pDUMmQ2koXvxEE4JhzNvTv+radye/bWGBmA6jmg==
   /eslint-scope/5.1.0:
     dependencies:
       esrecurse: 4.2.1
@@ -2177,6 +2204,10 @@ packages:
   /fast-deep-equal/3.1.3:
     resolution:
       integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
+  /fast-diff/1.2.0:
+    dev: true
+    resolution:
+      integrity: sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
   /fast-glob/3.2.4:
     dependencies:
       '@nodelib/fs.stat': 2.0.3
@@ -2650,6 +2681,12 @@ packages:
       node: 6.* || 8.* || >= 10.*
     resolution:
       integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
+  /get-stdin/6.0.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-jp4tHawyV7+fkkSKyvjuLZswblUtz+SQKzSWnBbii16BuZksJlU1wuBYXY75r+duh/llF1ur6oNwi+2ZzjKZ7g==
   /get-stream/5.1.0:
     dependencies:
       pump: 3.0.0
@@ -2921,7 +2958,7 @@ packages:
       depd: 1.1.2
       inherits: 2.0.3
       setprototypeof: 1.1.0
-      statuses: 1.4.0
+      statuses: 1.5.0
     dev: false
     engines:
       node: '>= 0.6'
@@ -3716,6 +3753,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-eylPpZA+K3xO9kpDjagoPkEUkNcWV3EAo5OEz0MqsekUpT7KbnQkk8HNZkh4phx2vvOAmNNZuLRWF9lDDHPpVQ==
+  /middie/5.1.0:
+    dependencies:
+      fastify-plugin: 2.0.1
+      path-to-regexp: 6.1.0
+      reusify: 1.0.4
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-pM9KMIedHAOHIw+wsJbze7QiPdEfPsd3iMhgStvYlpme6/dEpCVp0pTSDP5bXa1NvrPmjfWOpvp2RNbypH8DHQ==
   /mime-db/1.44.0:
     engines:
       node: '>= 0.6'
@@ -4231,6 +4278,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-l+fTaGG2N9ZRpCEUj5fG1VKdDLaiqwCIvPngpnxzREhcdobhZC4ou4w984HBu72DqAJ5CfcdV6tjqNOunfpdsQ==
+  /path-to-regexp/6.1.0:
+    dev: false
+    resolution:
+      integrity: sha512-h9DqehX3zZZDCEm+xbfU0ZmwCGFCAAraPJWMXJ4+v32NjZJilVg3k1TcKsRgIb8IQ/izZSaydDc1OhJCZvs2Dw==
   /path-type/2.0.0:
     dependencies:
       pify: 2.3.0
@@ -4360,6 +4411,21 @@ packages:
     dev: false
     resolution:
       integrity: sha1-mUsCqkb2mcULYle1+qp/4lV+YtY=
+  /prettier-linter-helpers/1.0.0:
+    dependencies:
+      fast-diff: 1.2.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
+  /prettier/2.0.5:
+    dev: true
+    engines:
+      node: '>=10.13.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
   /pretty-ms/2.1.0:
     dependencies:
       is-finite: 1.1.0
@@ -5834,7 +5900,9 @@ specifiers:
   dotenv: ^8.2.0
   eslint: ^7.4.0
   eslint-config-airbnb-base: ^14.2.0
+  eslint-config-prettier: ^6.11.0
   eslint-plugin-import: ^2.22.0
+  eslint-plugin-prettier: ^3.1.4
   fastify: ^3.0.3
   fastify-autoload: ^1.2.2
   fastify-cli: ^1.5.0
@@ -5845,4 +5913,6 @@ specifiers:
   got: ^11.5.0
   graphql: ^15.3.0
   graphql-tools: ^6.0.13
+  middie: ^5.1.0
+  prettier: ^2.0.5
   tap: ^12.7.0

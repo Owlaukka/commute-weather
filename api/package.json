@@ -26,12 +26,16 @@
     "fastify-static": "^2.7.0",
     "got": "^11.5.0",
     "graphql": "^15.3.0",
-    "graphql-tools": "^6.0.13"
+    "graphql-tools": "^6.0.13",
+    "middie": "^5.1.0"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
     "tap": "^12.7.0"
   }
 }

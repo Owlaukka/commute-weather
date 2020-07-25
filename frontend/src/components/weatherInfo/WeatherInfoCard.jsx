@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { WiHumidity } from 'react-icons/wi';
@@ -17,7 +17,6 @@ import { resolveDayText } from './weatherInfoHelpers';
 
 const WeatherInfoCard = ({ weather }) => (
   <Wrapper>
-    {/* TODO: change resolve to resolve given datetime */}
     <Day>{resolveDayText(weather.time)}</Day>
     <WeatherIcon temperature={weather.temperature} />
     <Temp temperature={weather.temperature}>{weather.temperature}°C</Temp>
@@ -37,7 +36,6 @@ WeatherInfoCard.propTypes = {
     time: PropTypes.string.isRequired,
     humidity: PropTypes.number.isRequired,
   }).isRequired,
-  requestedTime: PropTypes.string.isRequired,
 };
 
 export default WeatherInfoCard;

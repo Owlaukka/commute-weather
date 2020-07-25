@@ -1,17 +1,13 @@
-const got = require('got');
 const dayjs = require('dayjs');
+
+const ExternalApi = require('../../services/externalAPI');
 
 const weatherResolver = {
   Query: {
     weather: async (_, { lat, lon, time }) => {
-      const apiKey = process.env.WEATHER_API_KEY;
-      // TODO: add error-handling
-      const response = await got(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}&units=metric`
-      );
-      const parsedResponse = JSON.parse(response.body);
+      const parsedResponse = await ExternalApi.fetchWeatherByLocation(lat, lon);
 
-      // TODO: optimize this and maybe Time and Datetime custom  scalars
+      // TODO: optimize and clarify this, and maybe Time and Datetime custom scalars as well
       const [hours, minutes] = time;
       const requestedWeatherData = parsedResponse.hourly.filter((weather) => {
         const requestedTimeOnInspectedDay = dayjs
@@ -30,8 +26,8 @@ const weatherResolver = {
       });
 
       return requestedWeatherData.map((weather) => ({
-        lat: lat,
-        lon: lon,
+        lat,
+        lon,
         time: dayjs
           .unix(weather.dt)
           .startOf('day')

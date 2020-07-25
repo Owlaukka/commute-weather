@@ -5,6 +5,7 @@ dependencies:
   '@emotion/core': 10.0.28_react@16.13.1
   '@emotion/styled': 10.0.27_c989b1aa057905c7a8b69bf973f55a19
   '@emotion/styled-base': 10.0.31_c989b1aa057905c7a8b69bf973f55a19
+  apollo-cache-persist: 0.1.1
   css-in-js-media: 1.0.14
   dayjs: 1.8.29
   emotion-theming: 10.0.27_c989b1aa057905c7a8b69bf973f55a19
@@ -23,6 +24,7 @@ devDependencies:
   babel-plugin-emotion: 10.0.33
   babel-plugin-syntax-dynamic-import: 6.18.0
   clean-webpack-plugin: 3.0.0_webpack@5.0.0-beta.17
+  compression-webpack-plugin: 4.0.0_webpack@5.0.0-beta.17
   core-js: 3.6.5
   css-loader: 3.6.0_webpack@5.0.0-beta.17
   eslint: 7.2.0
@@ -35,6 +37,7 @@ devDependencies:
   eslint-plugin-react-hooks: 4.0.4_eslint@7.2.0
   html-webpack-plugin: 4.3.0_webpack@5.0.0-beta.17
   prettier: 2.0.5
+  regenerator-runtime: 0.13.5
   stylelint: 13.6.0
   stylelint-config-prettier: 8.0.1_stylelint@13.6.0
   stylelint-config-recommended: 3.0.0_stylelint@13.6.0
@@ -1618,6 +1621,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-5teOsQWABXHHBFP9y3skS5P3d/WfWXpv3FUpy+LorMrNYaT9pI4oLMQX7jzQ2KklNpGpWHzdCXTDT2Y3XGlZBw==
+  /apollo-cache-persist/0.1.1:
+    dev: false
+    resolution:
+      integrity: sha512-/7GAyblPR169ryW3ugbtHqiU0UGkhIt10NeaO2gn2ClxjLHF/nIkJD5mx/0OCF2vLNbbnzLZVDeIO1pf72TrEA==
   /argparse/1.0.10:
     dependencies:
       sprintf-js: 1.0.3
@@ -1740,7 +1747,7 @@ packages:
       integrity: sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
   /async/2.6.3:
     dependencies:
-      lodash: 4.17.15
+      lodash: 4.17.19
     dev: true
     resolution:
       integrity: sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
@@ -2166,6 +2173,30 @@ packages:
       node: '>= 10'
     resolution:
       integrity: sha512-YlnKQqTbD/6iyoJvEY3KJftjrdBYroCbxxYXzhOzsFLWlp6KX4BOlEf4mTx0cMUfVaTS3ENL2QtDWeRYoGLkkw==
+  /cacache/15.0.5:
+    dependencies:
+      '@npmcli/move-file': 1.0.1
+      chownr: 2.0.0
+      fs-minipass: 2.1.0
+      glob: 7.1.6
+      infer-owner: 1.0.4
+      lru-cache: 6.0.0
+      minipass: 3.1.3
+      minipass-collect: 1.0.2
+      minipass-flush: 1.0.5
+      minipass-pipeline: 1.2.3
+      mkdirp: 1.0.4
+      p-map: 4.0.0
+      promise-inflight: 1.0.1
+      rimraf: 3.0.2
+      ssri: 8.0.0
+      tar: 6.0.2
+      unique-filename: 1.1.1
+    dev: true
+    engines:
+      node: '>= 10'
+    resolution:
+      integrity: sha512-lloiL22n7sOjEEXdL8NAjTgv9a1u43xICE9/203qonkZUCj5X1UEWIdf2/Y0d6QcCtMzbKQyhrcDbdvlZTs/+A==
   /cache-base/1.0.1:
     dependencies:
       collection-visit: 1.0.0
@@ -2431,6 +2462,21 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==
+  /compression-webpack-plugin/4.0.0_webpack@5.0.0-beta.17:
+    dependencies:
+      cacache: 15.0.5
+      find-cache-dir: 3.3.1
+      schema-utils: 2.7.0
+      serialize-javascript: 3.1.0
+      webpack: 5.0.0-beta.17_webpack@5.0.0-beta.17
+      webpack-sources: 1.4.3
+    dev: true
+    engines:
+      node: '>= 10.13.0'
+    peerDependencies:
+      webpack: ^4.0.0 || ^5.0.0
+    resolution:
+      integrity: sha512-DRoFQNTkQ8gadlk117Y2wxANU+MDY56b1FIZj/yJXucBOTViTHXjthM7G9ocnitksk4kLzt1N2RLF0gDjxI+hg==
   /compression/1.7.4:
     dependencies:
       accepts: 1.3.7
@@ -4809,6 +4855,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
+  /lru-cache/6.0.0:
+    dependencies:
+      yallist: 4.0.0
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   /make-dir/2.1.0:
     dependencies:
       pify: 4.0.1
@@ -7924,10 +7978,12 @@ specifiers:
   '@emotion/core': ^10.0.28
   '@emotion/styled': ^10.0.27
   '@emotion/styled-base': ^10.0.31
+  apollo-cache-persist: ^0.1.1
   babel-loader: ^8.1.0
   babel-plugin-emotion: ^10.0.33
   babel-plugin-syntax-dynamic-import: ^6.18.0
   clean-webpack-plugin: ^3.0.0
+  compression-webpack-plugin: ^4.0.0
   core-js: 3.6.5
   css-in-js-media: ^1.0.14
   css-loader: ^3.6.0
@@ -7950,6 +8006,7 @@ specifiers:
   react-dom: ^16.13.1
   react-icons: ^3.10.0
   react-router-dom: ^5.2.0
+  regenerator-runtime: ^0.13.5
   stylelint: ^13.6.0
   stylelint-config-prettier: ^8.0.1
   stylelint-config-recommended: ^3.0.0

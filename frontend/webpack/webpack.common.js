@@ -1,6 +1,7 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -19,6 +20,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Should I Walk?',
     }),
+    new CompressionPlugin({
+      filename: '[path].br[query]',
+      algorithm: 'brotliCompress',
+      test: /\.(js|html)$/,
+      compressionOptions: {
+        level: 11,
+      },
+      threshold: 10240,
+      minRatio: 0.8,
+      deleteOriginalAssets: false,
+    }),
   ],
   output: {
     filename: '[name].[contenthash].bundle.js',
@@ -34,7 +46,7 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
           name: 'vendor',
-          priority: 10,
+          priority: -10,
           enforce: true,
         },
       },

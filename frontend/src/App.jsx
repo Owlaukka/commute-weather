@@ -1,14 +1,15 @@
-import React, { createContext } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Global, css } from '@emotion/core';
+import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
-import { normalize } from 'polished';
+import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
+import { persistCache } from 'apollo-cache-persist';
 
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-
+import GlobalStyles from './theme/GlobalStyles';
+const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const HomePage = React.lazy(() => import('./pages/HomePage'));
+const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
 import Header from './components/header';
 
 const Main = styled.main(
@@ -23,45 +24,52 @@ const Main = styled.main(
 
 const App = () => {
   const theme = useTheme();
+  const [client, setClient] = useState();
+
+  useEffect(() => {
+    const cache = new InMemoryCache();
+    // TODO: specifying the whole address isn't necessary in production because backend serves these files
+    const apolloClient = new ApolloClient({
+      uri: 'http://localhost:3000/graphql',
+      cache,
+    });
+
+    (async () => {
+      await persistCache({
+        cache,
+        storage: window.localStorage,
+      });
+      setClient(apolloClient);
+    })();
+  }, []);
+
+  // TODO: make a better loader.
+  // This is only for waiting for cached queries to be restored from localstorage.
+  // Might not even show up
+  if (!client) return <div>Loading...</div>;
 
   return (
     <>
-      <Global
-        styles={css`
-          ${normalize()}
-          @import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
-          @import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap');
-
-          * {
-            box-sizing: border-box;
-          }
-          body {
-            font-family: 'Heebo', sans-serif;
-            color: ${theme.colors.white};
-            background-color: ${theme.colors.background};
-            background-image: ${theme.colors.backgroundImage};
-          }
-          h1,
-          h2 {
-            font-family: 'Lemonada', cursive;
-          }
-        `}
-      />
-      <Header />
-      <Main>
-        <Switch>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/register">
-            <RegisterPage />
-          </Route>
-          {/* Default route if nothing else matches */}
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
-      </Main>
+      <Global styles={GlobalStyles(theme)} />
+      <ApolloProvider client={client}>
+        <Header />
+        <Main>
+          <Suspense fallback={<div>Loading in Suspense!</div>}>
+            <Switch>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/register">
+                <RegisterPage />
+              </Route>
+              {/* Default route if nothing else matches */}
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </Suspense>
+        </Main>
+      </ApolloProvider>
     </>
   );
 };

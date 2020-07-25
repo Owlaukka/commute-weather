@@ -4,17 +4,19 @@ import dayjs from 'dayjs';
 const WeatherInfoContext = createContext(null);
 
 export const WeatherInfoProvider = ({ children }) => {
-  // TODO: get from localstorage or db later
+  // TODO: maybe get from DB later
   const [commuteTime, setCommuteTime] = useState(
-    dayjs()
-      .startOf('day')
-      .hour(17)
-      .minute(35)
-      .format('HH:mm')
+    localStorage.getItem('savedCommuteTime') ||
+      dayjs()
+        .startOf('day')
+        .hour(17)
+        .minute(35)
+        .format('HH:mm')
   );
 
   const saveCommuteTime = (time) => {
     setCommuteTime(time);
+    localStorage.setItem('savedCommuteTime', time);
   };
 
   return (

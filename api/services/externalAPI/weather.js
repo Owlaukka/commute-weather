@@ -2,6 +2,8 @@ const got = require('got');
 
 const API_KEY = process.env.WEATHER_API_KEY;
 
+// prevents the sending of actual external API-calls in e2e-tests.
+// Instead returns canned responses from Wiremock
 const WEATHER_API_DOMAIN =
   process.env.NODE_ENV !== 'test'
     ? 'https://api.openweathermap.org'

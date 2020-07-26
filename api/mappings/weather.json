@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "^/data/2.5/onecall\\?.*$"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "weather.json"
+  }
+}

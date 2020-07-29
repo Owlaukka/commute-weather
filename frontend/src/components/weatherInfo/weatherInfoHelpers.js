@@ -11,7 +11,7 @@ export const findTemperatureColor = (temperature) => {
   const adjustedTemp = temperature + Math.abs(lowTempLimit);
   const tempPerc = 1 - Math.min(Math.max(adjustedTemp / fullRangeSize, 0), 1);
 
-  return `hsl(${260 * tempPerc}, 100%, 50%)`;
+  return `hsl(${Math.round(260 * tempPerc * 100) / 100}, 100%, 50%)`;
 };
 
 export const resolveDayText = (datetime) =>

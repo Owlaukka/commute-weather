@@ -35,6 +35,7 @@ const CommuteTimeForm = () => {
         {/* TODO: make a reusable when more inputs added */}
         <input
           id="planned-commute-input"
+          data-testid="planned-commute-input"
           required
           pattern="[0-9]{2}:[0-9]{2}"
           type="time"
@@ -42,7 +43,11 @@ const CommuteTimeForm = () => {
           onChange={updateCommuteTimeInput}
         />
       </label>
-      <button onClick={saveNewCommuteTime} role="submit">
+      <button
+        data-testid="planned-commute-submit-button"
+        onClick={saveNewCommuteTime}
+        role="submit"
+      >
         Confirm
       </button>
     </Form>

@@ -51,7 +51,7 @@ const WeatherInfoCardList = ({ className }) => {
   }, [coords?.latitude, coords?.longitude, commuteTime]);
 
   return (
-    <List className={className}>
+    <List data-testid="weather-info-card-list" className={className}>
       {loading && <h1>Loading....</h1>}
       {!loading &&
         data?.weather &&

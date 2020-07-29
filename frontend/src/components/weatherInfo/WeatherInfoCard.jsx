@@ -19,7 +19,9 @@ const WeatherInfoCard = ({ weather }) => (
   <Wrapper>
     <Day>{resolveDayText(weather.time)}</Day>
     <WeatherIcon temperature={weather.temperature} />
-    <Temp temperature={weather.temperature}>{weather.temperature}°C</Temp>
+    <Temp data-testid="weather-card-temp" temperature={weather.temperature}>
+      {weather.temperature}°C
+    </Temp>
     <Weather>{weather.weather.join(', ')}</Weather>
     <TimeOfCommute>{dayjs(weather.time).format('HH:mm')}</TimeOfCommute>
     <Humidity>
@@ -32,7 +34,7 @@ const WeatherInfoCard = ({ weather }) => (
 WeatherInfoCard.propTypes = {
   weather: PropTypes.shape({
     temperature: PropTypes.number.isRequired,
-    weather: PropTypes.arrayOf(PropTypes.string),
+    weather: PropTypes.arrayOf(PropTypes.string).isRequired,
     time: PropTypes.string.isRequired,
     humidity: PropTypes.number.isRequired,
   }).isRequired,

@@ -27,5 +27,11 @@ module.exports = (fastify, opts, next) => {
     options: { ...opts },
   });
 
+  if (process.env.NODE_ENV === 'test') {
+    fastify.head('/', async function (request, reply) {
+      reply.send({ test: 1 });
+    });
+  }
+
   next();
 };

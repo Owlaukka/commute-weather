@@ -1,10 +1,22 @@
 {
-  "request": {
-    "method": "GET",
-    "urlPattern": "^/data/2.5/onecall\\?.*$"
-  },
-  "response": {
-    "status": 200,
-    "bodyFileName": "weather.json"
-  }
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPattern": "^/data/2.5/onecall\\?.*$"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "weather.json"
+      }
+    },
+    {
+      "request": {
+        "method": "HEAD"
+      },
+      "response": {
+        "status": 200
+      }
+    }
+  ]
 }

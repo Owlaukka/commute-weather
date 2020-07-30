@@ -9,12 +9,17 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
+            - run: pwd
             - run: cd frontend
+            - run: pwd
             - run: npm install
+            - run: pwd
             - run: cd ../api
+            - run: pwd
             - run: npm install
+            - run: pwd
             - run: npm run ci
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  build-and-test:
+    jobs:
+      - build-and-test

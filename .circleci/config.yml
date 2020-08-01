@@ -17,4 +17,4 @@ workflows:
           start: 'cd api && pnpm run ci' # start server before running tests
           wait-on: 'http://localhost:3000'
           command: 'ls && cd frontend && pnpm run ci:test'
-          install-command: 'cd frontend && pnpm install && cd ../api && pnpm install'
+          install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm install && cd ../api && pnpm install'

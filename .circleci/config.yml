@@ -6,8 +6,7 @@ workflows:
   build:
     jobs:
       - cypress/install:
-          post-checkout: 'curl -L https://unpkg.com/@pnpm/self-installer | node'
-          build: 'cd frontend && pnpm run build' # run a custom app build step
+          build: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm run build' # run a custom app build step
           # cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
           working_directory: frontend
           install-command: 'ls && pnpm install && cd ../api && pnpm install'

@@ -7,14 +7,14 @@ workflows:
     jobs:
       - cypress/install:
           build: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm run build' # run a custom app build step
-          # cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
+          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
           working_directory: frontend
           install-command: 'ls && pnpm install && cd ../api && pnpm install'
       - cypress/run:
           requires:
             - cypress/install
           working_directory: frontend
-          # cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
+          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
           start: 'cd api && pnpm run ci' # start server before running tests
           wait-on: 'http://localhost:3000'
           command: 'ls && pnpm run ci:test'

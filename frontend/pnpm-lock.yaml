@@ -51,6 +51,7 @@ devDependencies:
   webpack-cli: 3.3.12_webpack@5.0.0-beta.22
   webpack-dev-server: 3.11.0_b97236b255e73905b76ccef9d2c1ec40
   webpack-merge: 5.0.9
+  zlib: 1.0.5
 lockfileVersion: 5.1
 packages:
   /@apollo/client/3.1.1_graphql@15.3.0+react@16.13.1:
@@ -8968,6 +8969,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
+  /zlib/1.0.5:
+    dev: true
+    engines:
+      node: '>=0.2.0'
+    resolution:
+      integrity: sha1-bnyXL8NxxkWmr7A6sUdp3vEU/MA=
 specifiers:
   '@apollo/client': ^3.1.1
   '@apollo/react-hooks': ^4.0.0
@@ -9020,3 +9027,4 @@ specifiers:
   webpack-cli: ^3.3.12
   webpack-dev-server: ^3.11.0
   webpack-merge: ^5.0.9
+  zlib: ^1.0.5

@@ -7,11 +7,10 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --open --config webpack/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.js",
+    "start:test": "cross-env NODE_ENV=test webpack-dev-server --open --config webpack/webpack.dev.js",
     "test": "cross-env NODE_ENV=test cypress open",
-    "ci:server": "cross-env NODE_ENV=development webpack-dev-server --config webpack/webpack.dev.js",
-    "ci:run": "cross-env NODE_ENV=test cypress run",
-    "ci": "start-server-and-test ci:server http-get://localhost:8080 ci:run"
+    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.js",
+    "ci:test": "CYPRESS_BASE_URL=http://localhost:3000 cross-env NODE_ENV=test cypress run"
   },
   "dependencies": {
     "@apollo/client": "^3.1.0",

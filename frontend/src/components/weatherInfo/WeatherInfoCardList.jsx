@@ -25,6 +25,7 @@ const WEATHER_EXAMPLE = gql`
 `;
 
 const WeatherInfoCardList = ({ className }) => {
+  console.log(process.env);
   const [coords, setCoords] = useState(null);
   const { commuteTime } = useContext(WeatherInfoContext);
 

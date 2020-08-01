@@ -1,19 +1,20 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
-jobs:
-  build-and-test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install -G pnpm
-            - run: cd frontend/ && pwd && pnpm install
-            - run: cd api/ && pwd && pnpm install
-            - run: cd api/ && pwd && pnpm run ci
+  cypress: cypress-io/cypress@1
 workflows:
-  build-and-test:
+  build:
     jobs:
-      - build-and-test
+      - cypress/install:
+          build: 'npm run build' # run a custom app build step
+          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
+          working_directory: frontend
+          install-command: 'npm install && cd ../api && npm install'
+      - cypress/run:
+          requires:
+            - cypress/install
+          working_directory: frontend
+          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
+          start: 'cd ../api && npm run ci' # start server before running tests
+          wait-on: 'http://localhost:3000'
+          command: 'npm run ci:test'

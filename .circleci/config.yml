@@ -16,5 +16,5 @@ workflows:
           cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
           start: 'cd api && pnpm run ci' # start server before running tests
           wait-on: 'http://localhost:3000'
-          command: 'cd frontend && ls && pnpm run ci:test'
+          command: 'cd frontend && ls dist/ && sleep 5 && pnpm run ci:test'
           install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm install && cd ../api && pnpm install'

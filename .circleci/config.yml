@@ -8,7 +8,7 @@ workflows:
           executor: cypress/base-14
           build: 'cd frontend && pnpm run build' # run a custom app build step
           cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
-          install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm install'
+          install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm install --frozen-lockfile'
       - cypress/run:
           executor: cypress/browsers-chrome75
           browser: chrome
@@ -16,8 +16,8 @@ workflows:
           working_directory: 'frontend'
           requires:
             - cypress/install
-          install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd ../api && pnpm install'
+          install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd ../api && pnpm install --frozen-lockfile'
           cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
           start: 'cd ../api && pnpm run ci' # start server before running tests
           wait-on: 'http://localhost:9999 http://localhost:3000'
-          command: 'sleep 10 && ls dist/ && pnpm run ci:test'
+          command: 'ls dist/ && pnpm run ci:test'

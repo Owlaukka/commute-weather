@@ -6,7 +6,7 @@ const weatherResolver = {
   Query: {
     weather: async (_, { lat, lon, time }) => {
       const parsedResponse = await ExternalApi.fetchWeatherByLocation(lat, lon);
-
+      console.log(process.env.NODE_ENV);
       // TODO: optimize and clarify this, and maybe Time and Datetime custom scalars as well
       const [hours, minutes] = time;
       const requestedWeatherData = parsedResponse.hourly.filter((weather) => {

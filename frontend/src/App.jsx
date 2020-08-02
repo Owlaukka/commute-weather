@@ -37,7 +37,8 @@ const App = () => {
     (async () => {
       await persistCache({
         cache,
-        storage: window.localStorage,
+        // Change this back to localStorage when proper cache-busting is implemented
+        storage: window.sessionStorage,
       });
       setClient(apolloClient);
     })();

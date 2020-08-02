@@ -9,20 +9,29 @@ const WEATHER_API_DOMAIN =
     ? 'https://api.openweathermap.org'
     : 'http://localhost:9999';
 
-// TODO: move to helpers
+// TODO: move to helpers somewhere
 const parseJSON = (json) => {
   try {
     return JSON.parse(json);
   } catch (e) {
-    console.error('Could not parse JSON', e);
+    console.error('Could not parse JSON. JSON:', json, 'Error:', e);
   }
 };
 
 const fetchWeatherByLocation = async (lat, lon) => {
   try {
+    const experiment = await got(
+      'http://localhost:9999/data/2.5/onecall?latasdf'
+    );
+    console.log(
+      'start of the response.body',
+      experiment.body.substring(0, 100)
+    );
+
     const response = await got(
       `${WEATHER_API_DOMAIN}/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,current&appid=${API_KEY}&units=metric`
     );
+    console.log('start of the response.body', response.body.substring(0, 100));
     return parseJSON(response.body);
   } catch (e) {
     console.error('Could not fetch weather from external weather API', e);

@@ -27,6 +27,7 @@ module.exports = (fastify, opts, next) => {
     options: { ...opts },
   });
 
+  // Used in tests and CI to detect by wait-on library that the server is up and pipeline can continue
   if (process.env.NODE_ENV === 'test') {
     fastify.head('/', async function (request, reply) {
       reply.send({ test: 1 });

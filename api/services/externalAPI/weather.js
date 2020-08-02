@@ -9,12 +9,12 @@ const WEATHER_API_DOMAIN =
     ? 'https://api.openweathermap.org'
     : 'http://localhost:9999';
 
-// TODO: move to helpers
+// TODO: move to helpers somewhere
 const parseJSON = (json) => {
   try {
     return JSON.parse(json);
   } catch (e) {
-    console.error('Could not parse JSON', e);
+    console.error('Could not parse JSON. JSON:', json, 'Error:', e);
   }
 };
 

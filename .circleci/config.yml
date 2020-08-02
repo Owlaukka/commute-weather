@@ -1,25 +1,28 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
-jobs:
-  build-and-test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: pwd
-            - run: cd frontend
-            - run: pwd
-            - run: npm install
-            - run: pwd
-            - run: cd ../api
-            - run: pwd
-            - run: npm install
-            - run: pwd
-            - run: npm run ci
+  cypress: cypress-io/cypress@1.25.1
+executors:
+  browsers-chrome75-helsinki-tz:
+    docker:
+      - image: 'cypress/browsers:node12.6.0-chrome75'
+    environment:
+      TZ: Europe/Helsinki
 workflows:
-  build-and-test:
+  build:
     jobs:
-      - build-and-test
+      - cypress/install:
+          executor: cypress/base-14
+          build: 'cd frontend && pnpm run build' # run a custom app build step
+          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
+          install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm install --frozen-lockfile'
+      - cypress/run:
+          executor: browsers-chrome75-helsinki-tz
+          browser: chrome
+          working_directory: 'frontend'
+          requires:
+            - cypress/install
+          install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd ../api && pnpm install --frozen-lockfile'
+          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
+          start: 'cd ../api && pnpm run ci' # start server before running tests
+          wait-on: 'http://localhost:9999 http://localhost:3000'
+          command: 'ls dist/ && pnpm run ci:test'

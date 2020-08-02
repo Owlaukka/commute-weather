@@ -1,11 +1,11 @@
 const dayjs = require('dayjs');
 
-const ExternalApi = require('../../services/externalAPI');
+const WeatherApi = require('../../services/externalAPI');
 
 const weatherResolver = {
   Query: {
     weather: async (_, { lat, lon, time }) => {
-      const parsedResponse = await ExternalApi.fetchWeatherByLocation(lat, lon);
+      const parsedResponse = await WeatherApi.fetchWeatherByLocation(lat, lon);
 
       // TODO: optimize and clarify this, and maybe Time and Datetime custom scalars as well
       const [hours, minutes] = time;

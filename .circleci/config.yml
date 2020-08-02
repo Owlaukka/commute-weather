@@ -2,11 +2,11 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@1.25.1
 executors:
-  browsers-chrome75-Helsinki-TZ:
+  browsers-chrome75-helsinki-tz:
     docker:
       - image: 'cypress/browsers-chrome75'
     environment:
-      TZ: 'Europe/Helsinki'
+      TZ: Europe/Helsinki
 workflows:
   build:
     jobs:

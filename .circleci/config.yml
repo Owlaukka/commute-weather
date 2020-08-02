@@ -18,7 +18,6 @@ workflows:
             - cypress/install
           install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd ../api && pnpm install'
           cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
-          start: 'cd ../api && pwd && pnpm run ci:app & pnpm run wiremock:external' # start server before running tests (WRONG)
-          # start: 'cd ../api && pnpm run ci' # start server before running tests
+          start: 'cd ../api && pnpm run ci' # start server before running tests
           wait-on: 'http://localhost:9999 http://localhost:3000'
-          command: 'sleep 10 && pnpm run ci:test'
+          command: 'sleep 10 && ls dist/ && pnpm run ci:test'

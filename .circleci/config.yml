@@ -6,7 +6,7 @@ executors:
     docker:
       - image: 'cypress/browsers-chrome75'
     environment:
-      TZ: Europe/Helsinki
+      TZ: 'Europe/Helsinki'
 workflows:
   build:
     jobs:

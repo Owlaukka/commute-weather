@@ -10,7 +10,7 @@
     "start:test": "cross-env NODE_ENV=test webpack-dev-server --open --config webpack/webpack.dev.js",
     "test": "cross-env NODE_ENV=test cypress open",
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.js",
-    "ci:test": "CYPRESS_BASE_URL=http://localhost:3000 cross-env NODE_ENV=test cypress run"
+    "ci:test": "cross-env CYPRESS_BASE_URL=http://localhost:3000 NODE_ENV=test cypress run"
   },
   "dependencies": {
     "@apollo/client": "^3.1.1",

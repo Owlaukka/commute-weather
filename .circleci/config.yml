@@ -11,11 +11,12 @@ workflows:
           install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm install'
       - cypress/run:
           executor: cypress/base-14
+          working_directory: 'frontend'
           requires:
             - cypress/install
-          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
-          start: 'cd ../api && cat __files/weather.json && pnpm run ci' # start server before running tests
-          wait-on: 'http://localhost:3000'
-          command: 'pnpm run ci:test'
-          working_directory: 'frontend'
           install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd ../api && pnpm install'
+          cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
+          start: 'cd ../api && pnpm run wiremock:external & pnpm run ci:app' # start server before running tests (WRONG)
+          # start: 'cd ../api && pnpm run ci' # start server before running tests
+          wait-on: 'http://localhost:9999 http://localhost:3000'
+          command: 'sleep 10 && pnpm run ci:test'

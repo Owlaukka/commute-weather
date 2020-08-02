@@ -23,8 +23,6 @@ const fetchWeatherByLocation = async (lat, lon) => {
     const response = await got(
       `${WEATHER_API_DOMAIN}/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,current&appid=${API_KEY}&units=metric`
     );
-    console.log('WEATHER_API_DOMAIN', WEATHER_API_DOMAIN);
-    console.log('start of the response.body', response.body.substring(0, 100));
     return parseJSON(response.body);
   } catch (e) {
     console.error('Could not fetch weather from external weather API', e);

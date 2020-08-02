@@ -16,7 +16,7 @@ workflows:
           cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "frontend/package.json" }}'
           install-command: 'curl -L https://unpkg.com/@pnpm/self-installer | node && cd frontend && pnpm install --frozen-lockfile'
       - cypress/run:
-          executor: browsers-chrome75-Helsinki-TZ
+          executor: browsers-chrome75-helsinki-tz
           browser: chrome
           working_directory: 'frontend'
           requires:

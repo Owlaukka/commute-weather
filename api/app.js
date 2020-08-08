@@ -15,6 +15,7 @@ module.exports = (fastify, opts, next) => {
 
   // Testing only routes
   if (process.env.NODE_ENV === 'test') {
+    // TODO: separate into its own plugin
     // Serve Frontend files in testing
     // eslint-disable-next-line global-require, import/no-extraneous-dependencies
     fastify.register(require('fastify-static'), {

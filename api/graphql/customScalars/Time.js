@@ -1,7 +1,7 @@
 const { GraphQLScalarType, GraphQLError, Kind } = require('graphql');
 
 const parseTimeIntoPairOfInts = (value) =>
-  value.split(':', 2).map((value) => parseInt(value));
+  value.split(':', 2).map((val) => parseInt(val, 10));
 
 const isCorrectFormat = (value) =>
   /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g.test(value);
@@ -20,7 +20,7 @@ const parseTimeLiteral = (ast) => {
     return parseTimeIntoPairOfInts(ast.value);
 
   throw new GraphQLError(
-    `Given value ${value} is not a valid Time. Must be a String of valid format "HH:mm" and between 00:00-23:59.`
+    `Given value ${ast.value} is not a valid Time. Must be a String of valid format "HH:mm" and between 00:00-23:59.`
   );
 };
 

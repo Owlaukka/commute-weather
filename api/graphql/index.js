@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 

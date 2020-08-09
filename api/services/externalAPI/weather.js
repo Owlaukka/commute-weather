@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const got = require('got');
 
 const API_KEY = process.env.WEATHER_API_KEY;
@@ -14,7 +15,7 @@ const parseJSON = (json) => {
   try {
     return JSON.parse(json);
   } catch (e) {
-    console.error('Could not parse JSON. JSON:', json, 'Error:', e);
+    throw new Error('Parsing JSON failed. JSON:', json, 'Error:', e);
   }
 };
 
@@ -26,6 +27,7 @@ const fetchWeatherByLocation = async (lat, lon) => {
     return parseJSON(response.body);
   } catch (e) {
     console.error('Could not fetch weather from external weather API', e);
+    return null;
   }
 };
 

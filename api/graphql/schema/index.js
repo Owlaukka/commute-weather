@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 
 const weatherType = require('./weatherType');

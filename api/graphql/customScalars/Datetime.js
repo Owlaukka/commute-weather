@@ -1,4 +1,4 @@
-const { GraphQLScalarType, GraphQLError } = require('graphql');
+const { GraphQLScalarType, GraphQLError, Kind } = require('graphql');
 const dayjs = require('dayjs');
 
 const parseDatetimeValue = (value) => {
@@ -10,7 +10,7 @@ const parseDatetimeValue = (value) => {
 const parseDatetimeLiteral = (ast) => {
   if (ast.kind === Kind.STRING && dayjs(ast.value).isValid()) return ast.value;
 
-  throw new GraphQLError(`Given value ${value} is not a valid Datetime.`);
+  throw new GraphQLError(`Given value ${ast.value} is not a valid Datetime.`);
 };
 
 const serializeDatetime = (value) => {

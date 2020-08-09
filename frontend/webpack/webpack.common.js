@@ -21,15 +21,19 @@ module.exports = {
       title: 'Should I Walk?',
     }),
     new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.html$/,
+      threshold: 8192,
+    }),
+    new CompressionPlugin({
       filename: '[path].br[query]',
       algorithm: 'brotliCompress',
       test: /\.(js|html)$/,
       compressionOptions: {
         level: 11,
       },
-      threshold: 10240,
-      minRatio: 0.8,
-      deleteOriginalAssets: false,
+      threshold: 8192,
     }),
   ],
   output: {

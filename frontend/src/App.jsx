@@ -7,10 +7,11 @@ import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 
 import GlobalStyles from './theme/GlobalStyles';
+import Header from './components/header';
+
 const LoginPage = React.lazy(() => import('./pages/LoginPage'));
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
-import Header from './components/header';
 
 const Main = styled.main(
   {
@@ -28,9 +29,11 @@ const App = () => {
 
   useEffect(() => {
     const cache = new InMemoryCache();
-    // TODO: specifying the whole address isn't necessary in production because backend serves these files
     const apolloClient = new ApolloClient({
-      uri: 'http://localhost:3000/graphql',
+      uri:
+        process.env.NODE_ENV === 'production'
+          ? '/graphql'
+          : 'http://localhost:3000/graphql',
       cache,
     });
 

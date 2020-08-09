@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { useLazyQuery, gql } from '@apollo/client';
 import WeatherInfoContext from './WeatherInfoContext';
@@ -33,8 +34,8 @@ const WeatherInfoCardList = ({ className }) => {
   useEffect(() => {
     navigator?.geolocation.getCurrentPosition(
       (position) => setCoords(position.coords),
-      (error) =>
-        console.error('Error Code = ' + error.code + ' - ' + error.message)
+      // eslint-disable-next-line no-console
+      (error) => console.error(`Error Code = ${error.code} - ${error.message}`)
     );
   }, []);
 
@@ -60,6 +61,14 @@ const WeatherInfoCardList = ({ className }) => {
         ))}
     </List>
   );
+};
+
+WeatherInfoCardList.propTypes = {
+  className: PropTypes.string,
+};
+
+WeatherInfoCardList.defaultProps = {
+  className: '',
 };
 
 export default WeatherInfoCardList;

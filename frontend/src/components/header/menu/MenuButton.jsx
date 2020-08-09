@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import Hamburger from './Hamburger.sc';
@@ -35,5 +36,10 @@ const MenuButton = ({ open, setOpen }) => (
     </Button>
   </>
 );
+
+MenuButton.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+};
 
 export default MenuButton;

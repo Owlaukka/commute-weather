@@ -1,7 +1,7 @@
 import colors from './colors';
 import sizes from './sizes';
 
-export const theme = {
+const theme = {
   colors,
   sizes,
 };

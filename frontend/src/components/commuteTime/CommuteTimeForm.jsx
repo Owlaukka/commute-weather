@@ -44,9 +44,9 @@ const CommuteTimeForm = () => {
         />
       </label>
       <button
+        type="submit"
         data-testid="planned-commute-submit-button"
         onClick={saveNewCommuteTime}
-        role="submit"
       >
         Confirm
       </button>

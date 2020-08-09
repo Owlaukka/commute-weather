@@ -1,4 +1,4 @@
-const { css } = require('@emotion/core');
+import { css } from '@emotion/core';
 import { normalize } from 'polished';
 
 const GlobalStyles = (theme) => css`

@@ -1,8 +1,8 @@
+import dayjs from 'dayjs';
 import {
   findTemperatureColor,
   resolveDayText,
 } from '../../../src/components/weatherInfo/weatherInfoHelpers';
-import dayjs from 'dayjs';
 
 describe('weatherInfoHelpers', () => {
   describe('findTemperatureColor', () => {

@@ -3,11 +3,7 @@ module.exports = {
     browser: true,
     es2020: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'prettier/react'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -15,14 +11,22 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: ['react', 'prettier'],
-  rules: {
-    'prettier/prettier': 'error',
-  },
+  plugins: ['react'],
   overrides: [
     {
       files: ['webpack.*'],
       rules: {
+        'import/no-extraneous-dependencies': [
+          'error',
+          { devDependencies: true },
+        ],
+      },
+    },
+    {
+      files: ['**/cypress/**'],
+      rules: {
+        'no-undef': 'off',
+        'no-unused-expressions': 'off',
         'import/no-extraneous-dependencies': [
           'error',
           { devDependencies: true },

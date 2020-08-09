@@ -20,13 +20,13 @@ const WeatherInfoCard = ({ weather }) => (
     <Day>{resolveDayText(weather.time)}</Day>
     <WeatherIcon temperature={weather.temperature} />
     <Temp data-testid="weather-card-temp" temperature={weather.temperature}>
-      {weather.temperature}°C
+      {`${weather.temperature}°C`}
     </Temp>
     <Weather>{weather.weather.join(', ')}</Weather>
     <TimeOfCommute>{dayjs(weather.time).format('HH:mm')}</TimeOfCommute>
     <Humidity>
       <WiHumidity />
-      <HumidityText>{weather.humidity}%</HumidityText>
+      <HumidityText>{`${weather.humidity}%`}</HumidityText>
     </Humidity>
   </Wrapper>
 );

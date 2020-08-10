@@ -18,13 +18,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Should I Walk?',
+      title: 'Weather for Commute',
     }),
     new CompressionPlugin({
       filename: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.js$|\.html$/,
       threshold: 8192,
+      minRatio: 0.8,
     }),
     new CompressionPlugin({
       filename: '[path].br[query]',
@@ -34,6 +35,7 @@ module.exports = {
         level: 11,
       },
       threshold: 8192,
+      minRatio: 0.8,
     }),
   ],
   output: {

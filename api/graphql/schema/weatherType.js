@@ -1,7 +1,5 @@
 const typeDefs = `
   type WeatherData {
-    lat: Float!
-    lon: Float!
     time: Datetime!
     temperature: Float!
     weather: [String!]!
@@ -9,7 +7,7 @@ const typeDefs = `
   }
 
   type Query {
-    weather(lat: Float!, lon: Float!, time: Time!): [WeatherData!]!
+    weather(lat: Float!, lon: Float!, time: Datetime!, numberOfForecasts: Int): [WeatherData!]!
   }
 `;
 

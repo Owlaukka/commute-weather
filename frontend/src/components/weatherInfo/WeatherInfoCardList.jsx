@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { useLazyQuery, gql } from '@apollo/client';
 import dayjs from 'dayjs';
-import WeatherInfoContext from './WeatherInfoContext';
+import utc from 'dayjs/plugin/utc';
 
+import WeatherInfoContext from './WeatherInfoContext';
 import WeatherInfoCard from './WeatherInfoCard';
+import { formatTime } from './weatherInfoHelpers';
+
+dayjs.extend(utc);
 
 const List = styled.ul({
   margin: 0,
@@ -16,15 +20,25 @@ const List = styled.ul({
 });
 
 const WEATHER_EXAMPLE = gql`
-  query Weather($lat: Float!, $lon: Float!, $time: Datetime!) {
+  query Weather($lat: Float!, $lon: Float!, $time: Time!) {
     weather(lat: $lat, lon: $lon, time: $time) {
       time
-      temperature
-      weather
+      temperature {
+        isDaily
+        temp
+        min
+        max
+      }
+      weather {
+        main
+        icon
+      }
       humidity
     }
   }
 `;
+
+const timeZoneDifference = dayjs().hour() - dayjs.utc().hour();
 
 const WeatherInfoCardList = ({ className }) => {
   const [coords, setCoords] = useState(null);
@@ -42,19 +56,12 @@ const WeatherInfoCardList = ({ className }) => {
 
   useEffect(() => {
     if (coords?.latitude && coords?.longitude) {
-      const splitTime = commuteTime.split(':');
-      const timeToDatetime = dayjs()
-        .hour(splitTime[0])
-        .minute(splitTime[1])
-        .second(0);
-      const nextRequestedDatetime = timeToDatetime.isAfter(dayjs())
-        ? timeToDatetime.format()
-        : timeToDatetime.add(1, 'day').format();
+      const [hour, minute] = commuteTime;
       getWeather({
         variables: {
           lat: coords.latitude,
           lon: coords.longitude,
-          time: nextRequestedDatetime,
+          time: formatTime((hour - timeZoneDifference + 24) % 24, minute),
         },
       });
     }

@@ -1,8 +1,4 @@
-import dayjs from 'dayjs';
-import {
-  findTemperatureColor,
-  resolveDayText,
-} from '../../../src/components/weatherInfo/weatherInfoHelpers';
+import { findTemperatureColor } from '../../../src/components/weatherInfo/weatherInfoHelpers';
 
 describe('weatherInfoHelpers', () => {
   describe('findTemperatureColor', () => {
@@ -24,36 +20,6 @@ describe('weatherInfoHelpers', () => {
 
     it('should return correct color for a hot cold temp', () => {
       expect(findTemperatureColor(212)).to.eq('hsl(0, 100%, 50%)');
-    });
-  });
-
-  describe('resolveDayText', () => {
-    it("should return correct string for datetime that's 2 days into the future", () => {
-      expect(
-        resolveDayText(
-          dayjs()
-            .add(2, 'day')
-            .format()
-        )
-      ).to.equal(
-        `in 2 days (${dayjs()
-          .add(2, 'day')
-          .format('D.M.')})`
-      );
-    });
-
-    it("should return correct string for datetime that's in 12 hours ", () => {
-      expect(
-        resolveDayText(
-          dayjs()
-            .add(12, 'hour')
-            .format()
-        )
-      ).to.equal(
-        `in 12 hours (${dayjs()
-          .add(12, 'hour')
-          .format('D.M.')})`
-      );
     });
   });
 });

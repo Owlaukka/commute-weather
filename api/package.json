@@ -6,9 +6,10 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production fastify start -l info app.js",
     "dev": "cross-env NODE_ENV=development fastify start -w -l info -P app.js",
-    "wiremock:external": "wiremock --port 9999 --verbose",
+    "wiremock:external": "wiremock --port 9999 --root-dir wiremock --verbose",
     "ci:start": "cross-env NODE_ENV=test fastify start -w -l info -P app.js",
-    "ci": "start-test wiremock:external 9999 ci:start"
+    "ci": "start-test wiremock:external 9999 ci:start",
+    "lint": "eslint --ext .jsx --ext .js graphql/ services/ static/ app.js"
   },
   "keywords": [],
   "author": "Olli Laukkanen",

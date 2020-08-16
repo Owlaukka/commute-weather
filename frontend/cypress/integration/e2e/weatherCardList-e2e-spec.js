@@ -11,27 +11,27 @@ describe('Weather card list', () => {
       longitude: 25.0,
     });
 
-    cy.get('[data-testid=planned-commute-input]').should('have.value', '17:35');
+    cy.get('[data-testid=planned-commute-input]').should('have.value', '17:30');
 
     cy.get('[data-testid=weather-info-card-list]')
       .children()
-      .should('have.length', 4);
+      .should('have.length', 8);
 
     cy.get('[data-testid=weather-card-temp]')
       .first()
-      .should('have.text', '17.6°C');
+      .should('have.text', '18.4°C');
 
     cy.get('[data-testid=weather-card-temp]')
       .eq(1)
-      .should('have.text', '17.1°C');
+      .should('have.text', '17.6°C');
 
     cy.get('[data-testid=weather-card-temp]')
       .eq(2)
-      .should('have.text', '16.3°C');
+      .should('have.text', '16.7-17.5°C');
 
     cy.get('[data-testid=weather-card-temp]')
       .eq(3)
-      .should('have.text', '16.4°C');
+      .should('have.text', '15.9-16.8°C');
   });
 
   it('should let user set a new planned commute value and update temperatures accordingly', () => {
@@ -40,25 +40,25 @@ describe('Weather card list', () => {
       longitude: 25.0,
     });
 
-    cy.get('[data-testid=planned-commute-input]').should('have.value', '17:35');
+    cy.get('[data-testid=planned-commute-input]').should('have.value', '17:30');
 
-    cy.get('[data-testid=planned-commute-input]').type('12:15');
+    cy.get('[data-testid=planned-commute-input]').type('03:15');
     cy.get('[data-testid=planned-commute-submit-button]').click();
 
     cy.get('[data-testid=weather-card-temp]')
       .first()
-      .should('have.text', '17.7°C');
+      .should('have.text', '17.2°C');
 
     cy.get('[data-testid=weather-card-temp]')
       .eq(1)
-      .should('have.text', '17.1°C');
+      .should('have.text', '18.3°C');
 
     cy.get('[data-testid=weather-card-temp]')
       .eq(2)
-      .should('have.text', '16.3°C');
+      .should('have.text', '16.7-17.5°C');
 
     cy.get('[data-testid=weather-card-temp]')
       .eq(3)
-      .should('have.text', '16.4°C');
+      .should('have.text', '15.9-16.8°C');
   });
 });

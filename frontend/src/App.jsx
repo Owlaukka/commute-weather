@@ -10,7 +10,9 @@ import GlobalStyles from './theme/GlobalStyles';
 import Header from './components/header';
 
 const LoginPage = React.lazy(() => import('./pages/LoginPage'));
-const HomePage = React.lazy(() => import('./pages/HomePage'));
+const HomePage = React.lazy(() =>
+  import(/* webpackPreload: true */ './pages/HomePage')
+);
 const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
 
 const Main = styled.main(

@@ -13,8 +13,11 @@ describe('WeatherInfoCard', () => {
       <ThemeProvider theme={theme}>
         <WeatherInfoCard
           weather={{
-            temperature: 12.6,
-            weather: ['clouds', 'light rain'],
+            temperature: { isDaily: false, temp: 12.6 },
+            weather: [
+              { main: 'clouds', icon: '12d' },
+              { main: 'light rain', icon: '02d' },
+            ],
             time: '2020-08-30T12:12:30',
             humidity: 69,
           }}

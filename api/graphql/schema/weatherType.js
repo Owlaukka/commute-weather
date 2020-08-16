@@ -1,13 +1,26 @@
+// TODO: add custom directive to make specific Temperature fields required based on isDaily value
 const typeDefs = `
+  type Temperature {
+    isDaily: Boolean!
+    temp: Float
+    min: Float
+    max: Float
+  }
+
+  type Weather {
+    main: String!
+    icon: String!
+  }
+
   type WeatherData {
     time: Datetime!
-    temperature: Float!
-    weather: [String!]!
+    temperature: Temperature!
+    weather: [Weather!]!
     humidity: Float!
   }
 
   type Query {
-    weather(lat: Float!, lon: Float!, time: Datetime!, numberOfForecasts: Int): [WeatherData!]!
+    weather(lat: Float!, lon: Float!, time: Time!): [WeatherData!]!
   }
 `;
 

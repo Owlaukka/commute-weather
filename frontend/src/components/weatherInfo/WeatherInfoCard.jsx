@@ -13,16 +13,28 @@ import {
   Humidity,
   HumidityText,
 } from './WeatherInfoCard.sc';
-import { resolveDayText } from './weatherInfoHelpers';
+
+const resolveDayText = (datetime) =>
+  `${dayjs().to(datetime)} (${dayjs(datetime).format('D.M.')})`;
+
+const resolveTempDisplay = (weather) =>
+  weather.temperature.isDaily
+    ? `${weather.temperature.min}-${weather.temperature.max}`
+    : weather.temperature.temp;
+
+const getAvgTemp = (weather) =>
+  weather.temperature.isDaily
+    ? (weather.temperature.min + weather.temperature.max) / 2
+    : weather.temperature.temp;
 
 const WeatherInfoCard = ({ weather }) => (
   <Wrapper>
     <Day>{resolveDayText(weather.time)}</Day>
-    <WeatherIcon temperature={weather.temperature} />
-    <Temp data-testid="weather-card-temp" temperature={weather.temperature}>
-      {`${weather.temperature}°C`}
+    <WeatherIcon temperature={getAvgTemp(weather)} />
+    <Temp data-testid="weather-card-temp" temperature={getAvgTemp(weather)}>
+      {`${resolveTempDisplay(weather)}°C`}
     </Temp>
-    <Weather>{weather.weather.join(', ')}</Weather>
+    <Weather>{weather.weather.map((w) => w.main).join(', ')}</Weather>
     <TimeOfCommute>{dayjs(weather.time).format('HH:mm')}</TimeOfCommute>
     <Humidity>
       <WiHumidity />
@@ -33,11 +45,22 @@ const WeatherInfoCard = ({ weather }) => (
 
 WeatherInfoCard.propTypes = {
   weather: PropTypes.shape({
-    temperature: PropTypes.number.isRequired,
-    weather: PropTypes.arrayOf(PropTypes.string).isRequired,
+    temperature: PropTypes.shape({
+      isDaily: PropTypes.bool.isRequired,
+      temp: PropTypes.number,
+      min: PropTypes.number,
+      max: PropTypes.number,
+    }).isRequired,
+    weather: PropTypes.arrayOf(
+      PropTypes.shape({
+        main: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
+      })
+    ).isRequired,
     time: PropTypes.string.isRequired,
     humidity: PropTypes.number.isRequired,
   }).isRequired,
 };
 
 export default WeatherInfoCard;
+export { resolveDayText as resolveDayTextTest };

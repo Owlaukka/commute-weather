@@ -6,12 +6,12 @@ import { WiHumidity } from 'react-icons/wi';
 import {
   Wrapper,
   Day,
-  WeatherIcon,
   Temp,
   Weather,
   TimeOfCommute,
   Humidity,
   HumidityText,
+  resolveStyledWeatherIcon,
 } from './WeatherInfoCard.sc';
 
 const resolveDayText = (datetime) =>
@@ -27,21 +27,24 @@ const getAvgTemp = (weather) =>
     ? (weather.temperature.min + weather.temperature.max) / 2
     : weather.temperature.temp;
 
-const WeatherInfoCard = ({ weather }) => (
-  <Wrapper>
-    <Day>{resolveDayText(weather.time)}</Day>
-    <WeatherIcon temperature={getAvgTemp(weather)} />
-    <Temp data-testid="weather-card-temp" temperature={getAvgTemp(weather)}>
-      {`${resolveTempDisplay(weather)}°C`}
-    </Temp>
-    <Weather>{weather.weather.map((w) => w.main).join(', ')}</Weather>
-    <TimeOfCommute>{dayjs(weather.time).format('HH:mm')}</TimeOfCommute>
-    <Humidity>
-      <WiHumidity />
-      <HumidityText>{`${weather.humidity}%`}</HumidityText>
-    </Humidity>
-  </Wrapper>
-);
+const WeatherInfoCard = ({ weather }) => {
+  const WeatherIcon = resolveStyledWeatherIcon(weather.weather[0].icon);
+  return (
+    <Wrapper>
+      <Day>{resolveDayText(weather.time)}</Day>
+      <WeatherIcon temperature={getAvgTemp(weather)} />
+      <Temp data-testid="weather-card-temp" temperature={getAvgTemp(weather)}>
+        {`${resolveTempDisplay(weather)}°C`}
+      </Temp>
+      <Weather>{weather.weather.map((w) => w.main).join(', ')}</Weather>
+      <TimeOfCommute>{dayjs(weather.time).format('HH:mm')}</TimeOfCommute>
+      <Humidity>
+        <WiHumidity />
+        <HumidityText>{`${weather.humidity}%`}</HumidityText>
+      </Humidity>
+    </Wrapper>
+  );
+};
 
 WeatherInfoCard.propTypes = {
   weather: PropTypes.shape({

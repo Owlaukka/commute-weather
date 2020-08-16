@@ -1,6 +1,22 @@
 import styled from '@emotion/styled';
 import media from 'css-in-js-media';
-import { WiDaySunny } from 'react-icons/wi';
+import {
+  WiDaySunny,
+  WiDayCloudy,
+  WiCloud,
+  WiCloudy,
+  WiDayShowers,
+  WiDayRain,
+  WiDayLightning,
+  WiSnow,
+  WiDayFog,
+  WiNightClear,
+  WiNightCloudy,
+  WiNightShowers,
+  WiNightRain,
+  WiNightLightning,
+  WiNightFog,
+} from 'react-icons/wi';
 
 import { findTemperatureColor } from './weatherInfoHelpers';
 
@@ -40,16 +56,39 @@ export const Wrapper = styled.li(
   })
 );
 
-export const WeatherIcon = styled(WiDaySunny)(
-  {
-    gridArea: 'weatherIcon',
-    width: '15rem',
-    height: '15rem',
-  },
-  ({ temperature }) => ({
-    color: findTemperatureColor(temperature),
-  })
-);
+const resolveIcon = (icon) =>
+  ({
+    '01d': WiDaySunny,
+    '02d': WiDayCloudy,
+    '03d': WiCloud,
+    '04d': WiCloudy,
+    '09d': WiDayShowers,
+    '10d': WiDayRain,
+    '11d': WiDayLightning,
+    '13d': WiSnow,
+    '50d': WiDayFog,
+    '01n': WiNightClear,
+    '02n': WiNightCloudy,
+    '03n': WiCloud,
+    '04n': WiCloudy,
+    '09n': WiNightShowers,
+    '10n': WiNightRain,
+    '11n': WiNightLightning,
+    '13n': WiSnow,
+    '50n': WiNightFog,
+  }[icon]);
+
+export const resolveStyledWeatherIcon = (icon) =>
+  styled(resolveIcon(icon))(
+    {
+      gridArea: 'weatherIcon',
+      width: '15rem',
+      height: '15rem',
+    },
+    ({ temperature }) => ({
+      color: findTemperatureColor(temperature),
+    })
+  );
 
 export const Day = styled.h2({
   gridArea: 'day',

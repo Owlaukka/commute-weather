@@ -20,7 +20,7 @@ const typeDefs = `
   }
 
   type Query {
-    weather(lat: Float!, lon: Float!, time: Time!): [WeatherData!]!
+    weather(lat: Float!, lon: Float!, time: Time!, requestedAt: String!): [WeatherData!]!
   }
 `;
 

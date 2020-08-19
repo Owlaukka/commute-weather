@@ -16,7 +16,7 @@ const Grid = styled.section({
                       ". weatherList ."
                       `,
   [media('>=desktop')]: {
-    margin: '1rem',
+    margin: 0,
     gridTemplateAreas: `". weatherList settingsForm"
                         ". weatherList ."
                         `,

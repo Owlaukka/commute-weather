@@ -8,7 +8,7 @@ import MenuList from './MenuList';
 const Button = styled.button(
   {
     position: 'fixed',
-    right: '0.4rem',
+    right: '1.4rem',
     width: '3rem',
     height: '3rem',
     padding: 0,

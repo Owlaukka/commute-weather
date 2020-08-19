@@ -15,15 +15,9 @@ const HomePage = React.lazy(() =>
 );
 const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
 
-const Main = styled.main(
-  {
-    overflow: 'auto',
-  },
-  ({ theme }) => ({
-    marginTop: theme.sizes.mobileNavbar,
-    height: `calc(100vh - ${theme.sizes.mobileNavbar})`,
-  })
-);
+const Main = styled.main({
+  height: '100%',
+});
 
 const App = () => {
   const theme = useTheme();
@@ -43,7 +37,7 @@ const App = () => {
       await persistCache({
         cache,
         // Change this back to localStorage when proper cache-busting is implemented
-        storage: window.sessionStorage,
+        storage: window.localStorage,
       });
       setClient(apolloClient);
     })();
@@ -52,7 +46,12 @@ const App = () => {
   // TODO: make a better loader.
   // This is only for waiting for cached queries to be restored from localstorage.
   // Might not even show up
-  if (!client) return <div>Loading...</div>;
+  if (!client)
+    return (
+      <Main>
+        <div style={{ height: '100vh' }}>Loading...</div>;
+      </Main>
+    );
 
   return (
     <>
@@ -60,7 +59,11 @@ const App = () => {
       <ApolloProvider client={client}>
         <Header />
         <Main>
-          <Suspense fallback={<div>Loading in Suspense!</div>}>
+          <Suspense
+            fallback={
+              <div style={{ height: '100vh' }}>Loading in Suspense!</div>
+            }
+          >
             <Switch>
               <Route path="/login">
                 <LoginPage />
@@ -68,7 +71,6 @@ const App = () => {
               <Route path="/register">
                 <RegisterPage />
               </Route>
-              {/* Default route if nothing else matches */}
               <Route path="/">
                 <HomePage />
               </Route>

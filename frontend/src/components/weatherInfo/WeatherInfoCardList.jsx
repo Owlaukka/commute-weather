@@ -20,8 +20,13 @@ const List = styled.ul({
 });
 
 const WEATHER_EXAMPLE = gql`
-  query Weather($lat: Float!, $lon: Float!, $time: Time!) {
-    weather(lat: $lat, lon: $lon, time: $time) {
+  query Weather(
+    $lat: Float!
+    $lon: Float!
+    $time: Time!
+    $requestedAt: String!
+  ) {
+    weather(lat: $lat, lon: $lon, time: $time, requestedAt: $requestedAt) {
       time
       temperature {
         isDaily
@@ -57,11 +62,18 @@ const WeatherInfoCardList = ({ className }) => {
   useEffect(() => {
     if (coords?.latitude && coords?.longitude) {
       const [hour, minute] = commuteTime;
+      const today = dayjs();
       getWeather({
         variables: {
           lat: coords.latitude,
           lon: coords.longitude,
           time: formatTime((hour - timeZoneDifference + 24) % 24, minute),
+          // TODO: used only for cache-busting. Find a better way to invalidate cache on the client
+          // that doesn't involve sending a pointless timestamp to the server.
+          requestedAt:
+            today.hour() > hour
+              ? today.add(1, 'day').format('YYYY-MM-DD')
+              : today.format('YYYY-MM-DD'),
         },
       });
     }
@@ -69,7 +81,7 @@ const WeatherInfoCardList = ({ className }) => {
 
   return (
     <List data-testid="weather-info-card-list" className={className}>
-      {loading && <h1>Loading....</h1>}
+      {loading && <h1 style={{ height: '100vh' }}>Loading....</h1>}
       {!loading &&
         data?.weather &&
         data.weather.map((weather) => (

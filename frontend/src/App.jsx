@@ -7,7 +7,6 @@ import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 
 import GlobalStyles from './theme/GlobalStyles';
-import Header from './components/header';
 
 const LoginPage = React.lazy(() => import('./pages/LoginPage'));
 const HomePage = React.lazy(() =>
@@ -16,7 +15,7 @@ const HomePage = React.lazy(() =>
 const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
 
 const Main = styled.main({
-  height: '100%',
+  height: '100vh',
 });
 
 const App = () => {
@@ -36,7 +35,6 @@ const App = () => {
     (async () => {
       await persistCache({
         cache,
-        // Change this back to localStorage when proper cache-busting is implemented
         storage: window.localStorage,
       });
       setClient(apolloClient);
@@ -57,7 +55,6 @@ const App = () => {
     <>
       <Global styles={GlobalStyles(theme)} />
       <ApolloProvider client={client}>
-        <Header />
         <Main>
           <Suspense
             fallback={

@@ -8,7 +8,6 @@ const colors = {
 
   darkBackground: '#151514',
   backgroundImage: 'linear-gradient(to top left, #292929 50%, #999 120%)',
-  navBackgroundImage: 'linear-gradient(to bottom right, #F4F0FA, #0A0A0A 250%)',
   background: '#292929',
   darkVioletBG: '#463548',
   violetBG: '#523857',

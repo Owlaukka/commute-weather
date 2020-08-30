@@ -1,45 +1,26 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import media from 'css-in-js-media';
 
 import { WeatherInfoProvider } from '../components/weatherInfo/WeatherInfoContext';
-import WeatherInfoCardList from '../components/weatherInfo/WeatherInfoCardList';
-import CommuteTimeForm from '../components/commuteTime/CommuteTimeForm';
+import WeatherInfoCarousel from '../components/weatherInfo/WeatherInfoCarousel';
+import WeatherFetcher from '../components/weatherInfo/WeatherFetcher';
+import MenuButton from '../components/weatherInfo/CommuteTimeForm/MenuButton';
 
-const Grid = styled.section({
-  margin: '1rem 0',
-  display: 'grid',
-  gap: '1rem',
-  gridTemplateColumns: '1fr auto 1fr',
-  gridTemplateRows: 'auto auto',
-  gridTemplateAreas: `". settingsForm ."
-                      ". weatherList ."
-                      `,
-  [media('>=desktop')]: {
-    margin: 0,
-    gridTemplateAreas: `". weatherList settingsForm"
-                        ". weatherList ."
-                        `,
-  },
-});
-
-const SettingsForm = styled.aside({
-  gridArea: 'settingsForm',
-});
-
-const WeatherList = styled(WeatherInfoCardList)({
-  gridArea: 'weatherList',
+const Page = styled.section({
+  height: '100%',
+  overflow: 'hidden',
 });
 
 const HomePage = () => (
-  <Grid>
+  <Page>
     <WeatherInfoProvider>
-      <SettingsForm>
-        <CommuteTimeForm />
-      </SettingsForm>
-      <WeatherList />
+      <MenuButton />
+      {/* TODO: turn this into a custom hook? */}
+      <WeatherFetcher>
+        {(weatherList) => <WeatherInfoCarousel list={weatherList} />}
+      </WeatherFetcher>
     </WeatherInfoProvider>
-  </Grid>
+  </Page>
 );
 
 export default HomePage;

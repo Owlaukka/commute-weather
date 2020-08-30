@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { resolveDayTextTest as resolveDayText } from '../../../src/components/weatherInfo/WeatherInfoCard';
+import { resolveDayTextTest as resolveDayText } from '../../../src/components/weatherInfo/WeatherInfo/WeatherInfoCard';
 
 describe('resolveDayText', () => {
   it("should return correct string for datetime that's 2 days into the future", () => {

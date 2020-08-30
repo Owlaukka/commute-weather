@@ -1,24 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 import { useLazyQuery, gql } from '@apollo/client';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
 import WeatherInfoContext from './WeatherInfoContext';
-import WeatherInfoCard from './WeatherInfoCard';
 import { formatTime } from './weatherInfoHelpers';
 
 dayjs.extend(utc);
 
-const List = styled.ul({
-  margin: 0,
-  padding: 0,
-  '& > li:not(:last-child)': {
-    marginBottom: '2rem',
-  },
-});
-
+// TODO: move elsewhere and create a sensible handler for API-calls in general
 const WEATHER_EXAMPLE = gql`
   query Weather(
     $lat: Float!
@@ -45,8 +36,8 @@ const WEATHER_EXAMPLE = gql`
 
 const timeZoneDifference = dayjs().hour() - dayjs.utc().hour();
 
-const WeatherInfoCardList = ({ className }) => {
-  const [coords, setCoords] = useState(null);
+const WeatherFetcher = ({ children }) => {
+  const [{ latitude, longitude }, setCoords] = useState({});
   const { commuteTime } = useContext(WeatherInfoContext);
 
   const [getWeather, { loading, data }] = useLazyQuery(WEATHER_EXAMPLE);
@@ -60,13 +51,13 @@ const WeatherInfoCardList = ({ className }) => {
   }, []);
 
   useEffect(() => {
-    if (coords?.latitude && coords?.longitude) {
+    if (latitude && longitude) {
       const [hour, minute] = commuteTime;
       const today = dayjs();
       getWeather({
         variables: {
-          lat: coords.latitude,
-          lon: coords.longitude,
+          lat: latitude,
+          lon: longitude,
           time: formatTime((hour - timeZoneDifference + 24) % 24, minute),
           // TODO: used only for cache-busting. Find a better way to invalidate cache on the client
           // that doesn't involve sending a pointless timestamp to the server.
@@ -77,26 +68,15 @@ const WeatherInfoCardList = ({ className }) => {
         },
       });
     }
-  }, [coords?.latitude, coords?.longitude, commuteTime]);
+  }, [latitude, longitude, commuteTime, getWeather]);
 
-  return (
-    <List data-testid="weather-info-card-list" className={className}>
-      {loading && <h1 style={{ height: '100vh' }}>Loading....</h1>}
-      {!loading &&
-        data?.weather &&
-        data.weather.map((weather) => (
-          <WeatherInfoCard key={weather.time} weather={weather} />
-        ))}
-    </List>
-  );
+  if (loading) return <h1 style={{ height: '100vh' }}>Loading....</h1>;
+  if (!loading && data?.weather) return children(data.weather || []);
+  return <h1>Shit</h1>;
 };
 
-WeatherInfoCardList.propTypes = {
-  className: PropTypes.string,
+WeatherFetcher.propTypes = {
+  children: PropTypes.func.isRequired,
 };
 
-WeatherInfoCardList.defaultProps = {
-  className: '',
-};
-
-export default WeatherInfoCardList;
+export default WeatherFetcher;

@@ -4,6 +4,7 @@ const Hamburger = styled.div(
   {
     position: 'relative',
     height: '10%',
+    width: '100%',
     margin: '0 0.5rem',
     transition: 'background-color 500ms',
     '&, ::before, ::after': {

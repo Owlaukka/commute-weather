@@ -1,7 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import { render } from '@testing-library/react';
-import WeatherInfoCard from '../../../src/components/weatherInfo/WeatherInfoCard';
+
+import WeatherInfoCard from '../../../src/components/weatherInfo/WeatherInfo/WeatherInfoCard';
 
 // TODO: figure out an easier way include the theme to the tests
 // Or a way to not include the theme

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
 import { WiHumidity } from 'react-icons/wi';
 
 import {
@@ -14,8 +16,14 @@ import {
   resolveStyledWeatherIcon,
 } from './WeatherInfoCard.sc';
 
-const resolveDayText = (datetime) =>
-  `${dayjs().to(datetime)} (${dayjs(datetime).format('D.M.')})`;
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
+
+const resolveDayText = (datetime) => {
+  if (dayjs(datetime).isToday()) return 'Today';
+  if (dayjs(datetime).isTomorrow()) return 'Tomorrow';
+  return dayjs(datetime).format('dddd');
+};
 
 const resolveTempDisplay = (weather) =>
   weather.temperature.isDaily
@@ -27,24 +35,26 @@ const getAvgTemp = (weather) =>
     ? (weather.temperature.min + weather.temperature.max) / 2
     : weather.temperature.temp;
 
-const WeatherInfoCard = ({ weather }) => {
+const WeatherInfoCard = React.forwardRef(({ weather }, ref) => {
   const WeatherIcon = resolveStyledWeatherIcon(weather.weather[0].icon);
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <Day>{resolveDayText(weather.time)}</Day>
       <WeatherIcon temperature={getAvgTemp(weather)} />
       <Temp data-testid="weather-card-temp" temperature={getAvgTemp(weather)}>
         {`${resolveTempDisplay(weather)}°C`}
       </Temp>
       <Weather>{weather.weather.map((w) => w.main).join(', ')}</Weather>
-      <TimeOfCommute>{dayjs(weather.time).format('HH:mm')}</TimeOfCommute>
+      <TimeOfCommute>
+        {dayjs(weather.time).format('HH:mm (D.M.)')}
+      </TimeOfCommute>
       <Humidity>
         <WiHumidity />
         <HumidityText>{`${weather.humidity}%`}</HumidityText>
       </Humidity>
     </Wrapper>
   );
-};
+});
 
 WeatherInfoCard.propTypes = {
   weather: PropTypes.shape({

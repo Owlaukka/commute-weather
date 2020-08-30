@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2020: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'prettier/react'],
+  extends: ['airbnb', 'airbnb/hooks', 'prettier', 'prettier/react'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -11,7 +11,6 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: ['react'],
   overrides: [
     {
       files: ['webpack.*'],

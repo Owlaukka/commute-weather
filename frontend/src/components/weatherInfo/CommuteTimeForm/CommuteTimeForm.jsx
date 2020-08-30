@@ -1,21 +1,11 @@
 import React, { useContext, useState } from 'react';
 import styled from '@emotion/styled';
-import media from 'css-in-js-media';
 
-import WeatherInfoContext from '../weatherInfo/WeatherInfoContext';
+import WeatherInfoContext from '../WeatherInfoContext';
 
-const Form = styled.form(
-  {
-    padding: '1rem',
-    [media('>=desktop')]: {
-      maxWidth: 'max-content',
-    },
-  },
-  ({ theme }) => ({
-    backgroundColor: theme.colors.black,
-    boxShadow: `0 0 15px 0px ${theme.colors.black}`,
-  })
-);
+const Form = styled.form({
+  padding: '1rem',
+});
 
 const CommuteTimeForm = () => {
   const { getCommuteTimeString, saveCommuteTime } = useContext(
@@ -37,7 +27,7 @@ const CommuteTimeForm = () => {
         {/* TODO: make a reusable when more inputs added */}
         <input
           id="planned-commute-input"
-          data-testid="planned-commute-input"
+          data-testid="planned-commute-input" // TODO: change to user-centric selector
           type="time"
           step="300"
           required

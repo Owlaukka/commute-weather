@@ -35,7 +35,7 @@ const CardWrapper = styled.li({
   alignItems: 'center',
   [media('>=desktop')]: {
     '&:first-of-type': {
-      marginLeft: '20vw',
+      marginLeft: '50vw',
     },
   },
   [media('<tablet')]: {

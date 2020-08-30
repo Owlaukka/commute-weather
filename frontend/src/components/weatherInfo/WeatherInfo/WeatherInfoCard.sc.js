@@ -21,8 +21,7 @@ import {
 import { findTemperatureColor } from '../weatherInfoHelpers';
 
 export const Wrapper = styled.article(({ theme }) => ({
-  width: '100vw', // change
-  height: 'clamp(37rem, 100vh, 40rem)',
+  width: '100vw',
   fontSize: 'clamp(1.5rem, calc(3vw + 2.5vh), 5rem)',
   transition: 'transform 500ms',
   display: 'grid',
@@ -38,8 +37,11 @@ export const Wrapper = styled.article(({ theme }) => ({
                       "timeOfCommute timeOfCommute timeOfCommute timeOfCommute"
                       "humidity humidity humidity humidity"
                       `,
+  [media('>=tablet')]: {
+    height: 'min(100vh, 37rem)',
+    width: 'min(100vw, 65rem)',
+  },
   [media('>=desktop')]: {
-    width: 'min(75vw, 65rem)',
     gridTemplateAreas: `"day day day day"
                         "weatherIcon weatherIcon temp weather"
                         "weatherIcon weatherIcon timeOfCommute timeOfCommute"

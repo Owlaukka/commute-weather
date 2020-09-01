@@ -28,13 +28,14 @@ const InnerItem = styled.div({
   justifyContent: 'center',
 });
 
-const Button = ({ onClick, disabled, className, children }) => {
+const Button = ({ onClick, disabled, className, ariaLabel, children }) => {
   return (
     <StyledButton
       type="button"
       onClick={onClick}
       disabled={disabled}
       className={className}
+      aria-label={ariaLabel}
     >
       <InnerItem tabIndex={-1}>{children}</InnerItem>
     </StyledButton>
@@ -46,11 +47,13 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
+  ariaLabel: PropTypes.string,
 };
 
 Button.defaultProps = {
   disabled: false,
   className: '',
+  ariaLabel: null,
 };
 
 export default Button;

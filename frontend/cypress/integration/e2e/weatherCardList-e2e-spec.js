@@ -1,64 +1,57 @@
 describe('Weather card list', () => {
   beforeEach(() => {
-    // TODO: maybe make this global in tests somehow
-    // mock time to be able to use mocked external responses that would otherwise change over time
-    cy.clock(new Date('2020-07-27T18:00:00').getTime());
+    cy.visitWithMockGeolocation('/', {
+      latitude: 60.2,
+      longitude: 25.0,
+    });
   });
 
   it('should have correct temperature on temperature cards and correct amount of cards by default', () => {
-    cy.visitWithMockGeolocation('/', {
-      latitude: 60.2,
-      longitude: 25.0,
-    });
+    cy.findByText('Today').should('exist');
+    cy.findByText('Today').should('be.visible');
+    cy.findByText('Tomorrow').should('exist');
+    cy.findByText('Tomorrow').should('not.be.visible');
 
-    cy.get('[data-testid=planned-commute-input]').should('have.value', '17:30');
+    cy.findAllByText(/°C/).should('have.length', 8);
 
-    cy.get('[data-testid=weather-info-card-list]')
-      .children()
-      .should('have.length', 8);
+    cy.findAllByText(/°C/).first().as('firstWeatherCard');
+    cy.findAllByText(/°C/).eq(3).as('fourthWeatherCard');
 
-    cy.get('[data-testid=weather-card-temp]')
-      .first()
-      .should('have.text', '18.4°C');
+    cy.get('@firstWeatherCard').should('have.text', '18.4°C');
+    cy.get('@firstWeatherCard').should('be.visible');
+    cy.get('@fourthWeatherCard').should('have.text', '15.9-16.8°C');
+    cy.get('@fourthWeatherCard').should('not.be.visible');
+  });
 
-    cy.get('[data-testid=weather-card-temp]')
-      .eq(1)
-      .should('have.text', '17.6°C');
+  it('should allow cycling visible weather cards', () => {
+    cy.findByText('Today').should('be.visible');
+    cy.findByText('Tomorrow').should('not.be.visible');
 
-    cy.get('[data-testid=weather-card-temp]')
-      .eq(2)
-      .should('have.text', '16.7-17.5°C');
+    cy.findByLabelText(/previous day/i).should('be.disabled');
+    cy.findByLabelText(/next day/i).should('not.be.disabled');
 
-    cy.get('[data-testid=weather-card-temp]')
-      .eq(3)
-      .should('have.text', '15.9-16.8°C');
+    cy.findByLabelText(/next day/i).click();
+    cy.findByLabelText(/previous day/i).should('not.be.disabled');
+
+    cy.findByText('Today').should('not.be.visible');
+    cy.findByText('Tomorrow').should('be.visible');
   });
 
   it('should let user set a new planned commute value and update temperatures accordingly', () => {
-    cy.visitWithMockGeolocation('/', {
-      latitude: 60.2,
-      longitude: 25.0,
-    });
+    cy.findByLabelText(/Time of planned/i).should('not.be.visible');
 
-    cy.get('[data-testid=planned-commute-input]').should('have.value', '17:30');
+    cy.findByLabelText(/Open menu/i).click();
 
-    cy.get('[data-testid=planned-commute-input]').type('03:15');
-    cy.get('[data-testid=planned-commute-submit-button]').click();
+    cy.findByLabelText(/Time of planned/i).should('have.value', '17:30');
+    cy.findByLabelText(/Time of planned/i).type('03:15');
 
-    cy.get('[data-testid=weather-card-temp]')
-      .first()
-      .should('have.text', '17.2°C');
+    cy.findByRole('button', { name: 'Confirm' }).click();
 
-    cy.get('[data-testid=weather-card-temp]')
-      .eq(1)
-      .should('have.text', '18.3°C');
+    cy.findByText('17.2°C').should('exist');
+    cy.findByText('18.3°C').should('exist');
+    cy.findByText('18.3°C').should('not.be.visible');
 
-    cy.get('[data-testid=weather-card-temp]')
-      .eq(2)
-      .should('have.text', '16.7-17.5°C');
-
-    cy.get('[data-testid=weather-card-temp]')
-      .eq(3)
-      .should('have.text', '15.9-16.8°C');
+    cy.findByLabelText(/Close menu/i).click();
+    cy.findByLabelText(/Time of planned/i).should('not.be.visible');
   });
 });

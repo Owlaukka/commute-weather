@@ -1,7 +1,4 @@
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-
-dayjs.extend(relativeTime);
 
 const highTempLimit = 36;
 const lowTempLimit = -18;

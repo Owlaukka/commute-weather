@@ -36,7 +36,7 @@ const MenuButton = () => {
   return (
     <SettingsForm open={open}>
       <HamburgerButton
-        aria-label="Open navigation"
+        ariaLabel={open ? 'Close Menu' : 'Open Menu'}
         onClick={() => setOpen((prev) => !prev)}
         open={open}
       >

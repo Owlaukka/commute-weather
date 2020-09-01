@@ -3,7 +3,13 @@ module.exports = {
     browser: true,
     es2020: true,
   },
-  extends: ['airbnb', 'airbnb/hooks', 'prettier', 'prettier/react'],
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+    'plugin:cypress/recommended',
+    'prettier',
+    'prettier/react',
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -24,7 +30,6 @@ module.exports = {
     {
       files: ['**/cypress/**'],
       rules: {
-        'no-undef': 'off',
         'no-unused-expressions': 'off',
         'import/no-extraneous-dependencies': [
           'error',

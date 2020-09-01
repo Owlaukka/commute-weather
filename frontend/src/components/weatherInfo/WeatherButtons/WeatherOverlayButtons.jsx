@@ -10,6 +10,7 @@ const WeatherOverlayButtons = ({ pointer, setPointer, listLength }) => (
       direction="previous"
       onClick={() => setPointer((prev) => prev - 1)}
       disabled={!pointer}
+      ariaLabel="Previous Day"
     >
       <FaArrowLeft />
     </WeatherScrollerOverlayButton>
@@ -17,6 +18,7 @@ const WeatherOverlayButtons = ({ pointer, setPointer, listLength }) => (
       direction="next"
       onClick={() => setPointer((prev) => prev + 1)}
       disabled={pointer >= listLength - 1}
+      ariaLabel="Next Day"
     >
       <FaArrowRight />
     </WeatherScrollerOverlayButton>

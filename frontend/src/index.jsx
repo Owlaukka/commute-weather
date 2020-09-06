@@ -17,3 +17,14 @@ ReactDom.render(
   </BrowserRouter>,
   node
 );
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      await navigator.serviceWorker.register('./sw.js');
+    } catch (regError) {
+      // eslint-disable-next-line no-console
+      console.error('SW registration failed: ', regError);
+    }
+  });
+}

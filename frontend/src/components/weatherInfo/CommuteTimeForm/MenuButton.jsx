@@ -42,7 +42,7 @@ const MenuButton = () => {
       >
         <Hamburger open={open} />
       </HamburgerButton>
-      <CommuteTimeForm open={open} />
+      <CommuteTimeForm open={open} setOpen={setOpen} />
     </SettingsForm>
   );
 };

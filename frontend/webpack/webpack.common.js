@@ -1,14 +1,16 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const SWCachePlugin = require('sw-cache-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
+  resolve: { extensions: ['.js', '.jsx'] },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        resolve: { extensions: ['.js', '.jsx'] },
         include: [path.resolve(__dirname, '../src')],
         loader: 'babel-loader',
       },
@@ -19,6 +21,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Weather for Commute',
     }),
+    new CopyPlugin({
+      patterns: [
+        { from: './src/sw.js', to: path.resolve(__dirname, '../dist') },
+      ],
+    }),
+    new SWCachePlugin(),
   ],
   output: {
     filename: '[name].[contenthash].bundle.js',

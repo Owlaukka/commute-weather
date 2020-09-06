@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
 import WeatherInfoContext from '../WeatherInfoContext';
@@ -7,7 +8,7 @@ const Form = styled.form({
   padding: '1rem',
 });
 
-const CommuteTimeForm = () => {
+const CommuteTimeForm = ({ open, setOpen }) => {
   const { getCommuteTimeString, saveCommuteTime } = useContext(
     WeatherInfoContext
   );
@@ -18,6 +19,7 @@ const CommuteTimeForm = () => {
   const saveNewCommuteTime = (e) => {
     e.preventDefault();
     saveCommuteTime(newCommuteTime);
+    setOpen(true);
   };
 
   return (
@@ -27,7 +29,7 @@ const CommuteTimeForm = () => {
         {/* TODO: make a reusable when more inputs added */}
         <input
           id="planned-commute-input"
-          data-testid="planned-commute-input" // TODO: change to user-centric selector
+          tabIndex={open ? 0 : -1}
           type="time"
           step="300"
           required
@@ -38,13 +40,18 @@ const CommuteTimeForm = () => {
       </label>
       <button
         type="submit"
-        data-testid="planned-commute-submit-button"
+        tabIndex={open ? 0 : -1}
         onClick={saveNewCommuteTime}
       >
         Confirm
       </button>
     </Form>
   );
+};
+
+CommuteTimeForm.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };
 
 export default CommuteTimeForm;

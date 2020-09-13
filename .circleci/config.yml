@@ -22,7 +22,7 @@ workflows:
           working_directory: 'frontend'
           requires:
             - cypress/install
-          install-command: 'cd ../api && yarn ci'
+          install-command: 'cd ../api && yarn install --frozen-lockfile'
           cache-key: 'cache-{{ arch }}-{{ .Branch }}-{{ checksum "api/package.json" }}'
           start: 'cd ../api && yarn run ci' # start server before running tests
           wait-on: 'http://localhost:9999 http://localhost:3000'

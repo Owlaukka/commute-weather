@@ -8,11 +8,9 @@ import { persistCache } from 'apollo-cache-persist';
 
 import GlobalStyles from './theme/GlobalStyles';
 
-const LoginPage = React.lazy(() => import('./pages/LoginPage'));
 const HomePage = React.lazy(() =>
   import(/* webpackPreload: true */ './pages/HomePage')
 );
-const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
 
 const Main = styled.main({
   height: '100vh',
@@ -47,7 +45,7 @@ const App = () => {
   if (!client)
     return (
       <Main>
-        <div style={{ height: '100vh' }}>Loading...</div>;
+        <div>Loading...</div>
       </Main>
     );
 
@@ -56,18 +54,8 @@ const App = () => {
       <Global styles={GlobalStyles(theme)} />
       <ApolloProvider client={client}>
         <Main>
-          <Suspense
-            fallback={
-              <div style={{ height: '100vh' }}>Loading in Suspense!</div>
-            }
-          >
+          <Suspense fallback={<div>Loading in Suspense!</div>}>
             <Switch>
-              <Route path="/login">
-                <LoginPage />
-              </Route>
-              <Route path="/register">
-                <RegisterPage />
-              </Route>
               <Route path="/">
                 <HomePage />
               </Route>

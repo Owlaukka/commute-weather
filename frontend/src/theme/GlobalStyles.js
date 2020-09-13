@@ -1,8 +1,9 @@
 import { css } from '@emotion/core';
 import { normalize } from 'polished';
 
+const normalizedStyles = normalize();
 const GlobalStyles = (theme) => css`
-  ${normalize()}
+  ${normalizedStyles}
   @import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap');
 

@@ -1,4 +1,4 @@
-import { findTemperatureColor } from '../../../src/components/weatherInfo/weatherInfoHelpers';
+import { findTemperatureColor } from '../../../src/components/WeatherInfo/weatherInfoHelpers';
 
 describe('weatherInfoHelpers', () => {
   describe('findTemperatureColor', () => {

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-import WeatherInfoContext from '../WeatherInfoContext';
+import WeatherInfoContext from '../WeatherInfo/WeatherInfoContext';
 
 const Form = styled.form({
   padding: '1rem',

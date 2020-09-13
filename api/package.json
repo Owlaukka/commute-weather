@@ -16,18 +16,18 @@
   "license": "ISC",
   "dependencies": {
     "cross-env": "^7.0.2",
-    "dayjs": "^1.8.34",
+    "dayjs": "^1.8.35",
     "dotenv": "^8.2.0",
     "fastify": "^3.3.0",
     "fastify-cli": "^2.2.0",
     "fastify-cors": "^4.1.0",
-    "fastify-gql": "^5.6.0",
-    "got": "^11.5.1",
+    "fastify-gql": "^5.7.0",
+    "got": "^11.6.2",
     "graphql": "^15.3.0",
-    "graphql-tools": "^6.2.0"
+    "graphql-tools": "^6.2.2"
   },
   "devDependencies": {
-    "eslint": "^7.8.0",
+    "eslint": "^7.9.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
@@ -35,6 +35,6 @@
     "fastify-static": "^3.2.0",
     "prettier": "^2.1.1",
     "start-server-and-test": "^1.11.3",
-    "wiremock": "^2.27.1"
+    "wiremock": "^2.27.2"
   }
 }

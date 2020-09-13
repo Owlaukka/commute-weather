@@ -1,5 +1,5 @@
 /* eslint-disable no-undef, no-restricted-globals */
-importScripts('/dist/AssetsManager.js');
+importScripts('/AssetsManager.js');
 const { cacheEntries } = new AssetsManager(); // create an instance of AssetsManager
 
 const cacheName = 'v1';

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import media from 'css-in-js-media';
 
-import { Button } from '../../common/buttons';
+import { Button } from '../../../common/buttons';
 
 const hover = keyframes({
   from: {

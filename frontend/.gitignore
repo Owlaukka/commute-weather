@@ -1,6 +1,6 @@
-dist
+dist/
 stats.json
-cypress/videos
-cypress/screenshots
-.nyc_output
+cypress/videos/
+cypress/screenshots/
+.nyc_output/
 coverage/

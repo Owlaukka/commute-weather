@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import media from 'css-in-js-media';
 
-import debounce from '../../helpers/debounce';
-import { isPhone } from '../../helpers/mediaQueries';
-import WeatherInfoCard from './WeatherInfo/WeatherInfoCard';
-import WeatherOverlayButtons from './WeatherButtons/WeatherOverlayButtons';
+import debounce from '../../../helpers/debounce';
+import { isPhone } from '../../../helpers/mediaQueries';
+import WeatherInfoCard from '../WeatherCard/WeatherInfoCard';
+import WeatherOverlayButtons from './CarouselNavigationButtons/WeatherOverlayButtons';
 
 const Scroller = styled.ul({
   listStyle: 'none',
@@ -21,7 +21,7 @@ const Scroller = styled.ul({
     flexDirection: 'row',
     overflowY: 'initial',
   },
-  [media('<tablet')]: {
+  [media('<=tablet')]: {
     // TODO: make a better scroll-snapper maybe with IntersectionObserver
     // so  scrolling to see content doesn't trigger a scroll if you go
     // just a bit below the required amount.

@@ -10,6 +10,7 @@ export const WeatherInfoProvider = ({ children }) => {
   const [commuteTime, setCommuteTime] = useState(
     JSON.parse(localStorage.getItem('savedCommuteTime')) || [17, 30]
   );
+  const [locationCoords, setLocationCoords] = useState({});
 
   const saveCommuteTime = (time) => {
     if (!/^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g.test(time)) {
@@ -32,7 +33,13 @@ export const WeatherInfoProvider = ({ children }) => {
 
   return (
     <WeatherInfoContext.Provider
-      value={{ commuteTime, getCommuteTimeString, saveCommuteTime }}
+      value={{
+        commuteTime,
+        getCommuteTimeString,
+        saveCommuteTime,
+        locationCoords,
+        setLocationCoords,
+      }}
     >
       {children}
     </WeatherInfoContext.Provider>

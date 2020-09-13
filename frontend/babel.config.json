@@ -10,5 +10,9 @@
     "@babel/preset-react",
     "@emotion/babel-preset-css-prop"
   ],
-  "plugins": ["syntax-dynamic-import"]
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "syntax-dynamic-import",
+    "polished"
+  ]
 }

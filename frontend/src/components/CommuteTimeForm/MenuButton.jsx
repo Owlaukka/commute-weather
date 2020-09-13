@@ -4,7 +4,7 @@ import media from 'css-in-js-media';
 
 import Hamburger from './Hamburger.sc';
 import CommuteTimeForm from './CommuteTimeForm';
-import { Button } from '../../common/buttons';
+import { Button } from '../common/buttons';
 
 const SettingsForm = styled.aside(({ open, theme }) => ({
   position: 'fixed',

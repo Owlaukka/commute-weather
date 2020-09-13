@@ -24,7 +24,7 @@ const findBrowser = () => {
       };
     })
     .catch(() => {
-      return {};
+      return null;
     });
 };
 /**
@@ -39,7 +39,7 @@ module.exports = (on, config) => {
   return findBrowser().then((browser) => {
     return {
       ...config,
-      browsers: config.browsers.concat(browser),
+      browsers: browser ? config.browsers.concat(browser) : config.browsers,
     };
   });
 };

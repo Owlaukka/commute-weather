@@ -1,17 +1,26 @@
 {
   "presets": [
     [
-      "@babel/env",
+      "@babel/preset-env",
       {
         "useBuiltIns": "usage",
-        "corejs": "3.6.5"
+        "corejs": 3,
+        "modules": false,
+        "targets": "defaults, not ie 11, not edge < 80"
       }
     ],
     "@babel/preset-react",
     "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
-    "@babel/plugin-transform-runtime",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "absoluteRuntime": false,
+        "corejs": 3,
+        "version": "^7.11.2"
+      }
+    ],
     "syntax-dynamic-import",
     "polished"
   ]

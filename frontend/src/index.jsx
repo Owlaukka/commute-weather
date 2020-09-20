@@ -10,8 +10,7 @@ import theme from './theme';
 
 dayjs.extend(utc);
 
-const node = document.createElement('div');
-document.body.prepend(node);
+const node = document.getElementById('js-app');
 
 ReactDom.render(
   <BrowserRouter>

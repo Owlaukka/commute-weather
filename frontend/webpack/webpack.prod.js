@@ -7,14 +7,14 @@ module.exports = merge(common, {
   devtool: 'source-map',
   plugins: [
     new CompressionPlugin({
-      filename: '[path].gz[query]',
+      filename: '[path][base].gz',
       algorithm: 'gzip',
-      test: /\.js$|\.html$/,
+      test: /\.(js|html)$/,
       threshold: 8192,
       minRatio: 0.8,
     }),
     new CompressionPlugin({
-      filename: '[path].br[query]',
+      filename: '[path][base].br',
       algorithm: 'brotliCompress',
       test: /\.(js|html)$/,
       compressionOptions: {

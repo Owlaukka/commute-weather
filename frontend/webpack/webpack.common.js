@@ -1,8 +1,7 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CopyPlugin = require('copy-webpack-plugin');
-// const SWCachePlugin = require('sw-cache-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   context: path.resolve('./src'),
@@ -12,6 +11,11 @@ module.exports = {
   entry: '/index.jsx',
   module: {
     rules: [
+      {
+        test: /\.hbs$/,
+        loader: 'handlebars-loader',
+        exclude: [/node_modules/],
+      },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
@@ -23,30 +27,26 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Weather for Commute',
+      template: 'index.hbs',
     }),
-    // new CopyPlugin({
-    //   patterns: [{ from: 'sw.js', to: path.resolve(__dirname, '../dist') }],
-    // }),
-    // new SWCachePlugin(),
   ],
   output: {
     filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, '../dist'),
   },
   optimization: {
-    runtimeChunk: 'single',
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        cache: true,
+      }),
+    ],
     moduleIds: 'deterministic',
-    chunkIds: 'named',
     splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          name: 'vendor',
-          priority: -10,
-          enforce: true,
-        },
-      },
+      chunks: 'all',
+      minSize: 1000 * 600,
     },
+    runtimeChunk: { name: 'manifest' },
   },
 };

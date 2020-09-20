@@ -6,11 +6,8 @@ import { useTheme } from 'emotion-theming';
 import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 
+import HomePage from './pages/HomePage';
 import GlobalStyles from './theme/GlobalStyles';
-
-const HomePage = React.lazy(() =>
-  import(/* webpackPreload: true */ './pages/HomePage')
-);
 
 const Main = styled.main({
   height: '100vh',

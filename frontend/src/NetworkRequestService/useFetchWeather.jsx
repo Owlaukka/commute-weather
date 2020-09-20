@@ -1,10 +1,13 @@
 import { useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
 import { useLazyQuery } from '@apollo/client';
 import WeatherInfoContext from '../components/WeatherInfo/WeatherInfoContext';
 import { WEATHER_QUERY } from './Queries';
 import { formatTime } from '../components/WeatherInfo/weatherInfoHelpers';
 
+dayjs.extend(utc);
 const timeZoneDifference = dayjs().hour() - dayjs.utc().hour();
 
 // TODO: maybe accept parameters to determine with query is used to

@@ -1,5 +1,5 @@
 const sizes = {
-  mobileNavbar: '3rem',
+  commuteTimeFormHeight: 3.5,
 };
 
 export default sizes;

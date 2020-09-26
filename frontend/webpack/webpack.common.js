@@ -6,7 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   context: path.resolve('./src'),
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
   entry: '/index.jsx',
   module: {
@@ -33,6 +33,7 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].bundle.js',
     path: path.resolve(__dirname, '../dist'),
+    publicPath: '/',
   },
   optimization: {
     minimize: true,

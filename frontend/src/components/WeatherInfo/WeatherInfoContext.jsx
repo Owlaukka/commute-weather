@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { formatTime } from './weatherInfoHelpers';
 
 const WeatherInfoContext = createContext(null);
+const validTimeFormat = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g;
 
 export const WeatherInfoProvider = ({ children }) => {
   // TODO: maybe get from DB later
@@ -13,7 +14,7 @@ export const WeatherInfoProvider = ({ children }) => {
   const [locationCoords, setLocationCoords] = useState({});
 
   const saveCommuteTime = (time) => {
-    if (!/^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g.test(time)) {
+    if (!validTimeFormat.test(time)) {
       // eslint-disable-next-line no-console
       console.error(
         'Supplied commute time is not in the correct format or the correct type'

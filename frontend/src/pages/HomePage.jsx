@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { WeatherInfoProvider } from '../components/WeatherInfo/WeatherInfoContext';
-import MenuButton from '../components/CommuteTimeForm/MenuButton';
+import CommuteTimeForm from '../components/CommuteTimeForm/CommuteTimeForm';
 import WeatherInfo from '../components/WeatherInfo';
 
 const Page = styled.section({
@@ -10,14 +10,20 @@ const Page = styled.section({
   overflow: 'hidden',
 });
 
-const HomePage = () => (
-  <Page>
-    <WeatherInfoProvider>
-      <MenuButton />
-      {/* TODO: turn this into a custom hook? */}
-      <WeatherInfo />
-    </WeatherInfoProvider>
-  </Page>
-);
+const HomePage = () => {
+  const [isTimeFormOpen, setIsTimeFormOpen] = useState(true);
+
+  return (
+    <Page>
+      <WeatherInfoProvider>
+        <CommuteTimeForm
+          isOpen={isTimeFormOpen}
+          setIsTimeFormOpen={setIsTimeFormOpen}
+        />
+        <WeatherInfo toggleFormVisible={setIsTimeFormOpen} />
+      </WeatherInfoProvider>
+    </Page>
+  );
+};
 
 export default HomePage;

@@ -1,5 +1,6 @@
 {
   "presets": [
+    "@babel/typescript",
     [
       "@babel/preset-env",
       {
@@ -11,6 +12,8 @@
     "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
     [
       "@babel/plugin-transform-runtime",
       {

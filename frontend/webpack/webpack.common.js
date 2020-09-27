@@ -6,7 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   context: path.resolve('./src'),
   resolve: {
-    extensions: ['.mjs', '.js', '.jsx'],
+    extensions: ['.mjs', '.tsx', '.ts', '.js', '.jsx'],
   },
   entry: '/index.jsx',
   module: {
@@ -17,7 +17,7 @@ module.exports = {
         exclude: [/node_modules/],
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(j|t)sx?$/,
         loader: 'babel-loader',
         exclude: [/node_modules/],
       },

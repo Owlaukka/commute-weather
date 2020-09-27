@@ -1,21 +1,25 @@
 module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
   env: {
     browser: true,
     es2020: true,
   },
   extends: [
-    'airbnb',
+    'airbnb-typescript',
     'airbnb/hooks',
     'plugin:cypress/recommended',
     'prettier',
     'prettier/react',
   ],
+  plugins: ['@typescript-eslint'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 11,
     sourceType: 'module',
+    project: 'tsconfig.json',
   },
   overrides: [
     {

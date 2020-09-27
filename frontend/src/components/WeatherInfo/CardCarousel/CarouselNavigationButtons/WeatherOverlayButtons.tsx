@@ -1,14 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
 import WeatherScrollerOverlayButton from './WeatherScrollerOverlayButton.sc';
 
-const WeatherOverlayButtons = ({ pointer, setPointer, listLength }) => (
+type Props = {
+  pointer: number;
+  setPointer: (param: number | ((prev: number) => number)) => void;
+  listLength: number;
+};
+
+const WeatherOverlayButtons = ({ pointer, setPointer, listLength }: Props) => (
   <>
     <WeatherScrollerOverlayButton
       direction="previous"
-      onClick={() => setPointer((prev) => prev - 1)}
+      onClick={() => setPointer((prev: number) => prev - 1)}
       disabled={!pointer}
       ariaLabel="Previous Day"
     >
@@ -16,7 +21,7 @@ const WeatherOverlayButtons = ({ pointer, setPointer, listLength }) => (
     </WeatherScrollerOverlayButton>
     <WeatherScrollerOverlayButton
       direction="next"
-      onClick={() => setPointer((prev) => prev + 1)}
+      onClick={() => setPointer((prev: number) => prev + 1)}
       disabled={pointer >= listLength - 1}
       ariaLabel="Next Day"
     >
@@ -24,11 +29,5 @@ const WeatherOverlayButtons = ({ pointer, setPointer, listLength }) => (
     </WeatherScrollerOverlayButton>
   </>
 );
-
-WeatherOverlayButtons.propTypes = {
-  pointer: PropTypes.number.isRequired,
-  setPointer: PropTypes.func.isRequired,
-  listLength: PropTypes.number.isRequired,
-};
 
 export default WeatherOverlayButtons;

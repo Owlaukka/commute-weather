@@ -11,7 +11,7 @@
     "test": "cross-env NODE_ENV=test cypress open",
     "test-e2e": "cd ../api && start-server-and-test ci 3000 'cd ../frontend && start-server-and-test start:test 8080 test'",
     "build": "webpack --config webpack/webpack.prod.js",
-    "ci": "yarn run check-types && cross-env CYPRESS_BASE_URL=http://localhost:3000 cypress run",
+    "ci": "yarn run lint && cross-env CYPRESS_BASE_URL=http://localhost:3000 cypress run",
     "lint": "yarn run check-types && eslint src/ cypress/ --ext .js,.jsx,.ts,.tsx",
     "analyze": "yarn run analyze:build && yarn run analyze:show",
     "analyze:build": "webpack --profile --progress --env production --config webpack/webpack.prod.js --json > stats.json",
@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run lint"
+      "pre-commit": "cd .. && yarn run lint"
     }
   },
   "dependencies": {

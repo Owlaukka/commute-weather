@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Olli Laukkanen",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cross-env": "^7.0.2",
     "dayjs": "^1.8.35",

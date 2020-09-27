@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --open --config webpack/webpack.dev.js",
     "start:test": "cross-env NODE_ENV=test webpack-dev-server --config webpack/webpack.dev.js",
     "test": "cross-env NODE_ENV=test cypress open",
-    "test:e2e": "cd ../api && start-server-and-test ci 3000 'cd ../frontend && start-server-and-test start:test 8080 test'",
+    "test-e2e": "cd ../api && start-server-and-test ci 3000 'cd ../frontend && start-server-and-test start:test 8080 test'",
     "build": "webpack --config webpack/webpack.prod.js",
     "ci": "cross-env CYPRESS_BASE_URL=http://localhost:3000 cypress run",
     "lint": "eslint --ext .jsx --ext .js src/ cypress/",

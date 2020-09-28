@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import media from 'css-in-js-media';
@@ -15,8 +16,8 @@ const hover = keyframes({
   },
 });
 
-const OverlayButton = styled(Button)(
-  ({ direction }: { direction: string }): {} => ({
+const OverlayButton: React.FC<any> = styled(Button)(
+  ({ direction }: { direction?: string }): {} => ({
     fontSize: '2.5rem',
     width: '100%',
     position: 'fixed',

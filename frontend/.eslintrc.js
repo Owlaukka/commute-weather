@@ -23,6 +23,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['*.tsx'],
+      rules: {
+        'react/require-default-props': 'off',
+      },
+    },
+    {
       files: ['webpack.*'],
       rules: {
         'import/no-extraneous-dependencies': [

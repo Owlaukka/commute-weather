@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 
-const StyledButton = styled.button({
+const StyledButton: React.FC<any> = styled.button({
   border: 'none',
   backgroundColor: 'transparent',
   color: 'white',
@@ -28,14 +27,23 @@ const InnerItem = styled.div({
   justifyContent: 'center',
 });
 
+type ButtonProps = {
+  onClick: (e: React.MouseEventHandler) => void;
+  type?: string;
+  disabled?: boolean;
+  className?: string;
+  ariaLabel?: string;
+  children: Node;
+};
+
 const Button = ({
   onClick,
-  type,
-  disabled,
-  className,
-  ariaLabel,
+  type = 'button',
+  disabled = false,
+  className = '',
+  ariaLabel = '',
   children,
-}) => (
+}: ButtonProps) => (
   <StyledButton
     type={type}
     onClick={onClick}
@@ -46,21 +54,5 @@ const Button = ({
     <InnerItem tabIndex={-1}>{children}</InnerItem>
   </StyledButton>
 );
-
-Button.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
-  className: PropTypes.string,
-  type: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  ariaLabel: PropTypes.string,
-};
-
-Button.defaultProps = {
-  disabled: false,
-  type: 'button',
-  className: '',
-  ariaLabel: null,
-};
 
 export default Button;

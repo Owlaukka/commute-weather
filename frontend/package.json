@@ -16,21 +16,7 @@
     "analyze": "yarn run analyze:build && yarn run analyze:show",
     "analyze:build": "webpack --profile --progress --env production --config webpack/webpack.prod.js --json > stats.json",
     "analyze:show": "webpack-bundle-analyzer stats.json dist/",
-    "check-types": "tsc",
-    "postinstall": "cd .. && husky install ./front"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-precommit"
-    }
-  },
-  "lint-precommit": {
-    "base": "master",
-    "tasks": {
-      "*.{js,jsx,ts,tsx}": [
-        "yarn run lint"
-      ]
-    }
+    "check-types": "tsc"
   },
   "dependencies": {
     "@apollo/client": "^3.1.5",

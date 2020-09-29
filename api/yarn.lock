@@ -2070,9 +2070,9 @@ fast-safe-stringify@^2.0.7:
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
 fastify-cli@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/fastify-cli/-/fastify-cli-2.2.0.tgz#f37191d846efd7dc0033dc43093cc095500bcb25"
-  integrity sha512-q0GjfbgikG3BECbnHOx14TbCowv5SueOr9Lch+E/9iVYSawohmUR/LBTSSWkToMhaBt8JbZnRvV6lov2fkV48g==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/fastify-cli/-/fastify-cli-2.3.0.tgz#3570fcf0cedf24ce8503e876eb48fa6b65353216"
+  integrity sha512-PEO9nd9E/pTveN1Zb6cF1NwHDpyV99Xx06mAxGW07xZropo0QZBqCL/CzIfeqaw71L3bJdrY/nEwKJYEpT4gMQ==
   dependencies:
     blessed "^0.1.81"
     blessed-contrib "^4.8.18"
@@ -2081,7 +2081,6 @@ fastify-cli@^2.2.0:
     commist "^1.0.0"
     dotenv "^8.2.0"
     fastify "^3.0.0"
-    fastify-plugin "^2.0.0"
     generify "^4.0.0"
     help-me "^1.1.0"
     is-docker "^2.0.0"
@@ -2090,7 +2089,7 @@ fastify-cli@^2.2.0:
     pump "^3.0.0"
     resolve-from "^5.0.0"
     split2 "^3.1.1"
-    yargs-parser "^19.0.1"
+    yargs-parser "^20.0.0"
 
 fastify-cors@^4.1.0:
   version "4.1.0"
@@ -4372,9 +4371,9 @@ symbol-observable@^1.0.4:
   integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 symbol-observable@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-2.0.1.tgz#ce66c36a04ed0f3056e7293184749a6fdd7063ea"
-  integrity sha512-QrfHrrEUMadQCgMijc3YpfA4ncwgqGv58Xgvdu3JZVQB7iY7cAkiqobZEZbaA863jof8AdpR01CPnZ5UWeqZBQ==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-2.0.2.tgz#735850c95ec37778dbad1090b8d791ef6f77e1af"
+  integrity sha512-cYdTSAm+IDlOeRK1Bx4Sz+WIAokT0SQT+jst9NEjbjPQCrCtoSvihFBlDtUqJieYXZogq1QwNUKWRXZdK8PAOA==
 
 table@^5.2.3:
   version "5.4.6"
@@ -4740,10 +4739,10 @@ yargs-parser@^18.1.2:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
 
-yargs-parser@^19.0.1:
-  version "19.0.4"
-  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-19.0.4.tgz#99183a3a59268b205c6b04177f2a5bfb46e79ba7"
-  integrity sha512-eXeQm7yXRjPFFyf1voPkZgXQZJjYfjgQUmGPbD2TLtZeIYzvacgWX7sQ5a1HsRgVP+pfKAkRZDNtTGev4h9vhw==
+yargs-parser@^20.0.0:
+  version "20.2.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.2.0.tgz#944791ca2be2e08ddadd3d87e9de4c6484338605"
+  integrity sha512-2agPoRFPoIcFzOIp6656gcvsg2ohtscpw2OINr/q46+Sq41xz2OYLqx5HRHabmFU1OARIPAYH5uteICE7mn/5A==
 
 yargs@^15.3.1:
   version "15.4.1"

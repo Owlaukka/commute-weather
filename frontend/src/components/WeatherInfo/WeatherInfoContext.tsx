@@ -3,17 +3,32 @@ import PropTypes from 'prop-types';
 
 import { formatTime } from './weatherInfoHelpers';
 
-const WeatherInfoContext = createContext(null);
+type SaveCommuteTimeType = (time: string) => void;
+
+type WeatherInfoContextInterface = {
+  commuteTime: [number, number];
+  getCommuteTimeString: () => string;
+  saveCommuteTime: SaveCommuteTimeType;
+  locationCoords: {};
+  setLocationCoords: (coords: {}) => void;
+};
+
+const WeatherInfoContext = createContext({} as WeatherInfoContextInterface);
+
 const validTimeFormat = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g;
 
-export const WeatherInfoProvider = ({ children }) => {
+export const WeatherInfoProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   // TODO: maybe get from DB later
   const [commuteTime, setCommuteTime] = useState(
-    JSON.parse(localStorage.getItem('savedCommuteTime')) || [17, 30]
+    JSON.parse(localStorage.getItem('savedCommuteTime')!) || [17, 30]
   );
   const [locationCoords, setLocationCoords] = useState({});
 
-  const saveCommuteTime = (time) => {
+  const saveCommuteTime: SaveCommuteTimeType = (time) => {
     if (!validTimeFormat.test(time)) {
       // eslint-disable-next-line no-console
       console.error(
@@ -32,16 +47,15 @@ export const WeatherInfoProvider = ({ children }) => {
 
   const getCommuteTimeString = () => formatTime(commuteTime[0], commuteTime[1]);
 
+  const contextValue: WeatherInfoContextInterface = {
+    commuteTime,
+    getCommuteTimeString,
+    saveCommuteTime,
+    locationCoords,
+    setLocationCoords,
+  };
   return (
-    <WeatherInfoContext.Provider
-      value={{
-        commuteTime,
-        getCommuteTimeString,
-        saveCommuteTime,
-        locationCoords,
-        setLocationCoords,
-      }}
-    >
+    <WeatherInfoContext.Provider value={contextValue}>
       {children}
     </WeatherInfoContext.Provider>
   );

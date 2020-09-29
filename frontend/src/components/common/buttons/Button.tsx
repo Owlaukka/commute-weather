@@ -28,12 +28,13 @@ const InnerItem = styled.div({
 });
 
 type ButtonProps = {
-  onClick: (e: React.MouseEventHandler) => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type?: string;
   disabled?: boolean;
   className?: string;
   ariaLabel?: string;
-  children: Node;
+  tabIndex?: number | string | null;
+  children: React.ReactChild;
 };
 
 const Button = ({
@@ -42,6 +43,7 @@ const Button = ({
   disabled = false,
   className = '',
   ariaLabel = '',
+  tabIndex = null,
   children,
 }: ButtonProps) => (
   <StyledButton
@@ -50,6 +52,7 @@ const Button = ({
     disabled={disabled}
     className={className}
     aria-label={ariaLabel}
+    tabIndex={tabIndex}
   >
     <InnerItem tabIndex={-1}>{children}</InnerItem>
   </StyledButton>

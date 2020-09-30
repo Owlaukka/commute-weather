@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import media from 'css-in-js-media';
+import { IconType } from 'react-icons';
 import {
   WiDaySunny,
   WiDayCloudy,
@@ -17,10 +18,21 @@ import {
   WiNightLightning,
   WiNightFog,
 } from 'react-icons/wi';
+import { ThemeType } from '../../../theme';
 
 import { findTemperatureColor } from '../weatherInfoHelpers';
 
-export const Wrapper = styled.article(({ theme }) => ({
+// // TODO: move to somewhere shareable or attach to the theme object itself somehow....
+// type ThemeType = {
+//   sizes: any;
+//   colors: any;
+// };
+
+// type StyledCallback = {
+//   theme: ThemeType;
+// };
+
+export const Wrapper = styled.article(({ theme }: { theme: ThemeType }) => ({
   width: '100vw',
   fontSize: 'clamp(1.5rem, calc(3vw + 2.5vh), 5rem)',
   transition: 'transform 500ms',
@@ -60,30 +72,33 @@ export const Wrapper = styled.article(({ theme }) => ({
   boxShadow: `0 0 15px 0px ${theme.colors.black}`,
 }));
 
-const resolveIcon = (icon) =>
-  ({
-    '01d': WiDaySunny,
-    '02d': WiDayCloudy,
-    '03d': WiCloud,
-    '04d': WiCloudy,
-    '09d': WiDayShowers,
-    '10d': WiDayRain,
-    '11d': WiDayLightning,
-    '13d': WiSnow,
-    '50d': WiDayFog,
-    '01n': WiNightClear,
-    '02n': WiNightCloudy,
-    '03n': WiCloud,
-    '04n': WiCloudy,
-    '09n': WiNightShowers,
-    '10n': WiNightRain,
-    '11n': WiNightLightning,
-    '13n': WiSnow,
-    '50n': WiNightFog,
-  }[icon] || WiCloud);
+const icons: { [key: string]: IconType } = {
+  '01d': WiDaySunny,
+  '02d': WiDayCloudy,
+  '03d': WiCloud,
+  '04d': WiCloudy,
+  '09d': WiDayShowers,
+  '10d': WiDayRain,
+  '11d': WiDayLightning,
+  '13d': WiSnow,
+  '50d': WiDayFog,
+  '01n': WiNightClear,
+  '02n': WiNightCloudy,
+  '03n': WiCloud,
+  '04n': WiCloudy,
+  '09n': WiNightShowers,
+  '10n': WiNightRain,
+  '11n': WiNightLightning,
+  '13n': WiSnow,
+  '50n': WiNightFog,
+};
 
-export const resolveStyledWeatherIcon = (icon) =>
-  styled(resolveIcon(icon))(({ temperature }) => ({
+type ResolveIconType = (icon: string) => IconType;
+
+const resolveIcon: ResolveIconType = (icon) => icons[icon] || WiCloud;
+
+export const resolveStyledWeatherIcon = (icon: string) =>
+  styled(resolveIcon(icon))(({ temperature }: { temperature: number }) => ({
     gridArea: 'weatherIcon',
     width: 'max(100%, 15rem)',
     height: 'max(100%, 15rem)',
@@ -95,7 +110,7 @@ export const Day = styled.h2({
   margin: 0,
 });
 
-export const Temp = styled.div(({ temperature }) => ({
+export const Temp = styled.div(({ temperature }: { temperature: number }) => ({
   gridArea: 'temp',
   color: findTemperatureColor(temperature),
 }));

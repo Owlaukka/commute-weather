@@ -1,4 +1,19 @@
-const colors = {
+export interface ThemeColors {
+  gray: string;
+  gray2: string;
+  gray3: string;
+  black: string;
+  white: string;
+  darkViolet: string;
+
+  darkBackground: string;
+  backgroundImage: string;
+  background: string;
+  darkVioletBG: string;
+  violetBG: string;
+}
+
+const colors: ThemeColors = {
   gray: '#3D3D3D',
   gray2: '#292929',
   gray3: '#141414',

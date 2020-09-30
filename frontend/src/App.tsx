@@ -3,19 +3,27 @@ import { Switch, Route } from 'react-router-dom';
 import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
-import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
+import {
+  ApolloProvider,
+  InMemoryCache,
+  ApolloClient,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 
 import HomePage from './pages/HomePage';
 import GlobalStyles from './theme/GlobalStyles';
+import { ThemeType } from './theme';
 
 const Main = styled.main({
   height: '100vh',
 });
 
 const App = () => {
-  const theme = useTheme();
-  const [client, setClient] = useState();
+  const theme: ThemeType = useTheme();
+  const [client, setClient] = useState(
+    {} as ApolloClient<NormalizedCacheObject>
+  );
 
   useEffect(() => {
     const cache = new InMemoryCache();
@@ -28,10 +36,11 @@ const App = () => {
     });
 
     (async () => {
-      await persistCache({
+      const persistorParams: { cache: any; storage: any } = {
         cache,
         storage: window.localStorage,
-      });
+      };
+      await persistCache(persistorParams);
       setClient(apolloClient);
     })();
   }, []);

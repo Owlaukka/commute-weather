@@ -10,7 +10,7 @@ import { formatTime } from '../components/WeatherInfo/weatherInfoHelpers';
 dayjs.extend(utc);
 const timeZoneDifference = dayjs().hour() - dayjs.utc().hour();
 
-// TODO: maybe accept parameters to determine with query is used to
+// TODO: maybe accept parameters to determine
 // which fields from the query are desired
 const useFetchWeather = () => {
   const {
@@ -39,7 +39,7 @@ const useFetchWeather = () => {
     }
   }, [latitude, longitude, commuteTime, getWeather]);
 
-  return { loading, data };
+  return { loading, data } as const;
 };
 
 export default useFetchWeather;

@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 
+// TODO: share this with other places that require coordinates. DRY
+type CoordinatesType = {
+  latitude: number;
+  longitude: number;
+};
+
 const useBrowserCoordinates = () => {
-  const [coordinates, setCoordinates] = useState({});
+  const [coordinates, setCoordinates] = useState({} as CoordinatesType);
 
   const coordsExist =
     (coordinates.latitude && coordinates.longitude) ||

@@ -3,20 +3,10 @@ import styled from '@emotion/styled';
 import media from 'css-in-js-media';
 
 import { Button } from '../common/buttons';
-
-// TODO: move to somewhere shareable or attach to the theme object itself somehow....
-type Theme = {
-  sizes: any;
-  colors: any;
-};
-
-type StyledCallback = {
-  theme: Theme;
-  isOpen?: boolean;
-};
+import { ThemeType } from '../../theme';
 
 const FormWrapper: React.FC<any> = styled.section(
-  ({ theme, isOpen }: StyledCallback) => ({
+  ({ theme, isOpen }: { theme: ThemeType; isOpen: boolean }) => ({
     position: 'fixed',
     width: '100%',
     display: 'flex',
@@ -27,7 +17,7 @@ const FormWrapper: React.FC<any> = styled.section(
   })
 );
 
-const Form = styled.form(({ theme }: StyledCallback) => ({
+const Form = styled.form(({ theme }: { theme: ThemeType }) => ({
   padding: '0 1rem',
   height: '100%',
   display: 'flex',
@@ -42,7 +32,7 @@ const Form = styled.form(({ theme }: StyledCallback) => ({
 }));
 
 const ToggleFormButton: React.FC<any> = styled(Button)(
-  ({ theme, isOpen }: StyledCallback) => ({
+  ({ theme, isOpen }: { theme: ThemeType; isOpen: boolean }) => ({
     height: '100%',
     marginLeft: 'auto',
     padding: '1rem',

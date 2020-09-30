@@ -1,6 +1,8 @@
+import { DocumentNode } from '@apollo/client';
+
 const { gql } = require('@apollo/client');
 
-const WEATHER_QUERY = gql`
+const WEATHER_QUERY: DocumentNode = gql`
   query Weather(
     $lat: Float!
     $lon: Float!

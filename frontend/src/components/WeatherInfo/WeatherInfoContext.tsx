@@ -1,19 +1,25 @@
 import React, { createContext, useState } from 'react';
-import PropTypes from 'prop-types';
 
 import { formatTime } from './weatherInfoHelpers';
 
 type SaveCommuteTimeType = (time: string) => void;
 
-type WeatherInfoContextInterface = {
+type CoordinatesType = {
+  latitude: number;
+  longitude: number;
+};
+
+type SetCoordinatesType = (coords: CoordinatesType) => void;
+
+type WeatherInfoContextType = {
   commuteTime: [number, number];
   getCommuteTimeString: () => string;
   saveCommuteTime: SaveCommuteTimeType;
-  locationCoords: {};
-  setLocationCoords: (coords: {}) => void;
+  locationCoords: CoordinatesType;
+  setLocationCoords: SetCoordinatesType;
 };
 
-const WeatherInfoContext = createContext({} as WeatherInfoContextInterface);
+const WeatherInfoContext = createContext({} as WeatherInfoContextType);
 
 const validTimeFormat = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g;
 
@@ -26,7 +32,10 @@ export const WeatherInfoProvider = ({
   const [commuteTime, setCommuteTime] = useState(
     JSON.parse(localStorage.getItem('savedCommuteTime')!) || [17, 30]
   );
-  const [locationCoords, setLocationCoords] = useState({});
+  const [locationCoords, setLocationCoords]: [
+    CoordinatesType,
+    SetCoordinatesType
+  ] = useState({} as CoordinatesType);
 
   const saveCommuteTime: SaveCommuteTimeType = (time) => {
     if (!validTimeFormat.test(time)) {
@@ -47,22 +56,19 @@ export const WeatherInfoProvider = ({
 
   const getCommuteTimeString = () => formatTime(commuteTime[0], commuteTime[1]);
 
-  const contextValue: WeatherInfoContextInterface = {
-    commuteTime,
-    getCommuteTimeString,
-    saveCommuteTime,
-    locationCoords,
-    setLocationCoords,
-  };
   return (
-    <WeatherInfoContext.Provider value={contextValue}>
+    <WeatherInfoContext.Provider
+      value={{
+        commuteTime,
+        getCommuteTimeString,
+        saveCommuteTime,
+        locationCoords,
+        setLocationCoords,
+      }}
+    >
       {children}
     </WeatherInfoContext.Provider>
   );
-};
-
-WeatherInfoProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default WeatherInfoContext;

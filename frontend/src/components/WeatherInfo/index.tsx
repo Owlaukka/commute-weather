@@ -5,7 +5,11 @@ import WeatherInfoCarousel from './CardCarousel/WeatherInfoCarousel';
 import useBrowserCoordinates from '../LocationGetter/useBrowserCoordinates';
 import useFetchWeather from '../../NetworkRequestService/useFetchWeather';
 
-const WeatherInfo = ({ toggleFormVisible }) => {
+type WeatherInfoProps = {
+  toggleFormVisible: (arg: boolean | ((prev: boolean) => boolean)) => void;
+};
+
+const WeatherInfo = ({ toggleFormVisible }: WeatherInfoProps) => {
   const { setLocationCoords } = useContext(WeatherInfoContext);
 
   const coordinates = useBrowserCoordinates();

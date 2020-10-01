@@ -1,11 +1,11 @@
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(t|j)sx?$/,
         loader: 'babel-loader',
         exclude: [/node_modules/],
       },

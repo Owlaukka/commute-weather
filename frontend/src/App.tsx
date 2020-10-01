@@ -22,7 +22,7 @@ const Main = styled.main({
 const App = () => {
   const theme: ThemeType = useTheme();
   const [client, setClient] = useState(
-    {} as ApolloClient<NormalizedCacheObject>
+    null as ApolloClient<NormalizedCacheObject> | null
   );
 
   useEffect(() => {

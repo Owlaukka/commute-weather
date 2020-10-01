@@ -29,7 +29,7 @@ type WeatherIconType = {
   icon: string;
 };
 
-type WeatherResponseType = {
+export type WeatherResponseType = {
   temperature: { isDaily: boolean; min?: number; max?: number; temp?: number };
   weather: WeatherIconType[];
   time: string;
@@ -44,9 +44,8 @@ const getAvgTemp = ({
   temperature: { isDaily, min = 100, max = 100, temp = 99 },
 }: WeatherResponseType) => (isDaily ? (min + max) / 2 : temp);
 
-// TODO: fix ref type
-const WeatherInfoCard = React.forwardRef(
-  ({ weather }: { weather: WeatherResponseType }, ref: any) => {
+const WeatherInfoCard = React.forwardRef<HTMLElement, any>(
+  ({ weather }: { weather: WeatherResponseType }, ref) => {
     const WeatherIcon = resolveStyledWeatherIcon(weather.weather[0].icon);
     return (
       <Wrapper ref={ref}>

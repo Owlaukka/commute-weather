@@ -8,7 +8,7 @@ module.exports = {
   resolve: {
     extensions: ['.mjs', '.tsx', '.ts', '.js', '.jsx'],
   },
-  entry: '/index.jsx',
+  entry: '/index.tsx',
   module: {
     rules: [
       {

@@ -3,18 +3,28 @@ import PropTypes from 'prop-types';
 
 import debounce from '../../../helpers/debounce';
 import { isPhone } from '../../../helpers/mediaQueries';
-import WeatherInfoCard from '../WeatherCard/WeatherInfoCard';
+import WeatherInfoCard, {
+  WeatherResponseType,
+} from '../WeatherCard/WeatherInfoCard';
 import WeatherOverlayButtons from './CarouselNavigationButtons/WeatherOverlayButtons';
 import useScrollListener from './useScrollListener';
 import { Scroller, CardWrapper } from './WeatherInfoCarousel.sc';
 
+type WeatherInfoCarouselProps = {
+  toggleFormVisible: (arg: boolean | ((prev: boolean) => boolean)) => void;
+  list: WeatherResponseType[];
+};
+
 // TODO: add swipe gestures
-const WeatherInfoCarousel = ({ toggleFormVisible, list }) => {
+const WeatherInfoCarousel = ({
+  toggleFormVisible,
+  list,
+}: WeatherInfoCarouselProps) => {
   const [pointer, setPointer] = useState(0);
   const [isMobile, setIsMobile] = useState(isPhone());
   const pointerRef = useRef(pointer);
-  const cardRefs = useRef([]);
-  const scrollerRef = useRef();
+  const cardRefs = useRef<HTMLElement[]>([]);
+  const scrollerRef = useRef<HTMLUListElement>(null);
 
   const addCardRef = useCallback((card, i) => {
     cardRefs.current[i] = card;

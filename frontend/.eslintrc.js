@@ -21,6 +21,10 @@ module.exports = {
     sourceType: 'module',
     project: 'tsconfig.json',
   },
+  rules: {
+    // This started triggering after update so maybe after the prettier eslint-config updates this isn't necessary anymore
+    '@typescript-eslint/comma-dangle': ['error', 'only-multiline'],
+  },
   overrides: [
     {
       files: ['*.tsx'],

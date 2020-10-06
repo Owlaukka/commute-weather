@@ -10,7 +10,7 @@ import theme from './theme';
 
 dayjs.extend(utc);
 
-const node = document.getElementById('js-app');
+const appRoot = document.getElementById('js-app');
 
 ReactDom.render(
   <BrowserRouter>
@@ -18,7 +18,7 @@ ReactDom.render(
       <App />
     </ThemeProvider>
   </BrowserRouter>,
-  node
+  appRoot
 );
 
 // if ('serviceWorker' in navigator) {

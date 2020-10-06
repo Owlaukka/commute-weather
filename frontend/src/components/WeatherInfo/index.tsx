@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import WeatherInfoContext from './WeatherInfoContext';
 import WeatherInfoCarousel from './CardCarousel/WeatherInfoCarousel';
 import useBrowserCoordinates from '../LocationGetter/useBrowserCoordinates';
@@ -28,10 +27,6 @@ const WeatherInfo = ({ toggleFormVisible }: WeatherInfoProps) => {
       />
     );
   return null;
-};
-
-WeatherInfo.propTypes = {
-  toggleFormVisible: PropTypes.func.isRequired,
 };
 
 export default WeatherInfo;

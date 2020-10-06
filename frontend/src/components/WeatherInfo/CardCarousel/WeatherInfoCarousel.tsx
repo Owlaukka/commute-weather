@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import PropTypes from 'prop-types';
 
 import debounce from '../../../helpers/debounce';
 import { isPhone } from '../../../helpers/mediaQueries';
@@ -84,15 +83,6 @@ const WeatherInfoCarousel = ({
       )}
     </>
   );
-};
-
-WeatherInfoCarousel.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({})),
-  toggleFormVisible: PropTypes.func.isRequired,
-};
-
-WeatherInfoCarousel.defaultProps = {
-  list: [],
 };
 
 export default WeatherInfoCarousel;

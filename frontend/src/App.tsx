@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+// import { Switch, Route } from 'react-router-dom';
 import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useTheme } from 'emotion-theming';
@@ -60,13 +60,13 @@ const App = () => {
       <Global styles={GlobalStyles(theme)} />
       <ApolloProvider client={client}>
         <Main>
-          <Suspense fallback={<div>Loading in Suspense!</div>}>
-            <Switch>
-              <Route path="/">
-                <HomePage />
-              </Route>
-            </Switch>
-          </Suspense>
+          {/* <Suspense fallback={<div>Loading in Suspense!</div>}> */}
+          {/* <Switch>
+              <Route path="/"> */}
+          <HomePage />
+          {/* </Route>
+            </Switch> */}
+          {/* </Suspense> */}
         </Main>
       </ApolloProvider>
     </>

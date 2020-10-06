@@ -18,7 +18,6 @@ const FormWrapper: React.FC<any> = styled.section(
 );
 
 const Form = styled.form(({ theme }: { theme: ThemeType }) => ({
-  padding: '0 1rem',
   height: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -33,12 +32,15 @@ const Form = styled.form(({ theme }: { theme: ThemeType }) => ({
 
 const ToggleFormButton: React.FC<any> = styled(Button)(
   ({ theme, isOpen }: { theme: ThemeType; isOpen: boolean }) => ({
-    height: '100%',
     marginLeft: 'auto',
-    padding: '1rem',
     transition: 'top 300ms',
     position: 'relative',
     top: isOpen ? 0 : `${theme.sizes.commuteTimeFormHeight}rem`,
+    fontSize: '1.5rem',
+    svg: {
+      transition: 'transform 200ms',
+      transform: isOpen ? 'none' : 'rotateX(145deg)',
+    },
   })
 );
 

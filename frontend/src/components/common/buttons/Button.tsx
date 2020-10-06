@@ -2,6 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const StyledButton: React.FC<any> = styled.button({
+  height: '100%',
+  minHeight: '2rem',
   border: 'none',
   backgroundColor: 'transparent',
   color: 'white',
@@ -25,6 +27,7 @@ const InnerItem = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  padding: '0 1rem',
 });
 
 type ButtonProps = {

@@ -36,6 +36,10 @@ const CardWrapper = styled.li({
       marginTop: '4rem',
       scrollMarginTop: '3rem',
     },
+    '&:last-of-type': {
+      marginBottom: '4rem',
+      scrollMarginBottom: '3rem',
+    },
     scrollSnapAlign: 'start',
     scrollMarginBottom: '10rem',
   },

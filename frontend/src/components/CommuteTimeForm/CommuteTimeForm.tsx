@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { FaAngleUp } from 'react-icons/fa';
 
 import WeatherInfoContext from '../WeatherInfo/WeatherInfoContext';
 import { Button } from '../common/buttons';
 import debounce from '../../helpers/debounce';
 import { isTablet } from '../../helpers/mediaQueries';
 import { FormWrapper, Form, ToggleFormButton } from './CommuteTimeForm.sc';
+import PreferencesButton from './PreferencesButton';
 
 type CommuteTimeFormProps = {
   isOpen: boolean;
@@ -72,13 +74,14 @@ const CommuteTimeForm = ({
         >
           Confirm
         </Button>
+        <PreferencesButton isOpen={isOpen} />
         <ToggleFormButton
           isOpen={isOpen}
           tabIndex={isOpen ? 0 : -1}
           onClick={toggleOpen}
         >
           {/* TODO: change to an icon or css trickery arrow to animate it easily */}
-          {isOpen ? 'Close' : 'Open'}
+          <FaAngleUp />
         </ToggleFormButton>
       </Form>
     </FormWrapper>

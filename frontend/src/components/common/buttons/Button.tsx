@@ -40,25 +40,31 @@ type ButtonProps = {
   children: React.ReactChild;
 };
 
-const Button = ({
-  onClick,
-  type = 'button',
-  disabled = false,
-  className = '',
-  ariaLabel = '',
-  tabIndex = null,
-  children,
-}: ButtonProps) => (
-  <StyledButton
-    type={type}
-    onClick={onClick}
-    disabled={disabled}
-    className={className}
-    aria-label={ariaLabel}
-    tabIndex={tabIndex}
-  >
-    <InnerItem tabIndex={-1}>{children}</InnerItem>
-  </StyledButton>
+const Button = React.forwardRef(
+  (
+    {
+      onClick,
+      type = 'button',
+      disabled = false,
+      className = '',
+      ariaLabel = '',
+      tabIndex = null,
+      children,
+    }: ButtonProps,
+    ref
+  ) => (
+    <StyledButton
+      ref={ref}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={className}
+      aria-label={ariaLabel}
+      tabIndex={tabIndex}
+    >
+      <InnerItem tabIndex={-1}>{children}</InnerItem>
+    </StyledButton>
+  )
 );
 
 export default Button;

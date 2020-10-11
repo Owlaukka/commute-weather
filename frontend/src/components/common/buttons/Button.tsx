@@ -31,7 +31,7 @@ const InnerItem = styled.div({
 });
 
 type ButtonProps = {
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type?: string;
   disabled?: boolean;
   className?: string;

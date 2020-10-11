@@ -5,7 +5,7 @@ import media from 'css-in-js-media';
 import { Button } from '../common/buttons';
 import { ThemeType } from '../../theme';
 
-const FormWrapper: React.FC<any> = styled.section(
+const NavbarWrapper: React.FC<any> = styled.section(
   ({ theme, isOpen }: { theme: ThemeType; isOpen: boolean }) => ({
     position: 'fixed',
     width: '100%',
@@ -17,7 +17,7 @@ const FormWrapper: React.FC<any> = styled.section(
   })
 );
 
-const Form = styled.form(({ theme }: { theme: ThemeType }) => ({
+const Navbar = styled.div(({ theme }: { theme: ThemeType }) => ({
   height: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -37,11 +37,25 @@ const ToggleFormButton: React.FC<any> = styled(Button)(
     position: 'relative',
     top: isOpen ? 0 : `${theme.sizes.commuteTimeFormHeight}rem`,
     fontSize: '1.5rem',
-    svg: {
-      transition: 'transform 200ms',
-      transform: isOpen ? 'none' : 'rotateX(145deg)',
+    '&:before, &:after': {
+      content: '""',
+      position: 'absolute',
+      top: '50%',
+      height: '0.25rem',
+      width: '0.8rem',
+      background: theme.colors.white,
+      transition: 'transform 300ms',
+      borderRadius: '1px',
+    },
+    '&:before': {
+      left: '0.4rem',
+      transform: isOpen ? 'rotate(-45deg)' : 'rotate(45deg)',
+    },
+    '&:after': {
+      right: '0.4rem',
+      transform: isOpen ? 'rotate(45deg)' : 'rotate(-45deg)',
     },
   })
 );
 
-export { FormWrapper, Form, ToggleFormButton };
+export { NavbarWrapper, Navbar, ToggleFormButton };

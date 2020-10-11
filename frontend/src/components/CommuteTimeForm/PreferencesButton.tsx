@@ -14,10 +14,16 @@ const Loader = styled.div({
 const PreferencesButton = ({ isOpen }: { isOpen: boolean }) => {
   const [isPreferenceModalOpen, setIsPreferenceModalOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (!isPreferenceModalOpen && buttonRef.current) buttonRef.current.focus();
+    if (!isFirstRender.current && !isPreferenceModalOpen && buttonRef.current)
+      buttonRef.current.focus();
   }, [isPreferenceModalOpen]);
+
+  useEffect(() => {
+    isFirstRender.current = false;
+  }, []);
 
   return (
     <>
@@ -29,9 +35,10 @@ const PreferencesButton = ({ isOpen }: { isOpen: boolean }) => {
         Set Preferences
       </Button>
       {isPreferenceModalOpen && (
-        //  TODO: do better loader.... obviously
+        //  TODO: do better loader.... obviously. And an Error Boundary
         <Suspense fallback={<Loader>Loading...</Loader>}>
           <PreferencesModal
+            isModalOpen={isPreferenceModalOpen}
             closeModal={() => setIsPreferenceModalOpen(false)}
           />
         </Suspense>

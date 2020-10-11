@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { FaAngleUp } from 'react-icons/fa';
+import React, { FormEvent, useContext, useEffect, useState } from 'react';
 
 import WeatherInfoContext from '../WeatherInfo/WeatherInfoContext';
 import { Button } from '../common/buttons';
 import debounce from '../../helpers/debounce';
 import { isTablet } from '../../helpers/mediaQueries';
-import { FormWrapper, Form, ToggleFormButton } from './CommuteTimeForm.sc';
+import { NavbarWrapper, Navbar, ToggleFormButton } from './CommuteTimeForm.sc';
 import PreferencesButton from './PreferencesButton';
 
 type CommuteTimeFormProps = {
@@ -13,9 +12,6 @@ type CommuteTimeFormProps = {
   // TODO: maybe attach this to it's origin too somehow...
   setIsTimeFormOpen: (arg: ((prev: boolean) => boolean) | boolean) => void;
 };
-
-type InputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => void;
-type ClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
 
 const CommuteTimeForm = ({
   isOpen,
@@ -27,10 +23,11 @@ const CommuteTimeForm = ({
 
   const [newCommuteTime, setNewCommuteTime] = useState(getCommuteTimeString());
 
-  const updateCommuteTimeInput: InputChangeHandler = (e) =>
-    setNewCommuteTime(e.target.value);
+  const updateCommuteTimeInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => setNewCommuteTime(e.target.value);
 
-  const saveNewCommuteTime: ClickHandler = (e) => {
+  const saveNewCommuteTime = (e: FormEvent): void => {
     e.preventDefault();
     saveCommuteTime(newCommuteTime);
   };
@@ -51,40 +48,35 @@ const CommuteTimeForm = ({
 
   // TODO: style this properly, especially buttons
   return (
-    <FormWrapper isOpen={isOpen}>
-      <Form>
-        <label htmlFor="planned-commute-input">
-          <b>Time of planned commute</b>
-          {/* TODO: make a reusable when more inputs added */}
-          <input
-            id="planned-commute-input"
-            tabIndex={isOpen ? 0 : -1}
-            type="time"
-            step="300"
-            required
-            pattern="[0-9]{2}:[0-9]{2}"
-            value={newCommuteTime}
-            onChange={updateCommuteTimeInput}
-          />
-        </label>
-        <Button
-          type="submit"
-          tabIndex={isOpen ? 0 : -1}
-          onClick={saveNewCommuteTime}
-        >
-          Confirm
-        </Button>
+    <NavbarWrapper isOpen={isOpen}>
+      <Navbar>
+        <form onSubmit={saveNewCommuteTime}>
+          <label htmlFor="planned-commute-input">
+            <b>Time of planned commute</b>
+            {/* TODO: make a reusable when more inputs added */}
+            <input
+              id="planned-commute-input"
+              tabIndex={isOpen ? 0 : -1}
+              type="time"
+              step="300"
+              required
+              pattern="[0-9]{2}:[0-9]{2}"
+              value={newCommuteTime}
+              onChange={updateCommuteTimeInput}
+            />
+          </label>
+          <Button type="submit" tabIndex={isOpen ? 0 : -1}>
+            Confirm
+          </Button>
+        </form>
         <PreferencesButton isOpen={isOpen} />
         <ToggleFormButton
           isOpen={isOpen}
           tabIndex={isOpen ? 0 : -1}
           onClick={toggleOpen}
-        >
-          {/* TODO: change to an icon or css trickery arrow to animate it easily */}
-          <FaAngleUp />
-        </ToggleFormButton>
-      </Form>
-    </FormWrapper>
+        />
+      </Navbar>
+    </NavbarWrapper>
   );
 };
 

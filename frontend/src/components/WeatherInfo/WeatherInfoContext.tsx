@@ -1,27 +1,19 @@
 import React, { createContext, useState } from 'react';
+import {
+  CalculateWeatherSuitabilityType,
+  CoordinatesType,
+  PreferencesTypes,
+  SaveCommuteTimeType,
+  SavePreferencesType,
+  SetCoordinatesType,
+  WeatherInfoContextType,
+} from './types';
 
 import { formatTime } from './weatherInfoHelpers';
 
-type SaveCommuteTimeType = (time: string) => void;
-
-type CoordinatesType = {
-  latitude: number;
-  longitude: number;
-};
-
-type SetCoordinatesType = (coords: CoordinatesType) => void;
-
-type WeatherInfoContextType = {
-  commuteTime: [number, number];
-  getCommuteTimeString: () => string;
-  saveCommuteTime: SaveCommuteTimeType;
-  locationCoords: CoordinatesType;
-  setLocationCoords: SetCoordinatesType;
-};
-
 const WeatherInfoContext = createContext({} as WeatherInfoContextType);
 
-const validTimeFormat = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g;
+const validTimeFormat = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/;
 
 export const WeatherInfoProvider = ({
   children,
@@ -30,12 +22,13 @@ export const WeatherInfoProvider = ({
 }) => {
   // TODO: maybe get from DB later
   const [commuteTime, setCommuteTime] = useState(
-    JSON.parse(localStorage.getItem('savedCommuteTime')!) || [17, 30]
+    JSON.parse(localStorage.getItem('savedCommuteTime') || '') || [17, 30]
   );
   const [locationCoords, setLocationCoords]: [
     CoordinatesType,
     SetCoordinatesType
   ] = useState({} as CoordinatesType);
+  const [, setPreferences] = useState<PreferencesTypes>();
 
   const saveCommuteTime: SaveCommuteTimeType = (time) => {
     if (!validTimeFormat.test(time)) {
@@ -54,7 +47,21 @@ export const WeatherInfoProvider = ({
     localStorage.setItem('savedCommuteTime', JSON.stringify(formattedTime));
   };
 
+  const savePreferences: SavePreferencesType = (prefs) => {
+    setPreferences(prefs);
+    localStorage.setItem('weatherPreferences', JSON.stringify(prefs));
+  };
+
   const getCommuteTimeString = () => formatTime(commuteTime[0], commuteTime[1]);
+
+  // TODO: add accurate weather type
+  const calculateWeatherSuitability: CalculateWeatherSuitabilityType = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    weather
+  ) => {
+    JSON.parse(localStorage.getItem('weatherPreferences') || '');
+    return 100;
+  };
 
   return (
     <WeatherInfoContext.Provider
@@ -64,6 +71,8 @@ export const WeatherInfoProvider = ({
         saveCommuteTime,
         locationCoords,
         setLocationCoords,
+        savePreferences,
+        calculateWeatherSuitability,
       }}
     >
       {children}

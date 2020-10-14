@@ -12,7 +12,7 @@ module.exports = {
     'prettier',
     'prettier/react',
   ],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -24,6 +24,12 @@ module.exports = {
   rules: {
     // This started triggering after update so maybe after the prettier eslint-config updates this isn't necessary anymore
     '@typescript-eslint/comma-dangle': ['error', 'only-multiline'],
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        controlComponents: ['Input'],
+      },
+    ],
   },
   overrides: [
     {
@@ -52,4 +58,14 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+  },
 };

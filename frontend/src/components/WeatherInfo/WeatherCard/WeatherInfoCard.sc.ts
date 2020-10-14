@@ -22,16 +22,6 @@ import { ThemeType } from '../../../theme';
 
 import { findTemperatureColor } from '../weatherInfoHelpers';
 
-// // TODO: move to somewhere shareable or attach to the theme object itself somehow....
-// type ThemeType = {
-//   sizes: any;
-//   colors: any;
-// };
-
-// type StyledCallback = {
-//   theme: ThemeType;
-// };
-
 export const Wrapper = styled.article(({ theme }: { theme: ThemeType }) => ({
   width: '100vw',
   fontSize: 'clamp(1.5rem, calc(3vw + 2.5vh), 5rem)',

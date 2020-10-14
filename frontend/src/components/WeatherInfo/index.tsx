@@ -19,13 +19,14 @@ const WeatherInfo = ({ toggleFormVisible }: WeatherInfoProps) => {
   }, [coordinates, setLocationCoords]);
 
   if (loading) return <h1>Loading....</h1>;
-  if (data?.weather)
+  if (data?.weather) {
     return (
       <WeatherInfoCarousel
         toggleFormVisible={toggleFormVisible}
         list={data.weather}
       />
     );
+  }
   return null;
 };
 

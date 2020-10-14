@@ -2,16 +2,15 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import debounce from '../../../helpers/debounce';
 import { isPhone } from '../../../helpers/mediaQueries';
-import WeatherInfoCard, {
-  WeatherResponseType,
-} from '../WeatherCard/WeatherInfoCard';
+import WeatherInfoCard from '../WeatherCard/WeatherInfoCard';
 import WeatherOverlayButtons from './CarouselNavigationButtons/WeatherOverlayButtons';
 import useScrollListener from './useScrollListener';
 import { Scroller, CardWrapper } from './WeatherInfoCarousel.sc';
+import { WeatherType } from '../../../NetworkRequestService/types';
 
 type WeatherInfoCarouselProps = {
   toggleFormVisible: (arg: boolean | ((prev: boolean) => boolean)) => void;
-  list: WeatherResponseType[];
+  list: WeatherType[];
 };
 
 // TODO: add swipe gestures
@@ -25,8 +24,8 @@ const WeatherInfoCarousel = ({
   const cardRefs = useRef<HTMLElement[]>([]);
   const scrollerRef = useRef<HTMLUListElement>(null);
 
-  const addCardRef = useCallback((card, i) => {
-    cardRefs.current[i] = card;
+  const addCardRef = useCallback((card: HTMLElement | null, i: number) => {
+    if (card) cardRefs.current[i] = card;
   }, []);
 
   useScrollListener(scrollerRef, toggleFormVisible);
@@ -38,7 +37,7 @@ const WeatherInfoCarousel = ({
       });
 
     scrollToActive();
-    const debouncedOnResize = debounce(() => {
+    const debouncedOnResize: () => void = debounce(() => {
       setIsMobile(isPhone());
       scrollToActive();
     }, 100);

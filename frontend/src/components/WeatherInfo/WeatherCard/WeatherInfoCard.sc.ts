@@ -20,9 +20,13 @@ import {
 } from 'react-icons/wi';
 import { ThemeType } from '../../../theme';
 
-import { findTemperatureColor } from '../weatherInfoHelpers';
+import {
+  findTemperatureColor,
+  calculateSuitabilityColor,
+} from '../weatherInfoHelpers';
 
 export const Wrapper = styled.article(({ theme }: { theme: ThemeType }) => ({
+  position: 'relative',
   width: '100vw',
   fontSize: 'clamp(1.5rem, calc(3vw + 2.5vh), 5rem)',
   transition: 'transform 500ms',
@@ -123,3 +127,13 @@ export const Humidity = styled.div({
 export const HumidityText = styled.div({
   marginLeft: '1rem',
 });
+
+export const Suitability = styled.div(
+  ({ suitability }: { suitability: number }) => ({
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    fontSize: '0.5em',
+    color: calculateSuitabilityColor(suitability),
+  })
+);

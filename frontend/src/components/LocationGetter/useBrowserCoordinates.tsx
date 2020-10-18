@@ -17,7 +17,6 @@ const useBrowserCoordinates = () => {
     if (coordsExist) return;
     navigator?.geolocation.getCurrentPosition(
       ({ coords }) => setCoordinates(coords),
-      // eslint-disable-next-line no-console
       (error) => console.error(`Error Code: ${error.code} - ${error.message}`)
     );
   }, [setCoordinates, coordsExist]);

@@ -9,11 +9,16 @@ export type CoordinatesType = {
 
 export type PreferencesTypes = {
   idealTemperature: { value: number; priority: number };
+  idealHumidity: { value: number; priority: number };
 };
 
 export type SetCoordinatesType = (coords: CoordinatesType) => void;
 export type SavePreferencesType = (prefs: PreferencesTypes) => void;
-export type CalculateWeatherSuitabilityType = (weather: WeatherType) => number; // TODO: make proper weather type
+export type GetWeatherSuitabilityType = (weather: WeatherType) => number;
+export type CalculateWeatherSuitabilityType = (
+  weather: WeatherType,
+  preferences: PreferencesTypes
+) => number;
 
 export type WeatherInfoContextType = {
   commuteTime: [number, number];
@@ -21,6 +26,7 @@ export type WeatherInfoContextType = {
   saveCommuteTime: SaveCommuteTimeType;
   locationCoords: CoordinatesType;
   setLocationCoords: SetCoordinatesType;
+  preferences: PreferencesTypes;
   savePreferences: SavePreferencesType;
-  calculateWeatherSuitability: CalculateWeatherSuitabilityType;
+  getWeatherSuitability: GetWeatherSuitabilityType;
 };

@@ -30,6 +30,7 @@ module.exports = {
         controlComponents: ['Input'],
       },
     ],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
   },
   overrides: [
     {

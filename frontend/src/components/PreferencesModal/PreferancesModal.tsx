@@ -1,8 +1,8 @@
+import React, { useCallback, useContext, useReducer } from 'react';
 import styled from '@emotion/styled';
-import React, { useContext, useReducer } from 'react';
 import { Modal, Button } from '../common';
-import { PreferencesTypes } from '../WeatherInfo/types';
 import WeatherInfoContext from '../WeatherInfo/WeatherInfoContext';
+import PreferencesReducer from './PreferencesReducer';
 
 type PreferancesModalProps = {
   isModalOpen: boolean;
@@ -14,51 +14,12 @@ const Input = styled.input({
   marginBottom: '1rem',
 });
 
-// TODO: There probably exists a builtin type for this...?
-type ActionType = {
-  type: string;
-  payload?: any;
-};
-
-const initialState: PreferencesTypes = {
-  idealTemperature: { value: 20, priority: 100 },
-};
-
-function reducer(
-  state: PreferencesTypes,
-  action: ActionType
-): PreferencesTypes {
-  switch (action.type) {
-    case 'changeIdealTemperatureValue':
-      return {
-        ...state,
-        idealTemperature: {
-          ...state.idealTemperature,
-          value:
-            parseInt(action.payload, 10) || initialState.idealTemperature.value,
-        },
-      };
-    case 'changeIdealTemperaturePriority':
-      return {
-        ...state,
-        idealTemperature: {
-          ...state.idealTemperature,
-          priority:
-            parseInt(action.payload, 10) ||
-            initialState.idealTemperature.priority,
-        },
-      };
-    default:
-      return state;
-  }
-}
-
 const PreferancesModal = ({
   isModalOpen,
   closeModal,
 }: PreferancesModalProps) => {
-  const { savePreferences } = useContext(WeatherInfoContext);
-  const [formState, dispatch] = useReducer(reducer, initialState);
+  const { preferences, savePreferences } = useContext(WeatherInfoContext);
+  const [formState, dispatch] = useReducer(PreferencesReducer, preferences);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,38 +27,66 @@ const PreferancesModal = ({
     closeModal();
   };
 
+  const dispatchOnChange = useCallback(
+    (action: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch({
+        type: action,
+        payload: parseInt(e.target.value, 10),
+      });
+    },
+    []
+  );
   return (
     <Modal {...{ isModalOpen, closeModal }}>
-      <h1>Your ideal commute weather</h1>
+      <h1>Ideal commute weather</h1>
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Ideal Temperature</legend>
+          <legend>Temperature</legend>
           <label htmlFor="ideal-temperature.value">
-            <b>Temperature</b>
+            <b>Value</b>
             <Input
-              type="number"
               id="ideal-temperature.value"
-              value={formState.idealTemperature.value}
-              onChange={(e) =>
-                dispatch({
-                  type: 'changeIdealTemperatureValue',
-                  payload: e.target.value,
-                })
-              }
+              type="number"
+              min="-40"
+              max="40"
+              value={formState.idealTemperature?.value}
+              onChange={dispatchOnChange('changeIdealTemperatureValue')}
             />
           </label>
           <label htmlFor="ideal-temperature.priority">
-            <b>Temperature Priority</b>
+            <b>Importance</b>
             <Input
-              type="range"
               id="ideal-temperature.priority"
-              value={formState.idealTemperature.priority}
-              onChange={(e) =>
-                dispatch({
-                  type: 'changeIdealTemperaturePriority',
-                  payload: e.target.value,
-                })
-              }
+              type="range"
+              min="0"
+              max="100"
+              value={formState.idealTemperature?.priority}
+              onChange={dispatchOnChange('changeIdealTemperaturePriority')}
+            />
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Humidity</legend>
+          <label htmlFor="ideal-temperature.value">
+            <b>Value</b>
+            <Input
+              id="ideal-temperature.value"
+              type="number"
+              min="0"
+              max="100"
+              value={formState.idealHumidity?.value}
+              onChange={dispatchOnChange('changeIdealHumidityValue')}
+            />
+          </label>
+          <label htmlFor="ideal-temperature.priority">
+            <b>Importance</b>
+            <Input
+              id="ideal-temperature.priority"
+              type="range"
+              min="0"
+              max="100"
+              value={formState.idealHumidity?.priority}
+              onChange={dispatchOnChange('changeIdealHumidityPriority')}
             />
           </label>
         </fieldset>

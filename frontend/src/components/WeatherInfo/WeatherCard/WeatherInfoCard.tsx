@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import isTomorrow from 'dayjs/plugin/isTomorrow';
@@ -13,7 +13,10 @@ import {
   Humidity,
   HumidityText,
   resolveStyledWeatherIcon,
+  Suitability,
 } from './WeatherInfoCard.sc';
+import WeatherInfoContext from '../WeatherInfoContext';
+import { WeatherType } from '../../../NetworkRequestService/types';
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -24,35 +27,31 @@ const resolveDayText = (datetime: string) => {
   return dayjs(datetime).format('dddd');
 };
 
-type WeatherIconType = {
-  main: string;
-  icon: string;
-};
-
-export type WeatherResponseType = {
-  temperature: { isDaily: boolean; min?: number; max?: number; temp?: number };
-  weather: WeatherIconType[];
-  time: string;
-  humidity: number;
-};
-
 const resolveTempDisplay = ({
   temperature: { isDaily, min = 100, max = 100, temp = 99 },
-}: WeatherResponseType) => (isDaily ? `${min}-${max}` : temp);
+}: WeatherType) => (isDaily ? `${min}-${max}` : temp);
 
 const getAvgTemp = ({
   temperature: { isDaily, min = 100, max = 100, temp = 99 },
-}: WeatherResponseType) => (isDaily ? (min + max) / 2 : temp);
+}: WeatherType) => (isDaily ? (min + max) / 2 : temp);
+
+const Importance = ({ suitability }: { suitability: number }) => (
+  <Suitability suitability={suitability}>
+    {Math.round(suitability * 100)}%
+  </Suitability>
+);
 
 const WeatherInfoCard = React.forwardRef<HTMLElement, any>(
-  ({ weather }: { weather: WeatherResponseType }, ref) => {
+  ({ weather }: { weather: WeatherType }, ref) => {
+    const { getWeatherSuitability } = useContext(WeatherInfoContext);
+
     const WeatherIcon = resolveStyledWeatherIcon(weather.weather[0].icon);
     return (
       <Wrapper ref={ref}>
         <Day>{resolveDayText(weather.time)}</Day>
         <WeatherIcon temperature={getAvgTemp(weather)} />
         <Temp data-testid="weather-card-temp" temperature={getAvgTemp(weather)}>
-          {`${resolveTempDisplay(weather)}°C`}
+          {resolveTempDisplay(weather)}°C
         </Temp>
         <Weather>{weather.weather.map((w) => w.main).join(', ')}</Weather>
         <TimeOfCommute>
@@ -62,6 +61,7 @@ const WeatherInfoCard = React.forwardRef<HTMLElement, any>(
           <WiHumidity />
           <HumidityText>{`${weather.humidity}%`}</HumidityText>
         </Humidity>
+        <Importance suitability={getWeatherSuitability(weather)} />
       </Wrapper>
     );
   }

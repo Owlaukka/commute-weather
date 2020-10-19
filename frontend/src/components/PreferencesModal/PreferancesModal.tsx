@@ -1,18 +1,14 @@
 import React, { useCallback, useContext, useReducer } from 'react';
-import styled from '@emotion/styled';
+
 import { Modal, Button } from '../common';
 import WeatherInfoContext from '../WeatherInfo/WeatherInfoContext';
 import PreferencesReducer from './PreferencesReducer';
+import { Fieldset, Input, RangeInput } from './PreferencesModal.sc';
 
 type PreferancesModalProps = {
   isModalOpen: boolean;
   closeModal: () => void;
 };
-
-const Input = styled.input({
-  width: '100%',
-  marginBottom: '1rem',
-});
 
 const PreferancesModal = ({
   isModalOpen,
@@ -40,7 +36,7 @@ const PreferancesModal = ({
     <Modal {...{ isModalOpen, closeModal }}>
       <h1>Ideal commute weather</h1>
       <form onSubmit={handleSubmit}>
-        <fieldset>
+        <Fieldset>
           <legend>Temperature</legend>
           <label htmlFor="ideal-temperature.value">
             <b>Value</b>
@@ -55,17 +51,15 @@ const PreferancesModal = ({
           </label>
           <label htmlFor="ideal-temperature.priority">
             <b>Importance</b>
-            <Input
+            <RangeInput
               id="ideal-temperature.priority"
               type="range"
-              min="0"
-              max="100"
               value={formState.idealTemperature?.priority}
               onChange={dispatchOnChange('changeIdealTemperaturePriority')}
             />
           </label>
-        </fieldset>
-        <fieldset>
+        </Fieldset>
+        <Fieldset>
           <legend>Humidity</legend>
           <label htmlFor="ideal-temperature.value">
             <b>Value</b>
@@ -80,16 +74,14 @@ const PreferancesModal = ({
           </label>
           <label htmlFor="ideal-temperature.priority">
             <b>Importance</b>
-            <Input
+            <RangeInput
               id="ideal-temperature.priority"
               type="range"
-              min="0"
-              max="100"
               value={formState.idealHumidity?.priority}
               onChange={dispatchOnChange('changeIdealHumidityPriority')}
             />
           </label>
-        </fieldset>
+        </Fieldset>
         <Button onClick={closeModal}>Cancel</Button>
         <Button type="submit">Save</Button>
       </form>

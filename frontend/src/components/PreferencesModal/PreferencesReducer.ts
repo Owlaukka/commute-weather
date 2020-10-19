@@ -12,7 +12,7 @@ const reducer = (
 ): PreferencesTypes => {
   switch (action.type) {
     case 'changeIdealTemperatureValue': {
-      if (!action.payload) return state;
+      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealTemperature: {
@@ -22,7 +22,7 @@ const reducer = (
       };
     }
     case 'changeIdealTemperaturePriority': {
-      if (!action.payload) return state;
+      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealTemperature: {
@@ -32,7 +32,7 @@ const reducer = (
       };
     }
     case 'changeIdealHumidityValue': {
-      if (!action.payload) return state;
+      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealHumidity: {
@@ -42,7 +42,7 @@ const reducer = (
       };
     }
     case 'changeIdealHumidityPriority': {
-      if (!action.payload) return state;
+      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealHumidity: {

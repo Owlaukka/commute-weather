@@ -14,9 +14,10 @@ const ModalBackground = styled.div(({ theme }: { theme: ThemeType }) => ({
 }));
 
 const ModalContent = styled.section(({ theme }: { theme: ThemeType }) => ({
+  width: '40rem',
   maxWidth: '100vw',
   maxHeight: '100vh',
-  background: 'gray',
+  background: theme.colors.darkVioletBG,
   padding: '1rem',
   '&:focus': {
     outline: `3px solid ${theme.colors.white}`,

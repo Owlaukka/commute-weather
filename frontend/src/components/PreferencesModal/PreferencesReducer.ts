@@ -1,5 +1,11 @@
 import { PreferencesTypes } from '../WeatherInfo/types';
 
+export const CHANGE_IDEAL_TEMPERATURE_VALUE = 'changeIdealTemperatureValue';
+export const CHANGE_IDEAL_TEMPERATURE_PRIORITY =
+  'changeIdealTemperaturePriority';
+export const CHANGE_IDEAL_HUMIDITY_VALUE = 'changeIdealHumidityValue';
+export const CHANGE_IDEAL_HUMIDITY_PRIORITY = 'changeIdealHumidityPriority';
+
 // TODO: There probably exists a builtin type for this...?
 type ActionType = {
   type: string;
@@ -11,7 +17,7 @@ const reducer = (
   action: ActionType
 ): PreferencesTypes => {
   switch (action.type) {
-    case 'changeIdealTemperatureValue': {
+    case CHANGE_IDEAL_TEMPERATURE_VALUE: {
       if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
@@ -21,7 +27,7 @@ const reducer = (
         },
       };
     }
-    case 'changeIdealTemperaturePriority': {
+    case CHANGE_IDEAL_TEMPERATURE_PRIORITY: {
       if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
@@ -31,7 +37,7 @@ const reducer = (
         },
       };
     }
-    case 'changeIdealHumidityValue': {
+    case CHANGE_IDEAL_HUMIDITY_VALUE: {
       if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
@@ -41,7 +47,7 @@ const reducer = (
         },
       };
     }
-    case 'changeIdealHumidityPriority': {
+    case CHANGE_IDEAL_HUMIDITY_PRIORITY: {
       if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,

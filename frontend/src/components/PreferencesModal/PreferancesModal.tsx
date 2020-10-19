@@ -2,7 +2,12 @@ import React, { useCallback, useContext, useReducer } from 'react';
 
 import { Modal, Button } from '../common';
 import WeatherInfoContext from '../WeatherInfo/WeatherInfoContext';
-import PreferencesReducer from './PreferencesReducer';
+import PreferencesReducer, {
+  CHANGE_IDEAL_HUMIDITY_PRIORITY,
+  CHANGE_IDEAL_HUMIDITY_VALUE,
+  CHANGE_IDEAL_TEMPERATURE_PRIORITY,
+  CHANGE_IDEAL_TEMPERATURE_VALUE,
+} from './PreferencesReducer';
 import { Fieldset, Input, RangeInput } from './PreferencesModal.sc';
 
 type PreferancesModalProps = {
@@ -46,7 +51,7 @@ const PreferancesModal = ({
               min="-40"
               max="40"
               value={formState.idealTemperature?.value}
-              onChange={dispatchOnChange('changeIdealTemperatureValue')}
+              onChange={dispatchOnChange(CHANGE_IDEAL_TEMPERATURE_VALUE)}
             />
           </label>
           <label htmlFor="ideal-temperature.priority">
@@ -55,7 +60,7 @@ const PreferancesModal = ({
               id="ideal-temperature.priority"
               type="range"
               value={formState.idealTemperature?.priority}
-              onChange={dispatchOnChange('changeIdealTemperaturePriority')}
+              onChange={dispatchOnChange(CHANGE_IDEAL_TEMPERATURE_PRIORITY)}
             />
           </label>
         </Fieldset>
@@ -69,7 +74,7 @@ const PreferancesModal = ({
               min="0"
               max="100"
               value={formState.idealHumidity?.value}
-              onChange={dispatchOnChange('changeIdealHumidityValue')}
+              onChange={dispatchOnChange(CHANGE_IDEAL_HUMIDITY_VALUE)}
             />
           </label>
           <label htmlFor="ideal-temperature.priority">
@@ -78,7 +83,7 @@ const PreferancesModal = ({
               id="ideal-temperature.priority"
               type="range"
               value={formState.idealHumidity?.priority}
-              onChange={dispatchOnChange('changeIdealHumidityPriority')}
+              onChange={dispatchOnChange(CHANGE_IDEAL_HUMIDITY_PRIORITY)}
             />
           </label>
         </Fieldset>

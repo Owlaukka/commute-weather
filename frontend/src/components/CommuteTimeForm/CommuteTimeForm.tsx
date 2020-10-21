@@ -1,10 +1,17 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react';
 
 import WeatherInfoContext from '../WeatherInfo/WeatherInfoContext';
-import { Button } from '../common/buttons';
 import debounce from '../../helpers/debounce';
 import { isTablet } from '../../helpers/mediaQueries';
-import { NavbarWrapper, Navbar, ToggleFormButton } from './CommuteTimeForm.sc';
+import {
+  NavbarWrapper,
+  Navbar,
+  ToggleNavbarButton,
+  CommuteTimeFormElement,
+  CommuteTimeInputWrapper,
+  CommuteTimeFormSubmitButton,
+  CommuteTimeInputElement,
+} from './CommuteTimeForm.sc';
 import PreferencesButton from './PreferencesButton';
 
 type CommuteTimeFormProps = {
@@ -50,11 +57,11 @@ const CommuteTimeForm = ({
   return (
     <NavbarWrapper isOpen={isOpen}>
       <Navbar>
-        <form onSubmit={saveNewCommuteTime}>
-          <label htmlFor="planned-commute-input">
+        <CommuteTimeFormElement onSubmit={saveNewCommuteTime}>
+          <CommuteTimeInputWrapper htmlFor="planned-commute-input">
             <b>Time of planned commute</b>
             {/* TODO: make a reusable when more inputs added */}
-            <input
+            <CommuteTimeInputElement
               id="planned-commute-input"
               tabIndex={isOpen ? 0 : -1}
               type="time"
@@ -64,13 +71,13 @@ const CommuteTimeForm = ({
               value={newCommuteTime}
               onChange={updateCommuteTimeInput}
             />
-          </label>
-          <Button type="submit" tabIndex={isOpen ? 0 : -1}>
+          </CommuteTimeInputWrapper>
+          <CommuteTimeFormSubmitButton type="submit" tabIndex={isOpen ? 0 : -1}>
             Confirm
-          </Button>
-        </form>
+          </CommuteTimeFormSubmitButton>
+        </CommuteTimeFormElement>
         <PreferencesButton isOpen={isOpen} />
-        <ToggleFormButton
+        <ToggleNavbarButton
           isOpen={isOpen}
           tabIndex={isOpen ? 0 : -1}
           onClick={toggleOpen}

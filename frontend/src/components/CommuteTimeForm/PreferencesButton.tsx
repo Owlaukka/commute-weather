@@ -32,7 +32,7 @@ const PreferencesButton = ({ isOpen }: { isOpen: boolean }) => {
         tabIndex={isOpen ? 0 : -1}
         onClick={() => setIsPreferenceModalOpen(true)}
       >
-        Set Preferences
+        Preferences
       </Button>
       {isPreferenceModalOpen && (
         //  TODO: do better loader.... obviously. And an Error Boundary

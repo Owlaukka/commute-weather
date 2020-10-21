@@ -37,7 +37,7 @@ const getAvgTemp = ({
 
 const Importance = ({ suitability }: { suitability: number }) => (
   <Suitability suitability={suitability}>
-    {Math.round(suitability * 100)}%
+    Proximity to Ideal: {Math.round(suitability * 100)}%
   </Suitability>
 );
 
@@ -46,8 +46,9 @@ const WeatherInfoCard = React.forwardRef<HTMLElement, any>(
     const { getWeatherSuitability } = useContext(WeatherInfoContext);
 
     const WeatherIcon = resolveStyledWeatherIcon(weather.weather[0].icon);
+    const weatherSuitability = getWeatherSuitability(weather);
     return (
-      <Wrapper ref={ref}>
+      <Wrapper ref={ref} weatherSuitability={weatherSuitability}>
         <Day>{resolveDayText(weather.time)}</Day>
         <WeatherIcon temperature={getAvgTemp(weather)} />
         <Temp data-testid="weather-card-temp" temperature={getAvgTemp(weather)}>
@@ -61,7 +62,7 @@ const WeatherInfoCard = React.forwardRef<HTMLElement, any>(
           <WiHumidity />
           <HumidityText>{`${weather.humidity}%`}</HumidityText>
         </Humidity>
-        <Importance suitability={getWeatherSuitability(weather)} />
+        <Importance suitability={weatherSuitability} />
       </Wrapper>
     );
   }

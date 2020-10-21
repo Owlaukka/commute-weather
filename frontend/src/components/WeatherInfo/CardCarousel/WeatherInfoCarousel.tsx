@@ -7,19 +7,17 @@ import WeatherOverlayButtons from './CarouselNavigationButtons/WeatherOverlayBut
 import useScrollListener from './useScrollListener';
 import { Scroller, CardWrapper } from './WeatherInfoCarousel.sc';
 import { WeatherType } from '../../../NetworkRequestService/types';
+import CommuteTimeForm from '../../CommuteTimeForm/CommuteTimeForm';
 
 type WeatherInfoCarouselProps = {
-  toggleFormVisible: (arg: boolean | ((prev: boolean) => boolean)) => void;
   list: WeatherType[];
 };
 
 // TODO: add swipe gestures
-const WeatherInfoCarousel = ({
-  toggleFormVisible,
-  list,
-}: WeatherInfoCarouselProps) => {
+const WeatherInfoCarousel = ({ list }: WeatherInfoCarouselProps) => {
   const [pointer, setPointer] = useState(0);
   const [isMobile, setIsMobile] = useState(isPhone());
+  const [isTimeFormOpen, setIsTimeFormOpen] = useState(true);
   const pointerRef = useRef(pointer);
   const cardRefs = useRef<HTMLElement[]>([]);
   const scrollerRef = useRef<HTMLUListElement>(null);
@@ -28,7 +26,7 @@ const WeatherInfoCarousel = ({
     if (card) cardRefs.current[i] = card;
   }, []);
 
-  useScrollListener(scrollerRef, toggleFormVisible);
+  useScrollListener(scrollerRef, setIsTimeFormOpen);
 
   useEffect(() => {
     const scrollToActive = () =>
@@ -63,6 +61,10 @@ const WeatherInfoCarousel = ({
   return (
     <>
       <Scroller ref={scrollerRef}>
+        <CommuteTimeForm
+          isOpen={isTimeFormOpen}
+          setIsTimeFormOpen={setIsTimeFormOpen}
+        />
         {list.map((item, i) => (
           <CardWrapper key={item.time}>
             <WeatherInfoCard

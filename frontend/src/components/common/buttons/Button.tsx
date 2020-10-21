@@ -18,6 +18,14 @@ const StyledButton: React.FC<any> = styled.button({
     outline: 'none',
     boxShadow: '0 0 0 3px white inset',
   },
+  '& > *': {
+    transition: 'transform 300ms',
+  },
+  '&:active:not(:disabled)': {
+    '& > *': {
+      transform: 'scale(0.8)',
+    },
+  },
 });
 
 const InnerItem = styled.div({

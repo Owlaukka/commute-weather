@@ -43,7 +43,7 @@ describe('Weather card list', () => {
       'with screen size 1920x1080',
       { viewportHeight: 1080, viewportWidth: 1920 },
       () => {
-        cy.findByRole('button', { name: /Close/i }).should('be.visible');
+        cy.findByTitle(/close/i).should('be.visible');
 
         cy.findByLabelText(/Time of planned/i).should('have.value', '17:30');
         cy.findByLabelText(/Time of planned/i).type('03:15');
@@ -54,7 +54,7 @@ describe('Weather card list', () => {
         cy.findByText('18.3°C').should('exist');
         cy.findByText('18.3°C').should('not.be.visible');
 
-        cy.findByRole('button', { name: /Close/i }).click();
+        cy.findByTitle(/close/i).click();
         cy.findByLabelText(/Time of planned/i).should('not.be.visible');
       }
     );
@@ -63,7 +63,7 @@ describe('Weather card list', () => {
       'with screen size ipad-mini',
       { viewportHeight: 1024, viewportWidth: 768 },
       () => {
-        cy.findByRole('button', { name: /Close/i }).should('be.visible');
+        cy.findByTitle(/close/i).should('be.visible');
 
         cy.findByLabelText(/Time of planned/i).should('have.value', '17:30');
         cy.findByLabelText(/Time of planned/i).type('03:15');
@@ -74,7 +74,7 @@ describe('Weather card list', () => {
         cy.findByText('18.3°C').should('exist');
         cy.findByText('18.3°C').should('not.be.visible');
 
-        cy.findByRole('button', { name: /Close/i }).click();
+        cy.findByTitle(/close/i).click();
         cy.findByLabelText(/Time of planned/i).should('not.be.visible');
       }
     );
@@ -84,7 +84,7 @@ describe('Weather card list', () => {
       'with screen size of "phone"',
       { viewportHeight: 760, viewportWidth: 360 },
       () => {
-        cy.findByRole('button', { name: /Close/i }).should('be.visible');
+        cy.findByTitle(/close/i).should('be.visible');
 
         cy.findByLabelText(/Time of planned/i).should('have.value', '17:30');
         cy.findByLabelText(/Time of planned/i).type('03:15');
@@ -95,7 +95,7 @@ describe('Weather card list', () => {
         cy.findByText('18.3°C').should('exist');
         cy.findByText('18.3°C').should('not.be.visible');
 
-        cy.findByRole('button', { name: /Close/i }).click();
+        cy.findByTitle(/close/i).click();
         cy.findByLabelText(/Time of planned/i).should('not.be.visible');
       }
     );
@@ -104,7 +104,7 @@ describe('Weather card list', () => {
       'with screen size 830x600 (small tablet)',
       { viewportHeight: 600, viewportWidth: 830 },
       () => {
-        cy.findByRole('button', { name: /open/i }).should('be.visible');
+        cy.findByTitle(/open/i).should('be.visible');
         cy.findByLabelText(/Time of planned/i).should('not.be.visible');
 
         cy.findByRole('button', { name: /open/i }).click();
@@ -113,6 +113,7 @@ describe('Weather card list', () => {
 
         cy.findByRole('button', { name: 'Confirm' }).click();
 
+        cy.findByLabelText(/Time of planned/i).should('not.be.visible');
         cy.findByText('17.2°C').should('be.visible');
         cy.findByText('18.3°C').should('exist');
         cy.findByText('18.3°C').should('not.be.visible');
@@ -120,7 +121,7 @@ describe('Weather card list', () => {
         cy.findByLabelText(/next day/i).click();
         cy.findByText('18.3°C').should('be.visible');
 
-        cy.findByRole('button', { name: /Close/i }).click();
+        cy.findByTitle(/open/i).click();
         cy.findByLabelText(/Time of planned/i).should('not.be.visible');
       }
     );

@@ -15,8 +15,8 @@ import {
 } from './weatherInfoHelpers';
 
 const DEFAULT_PREFS: PreferencesTypes = {
-  idealTemperature: { value: 20, priority: 100 },
-  idealHumidity: { value: 50, priority: 100 },
+  idealTemperature: { value: '20', priority: '100' },
+  idealHumidity: { value: '50', priority: '100' },
 };
 const VALID_TIME_FORMAT = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/;
 

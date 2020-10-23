@@ -44,6 +44,7 @@ type ButtonProps = {
   disabled?: boolean;
   className?: string;
   ariaLabel?: string;
+  title?: string | null;
   tabIndex?: number | string | null;
   children: React.ReactChild;
 };
@@ -56,19 +57,15 @@ const Button = React.forwardRef(
       disabled = false,
       className = '',
       ariaLabel = '',
+      title = null,
       tabIndex = null,
       children,
     }: ButtonProps,
     ref
   ) => (
     <StyledButton
-      ref={ref}
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={className}
+      {...{ ref, type, onClick, disabled, className, title, tabIndex }}
       aria-label={ariaLabel}
-      tabIndex={tabIndex}
     >
       <InnerItem tabIndex={-1}>{children}</InnerItem>
     </StyledButton>

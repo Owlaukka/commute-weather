@@ -30,10 +30,12 @@ const PreferancesModal = ({
 
   const dispatchOnChange = useCallback(
     (action: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch({
-        type: action,
-        payload: parseInt(e.target.value, 10),
-      });
+      if (/^-?[0-9]*$/.test(e.target.value)) {
+        dispatch({
+          type: action,
+          payload: e.target.value,
+        });
+      }
     },
     []
   );
@@ -47,9 +49,6 @@ const PreferancesModal = ({
             <b>Value</b>
             <Input
               id="ideal-temperature.value"
-              type="number"
-              min="-40"
-              max="40"
               value={formState.idealTemperature?.value}
               onChange={dispatchOnChange(CHANGE_IDEAL_TEMPERATURE_VALUE)}
             />
@@ -70,9 +69,6 @@ const PreferancesModal = ({
             <b>Value</b>
             <Input
               id="ideal-temperature.value"
-              type="number"
-              min="0"
-              max="100"
               value={formState.idealHumidity?.value}
               onChange={dispatchOnChange(CHANGE_IDEAL_HUMIDITY_VALUE)}
             />

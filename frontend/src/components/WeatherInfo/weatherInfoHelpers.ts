@@ -23,27 +23,40 @@ export const formatTime = (hour: number, minute: number): string =>
 
 const calculateTempSuitability = (
   temperature: WeatherType['temperature'],
-  idealTemperature: PreferencesTypes['idealTemperature']
+  { value, priority }: PreferencesTypes['idealTemperature']
 ): number => {
+  if (!value || !priority) return 1;
+  const parsedValue = parseInt(value, 10);
+  const parsedPriority = parseInt(priority, 10);
+  if (!parsedValue || !parsedPriority) return 1;
+
   const temp = temperature.isDaily
     ? (temperature.min! + temperature.max!) / 2
     : temperature.temp!;
   // difference 0 - 20
-  const normalizedTempDifference = Math.min(
-    Math.max(Math.abs(temp - idealTemperature.value), 0),
-    MAX_TEMP_DIFFERENCE
-  );
+  const normalizedTempDifference = parsedValue
+    ? Math.min(Math.max(Math.abs(temp - parsedValue), 0), MAX_TEMP_DIFFERENCE)
+    : MAX_TEMP_DIFFERENCE;
   const tempValueSuitability = normalizedTempDifference / MAX_TEMP_DIFFERENCE;
-  return 1 - (idealTemperature.priority / 100) * tempValueSuitability;
+  return parsedPriority ? 1 - (parsedPriority / 100) * tempValueSuitability : 1;
 };
 
 const calculateHumiditySuitability = (
   humidity: WeatherType['humidity'],
-  idealHumidity: PreferencesTypes['idealHumidity']
+  { value, priority }: PreferencesTypes['idealHumidity']
 ): number => {
-  const normalizedHumidityDifference = Math.abs(humidity - idealHumidity.value);
+  if (!value || !priority) return 1;
+  const parsedValue = parseInt(value, 10);
+  const parsedPriority = parseInt(priority, 10);
+  if (!parsedValue || !parsedPriority) return 1;
+
+  const normalizedHumidityDifference = parsedValue
+    ? Math.abs(humidity - parsedValue)
+    : 100;
   const humidityValueSuitability = normalizedHumidityDifference / 100;
-  return 1 - (idealHumidity.priority / 100) * humidityValueSuitability;
+  return parsedPriority
+    ? 1 - (parsedPriority / 100) * humidityValueSuitability
+    : 1;
 };
 
 export const calculateWeatherSuitability: CalculateWeatherSuitabilityType = (
@@ -67,6 +80,9 @@ export const parseFromLocalStorage = (key: string) => {
     return JSON.parse(localStorage.getItem(key) || ''); // parsing '' will error
   } catch (e) {
     console.warn(`Error parsing ${key} from localStorage: ${e}`);
+    console.warn(
+      'This warning can be ignored if you have not used this site before or have recently cleared your browser storage.'
+    );
     return null;
   }
 };

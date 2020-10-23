@@ -79,8 +79,8 @@ const CommuteTimeForm = ({
         <PreferencesButton isOpen={isOpen} />
         <ToggleNavbarButton
           isOpen={isOpen}
-          tabIndex={isOpen ? 0 : -1}
           onClick={toggleOpen}
+          title={isOpen ? 'Close menu' : 'Open menu'}
         />
       </Navbar>
     </NavbarWrapper>

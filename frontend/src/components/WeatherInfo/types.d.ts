@@ -8,8 +8,8 @@ export type CoordinatesType = {
 };
 
 export type PreferencesTypes = {
-  idealTemperature: { value: number; priority: number };
-  idealHumidity: { value: number; priority: number };
+  idealTemperature: { value?: string; priority?: string };
+  idealHumidity: { value?: string; priority?: string };
 };
 
 export type SetCoordinatesType = (coords: CoordinatesType) => void;

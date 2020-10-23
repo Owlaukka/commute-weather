@@ -9,7 +9,7 @@ export const CHANGE_IDEAL_HUMIDITY_PRIORITY = 'changeIdealHumidityPriority';
 // TODO: There probably exists a builtin type for this...?
 type ActionType = {
   type: string;
-  payload?: number;
+  payload: string;
 };
 
 const reducer = (
@@ -18,7 +18,6 @@ const reducer = (
 ): PreferencesTypes => {
   switch (action.type) {
     case CHANGE_IDEAL_TEMPERATURE_VALUE: {
-      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealTemperature: {
@@ -28,7 +27,6 @@ const reducer = (
       };
     }
     case CHANGE_IDEAL_TEMPERATURE_PRIORITY: {
-      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealTemperature: {
@@ -38,7 +36,6 @@ const reducer = (
       };
     }
     case CHANGE_IDEAL_HUMIDITY_VALUE: {
-      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealHumidity: {
@@ -48,7 +45,6 @@ const reducer = (
       };
     }
     case CHANGE_IDEAL_HUMIDITY_PRIORITY: {
-      if (!action.payload && action.payload !== 0) return state;
       return {
         ...state,
         idealHumidity: {

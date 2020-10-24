@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // TODO: share this with other places that require coordinates. DRY
-type CoordinatesType = {
+export type CoordinatesType = {
   latitude: number;
   longitude: number;
 };

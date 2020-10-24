@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
+import { CoordinatesType } from '../LocationGetter/useBrowserCoordinates';
 import {
-  CoordinatesType,
   GetWeatherSuitabilityType,
   PreferencesTypes,
   SaveCommuteTimeType,

@@ -59,7 +59,7 @@ const PreferancesModal = ({
               id="ideal-temperature.priority"
               type="range"
               value={formState.idealTemperature?.priority}
-              onChange={dispatchOnChange(CHANGE_IDEAL_TEMPERATURE_PRIORITY)}
+              onInput={dispatchOnChange(CHANGE_IDEAL_TEMPERATURE_PRIORITY)}
             />
           </label>
         </Fieldset>
@@ -79,7 +79,7 @@ const PreferancesModal = ({
               id="ideal-temperature.priority"
               type="range"
               value={formState.idealHumidity?.priority}
-              onChange={dispatchOnChange(CHANGE_IDEAL_HUMIDITY_PRIORITY)}
+              onInput={dispatchOnChange(CHANGE_IDEAL_HUMIDITY_PRIORITY)}
             />
           </label>
         </Fieldset>

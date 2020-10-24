@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import dayjs from 'dayjs';
 import { WeatherType } from '../../NetworkRequestService/types';
 import { CalculateWeatherSuitabilityType, PreferencesTypes } from './types';
@@ -23,54 +24,64 @@ export const formatTime = (hour: number, minute: number): string =>
 
 const calculateTempSuitability = (
   temperature: WeatherType['temperature'],
-  { value, priority }: PreferencesTypes['idealTemperature']
+  idealTemperature: PreferencesTypes['idealTemperature']
 ): number => {
-  if (!value || !priority) return 1;
-  const parsedValue = parseInt(value, 10);
-  const parsedPriority = parseInt(priority, 10);
-  if (!parsedValue || !parsedPriority) return 1;
+  if (!idealTemperature?.value || !idealTemperature?.priority) return 1;
+  const parsedIdealValue = parseInt(idealTemperature.value, 10);
+  const parsedIdealPriority = parseInt(idealTemperature.priority, 10);
+  if (!parsedIdealValue || !parsedIdealPriority) {
+    // NOTE: might be a cool idea to log this into some external logging service.
+    console.warn(
+      'Given temperature preference or its priority were invalid numbers.'
+    );
+    return 1;
+  }
 
   const temp = temperature.isDaily
     ? (temperature.min! + temperature.max!) / 2
     : temperature.temp!;
   // difference 0 - 20
-  const normalizedTempDifference = parsedValue
-    ? Math.min(Math.max(Math.abs(temp - parsedValue), 0), MAX_TEMP_DIFFERENCE)
+  const normalizedTempDifference = parsedIdealValue
+    ? Math.min(
+        Math.max(Math.abs(temp - parsedIdealValue), 0),
+        MAX_TEMP_DIFFERENCE
+      )
     : MAX_TEMP_DIFFERENCE;
   const tempValueSuitability = normalizedTempDifference / MAX_TEMP_DIFFERENCE;
-  return parsedPriority ? 1 - (parsedPriority / 100) * tempValueSuitability : 1;
+  return parsedIdealPriority
+    ? 1 - (parsedIdealPriority / 100) * tempValueSuitability
+    : 1;
 };
 
 const calculateHumiditySuitability = (
   humidity: WeatherType['humidity'],
-  { value, priority }: PreferencesTypes['idealHumidity']
+  idealHumidity: PreferencesTypes['idealHumidity']
 ): number => {
-  if (!value || !priority) return 1;
-  const parsedValue = parseInt(value, 10);
-  const parsedPriority = parseInt(priority, 10);
-  if (!parsedValue || !parsedPriority) return 1;
+  if (!idealHumidity?.value || !idealHumidity?.priority) return 1;
+  const parsedIdealValue = parseInt(idealHumidity.value, 10);
+  const parsedIdealPriority = parseInt(idealHumidity.priority, 10);
+  if (!parsedIdealValue || !parsedIdealPriority) {
+    console.warn(
+      'Given humidity preference or its priority were invalid numbers.'
+    );
+    return 1;
+  }
 
-  const normalizedHumidityDifference = parsedValue
-    ? Math.abs(humidity - parsedValue)
+  const normalizedHumidityDifference = parsedIdealValue
+    ? Math.abs(humidity - parsedIdealValue)
     : 100;
   const humidityValueSuitability = normalizedHumidityDifference / 100;
-  return parsedPriority
-    ? 1 - (parsedPriority / 100) * humidityValueSuitability
+  return parsedIdealPriority
+    ? 1 - (parsedIdealPriority / 100) * humidityValueSuitability
     : 1;
 };
 
 export const calculateWeatherSuitability: CalculateWeatherSuitabilityType = (
   { temperature, humidity },
-  preferences
+  { idealTemperature, idealHumidity }
 ) => {
-  const tempResult = calculateTempSuitability(
-    temperature,
-    preferences.idealTemperature
-  );
-  const humidityResult = calculateHumiditySuitability(
-    humidity,
-    preferences.idealHumidity
-  );
+  const tempResult = calculateTempSuitability(temperature, idealTemperature);
+  const humidityResult = calculateHumiditySuitability(humidity, idealHumidity);
 
   return tempResult * humidityResult;
 };

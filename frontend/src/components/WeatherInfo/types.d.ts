@@ -1,11 +1,7 @@
 import { WeatherType } from '../../NetworkRequestService/types';
+import { CoordinatesType } from '../LocationGetter/useBrowserCoordinates';
 
 export type SaveCommuteTimeType = (time: string) => void;
-
-export type CoordinatesType = {
-  latitude: number;
-  longitude: number;
-};
 
 export type PreferencesTypes = {
   idealTemperature: { value?: string; priority?: string };

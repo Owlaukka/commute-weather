@@ -3,6 +3,7 @@ Web-app for seeing weather at a requested time for roughly the next week. Origin
 
 ## TODO
 * Add users in the backend
-* Add weather preferences so the app can determine at a glance if the weather is acceptable for commuting by foot (etc.)
+* Further develop weather preferences (add to users in backend, add further aspects of weather like raining or not, etc...).
 * Connect preferred commute time and other preferences to the user's account
 * Allow for time range in commutes and calculate the weather for the whole period.
+* Convert backend to typescript as well.

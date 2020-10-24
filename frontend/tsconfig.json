@@ -3,6 +3,7 @@
     "jsx": "react",
     // Target latest version of ECMAScript.
     "target": "esnext",
+    "module": "esnext",
     // Search under node_modules for non-relative imports.
     "moduleResolution": "node",
     // Process & infer types from .js files.

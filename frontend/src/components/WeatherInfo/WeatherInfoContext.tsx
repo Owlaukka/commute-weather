@@ -1,27 +1,26 @@
 import React, { createContext, useState } from 'react';
+import { CoordinatesType } from '../LocationGetter/useBrowserCoordinates';
+import {
+  GetWeatherSuitabilityType,
+  PreferencesTypes,
+  SaveCommuteTimeType,
+  SavePreferencesType,
+  SetCoordinatesType,
+  WeatherInfoContextType,
+} from './types';
+import {
+  formatTime,
+  calculateWeatherSuitability,
+  parseFromLocalStorage,
+} from './weatherInfoHelpers';
 
-import { formatTime } from './weatherInfoHelpers';
-
-type SaveCommuteTimeType = (time: string) => void;
-
-type CoordinatesType = {
-  latitude: number;
-  longitude: number;
+const DEFAULT_PREFS: PreferencesTypes = {
+  idealTemperature: { value: '20', priority: '100' },
+  idealHumidity: { value: '50', priority: '100' },
 };
-
-type SetCoordinatesType = (coords: CoordinatesType) => void;
-
-type WeatherInfoContextType = {
-  commuteTime: [number, number];
-  getCommuteTimeString: () => string;
-  saveCommuteTime: SaveCommuteTimeType;
-  locationCoords: CoordinatesType;
-  setLocationCoords: SetCoordinatesType;
-};
+const VALID_TIME_FORMAT = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/;
 
 const WeatherInfoContext = createContext({} as WeatherInfoContextType);
-
-const validTimeFormat = /^((2[0-3])|([0-1][0-9])):[0-5][0-9]$/g;
 
 export const WeatherInfoProvider = ({
   children,
@@ -30,16 +29,19 @@ export const WeatherInfoProvider = ({
 }) => {
   // TODO: maybe get from DB later
   const [commuteTime, setCommuteTime] = useState(
-    JSON.parse(localStorage.getItem('savedCommuteTime')!) || [17, 30]
+    parseFromLocalStorage('savedCommuteTime') || [17, 30]
   );
   const [locationCoords, setLocationCoords]: [
     CoordinatesType,
     SetCoordinatesType
   ] = useState({} as CoordinatesType);
+  const [preferences, setPreferences] = useState<PreferencesTypes>({
+    ...DEFAULT_PREFS,
+    ...parseFromLocalStorage('weatherPreferences'),
+  });
 
   const saveCommuteTime: SaveCommuteTimeType = (time) => {
-    if (!validTimeFormat.test(time)) {
-      // eslint-disable-next-line no-console
+    if (!VALID_TIME_FORMAT.test(time)) {
       console.error(
         'Supplied commute time is not in the correct format or the correct type'
       );
@@ -54,7 +56,15 @@ export const WeatherInfoProvider = ({
     localStorage.setItem('savedCommuteTime', JSON.stringify(formattedTime));
   };
 
+  const savePreferences: SavePreferencesType = (prefs) => {
+    setPreferences(prefs);
+    localStorage.setItem('weatherPreferences', JSON.stringify(prefs));
+  };
+
   const getCommuteTimeString = () => formatTime(commuteTime[0], commuteTime[1]);
+
+  const getWeatherSuitability: GetWeatherSuitabilityType = (weather) =>
+    calculateWeatherSuitability(weather, preferences);
 
   return (
     <WeatherInfoContext.Provider
@@ -64,6 +74,9 @@ export const WeatherInfoProvider = ({
         saveCommuteTime,
         locationCoords,
         setLocationCoords,
+        preferences,
+        savePreferences,
+        getWeatherSuitability,
       }}
     >
       {children}

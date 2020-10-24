@@ -6,18 +6,22 @@ import { useLazyQuery } from '@apollo/client';
 import WeatherInfoContext from '../components/WeatherInfo/WeatherInfoContext';
 import { WEATHER_QUERY } from './Queries';
 import { formatTime } from '../components/WeatherInfo/weatherInfoHelpers';
+import { UseFetchWeatherType, LazyQueryHookType } from './types';
 
 dayjs.extend(utc);
 const timeZoneDifference = dayjs().hour() - dayjs.utc().hour();
 
 // TODO: maybe accept parameters to determine
 // which fields from the query are desired
-const useFetchWeather = () => {
+const useFetchWeather: UseFetchWeatherType = () => {
   const {
     commuteTime,
     locationCoords: { latitude, longitude },
   } = useContext(WeatherInfoContext);
-  const [getWeather, { loading, data }] = useLazyQuery(WEATHER_QUERY);
+
+  const [getWeather, { loading, data }]: LazyQueryHookType = useLazyQuery(
+    WEATHER_QUERY
+  );
 
   useEffect(() => {
     if (latitude && longitude) {
@@ -39,7 +43,7 @@ const useFetchWeather = () => {
     }
   }, [latitude, longitude, commuteTime, getWeather]);
 
-  return { loading, data } as const;
+  return { loading, data };
 };
 
 export default useFetchWeather;

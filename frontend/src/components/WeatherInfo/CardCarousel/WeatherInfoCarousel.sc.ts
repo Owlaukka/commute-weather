@@ -26,15 +26,21 @@ const Scroller = styled.ul({
 const CardWrapper = styled.li({
   display: 'flex',
   alignItems: 'center',
-  [media('>=desktop')]: {
+  [media('>=tablet')]: {
     '&:first-of-type': {
       marginLeft: '50vw',
+    },
+    '&:last-of-type': {
+      marginRight: '50vw',
     },
   },
   [media('<tablet')]: {
     '&:first-of-type': {
-      marginTop: '4rem',
-      scrollMarginTop: '3rem',
+      scrollMarginTop: '100rem',
+    },
+    '&:last-of-type': {
+      marginBottom: '4rem',
+      scrollMarginBottom: '3rem',
     },
     scrollSnapAlign: 'start',
     scrollMarginBottom: '10rem',

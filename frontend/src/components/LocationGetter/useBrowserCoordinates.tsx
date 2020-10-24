@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // TODO: share this with other places that require coordinates. DRY
-type CoordinatesType = {
+export type CoordinatesType = {
   latitude: number;
   longitude: number;
 };
@@ -17,7 +17,6 @@ const useBrowserCoordinates = () => {
     if (coordsExist) return;
     navigator?.geolocation.getCurrentPosition(
       ({ coords }) => setCoordinates(coords),
-      // eslint-disable-next-line no-console
       (error) => console.error(`Error Code: ${error.code} - ${error.message}`)
     );
   }, [setCoordinates, coordsExist]);

@@ -32,7 +32,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "fastify-static": "^3.2.0",
+    "fastify-static": "^4.2.4",
     "prettier": "^2.1.1",
     "start-server-and-test": "^1.11.3",
     "wiremock": "^2.27.2"
